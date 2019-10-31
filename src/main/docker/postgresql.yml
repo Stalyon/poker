@@ -1,0 +1,11 @@
+version: '2'
+services:
+  poker-postgresql:
+    image: postgres:11.5
+    # volumes:
+    #     - ~/volumes/jhipster/poker/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=poker
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
