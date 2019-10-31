@@ -1,0 +1,35 @@
+{
+    "name": "Hand",
+    "fields": [
+        {
+            "fieldName": "startDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "game",
+            "otherEntityRelationshipName": "hand",
+            "relationshipName": "game",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "player",
+            "otherEntityRelationshipName": "hand",
+            "relationshipName": "winner",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191031113709",
+    "entityTableName": "hand",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

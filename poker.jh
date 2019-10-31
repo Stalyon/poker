@@ -1,0 +1,51 @@
+
+entity ParseHistory {
+    fileName String,
+    fileSize Integer,
+    parsedDate Instant
+}
+
+entity Game {
+	name String,
+    startDate Instant,
+    endDate Instant
+}
+
+entity Player {
+    name String,
+    addedDate Instant
+}
+
+entity Hand {
+	startDate Instant
+}
+
+entity PlayerAction {
+	amount Double
+}
+
+entity BettingRound {
+	description String
+}
+
+entity Action {
+	description String
+}
+
+entity ShowDown {
+	cards String,
+    wins Boolean
+}
+
+relationship ManyToOne {
+	Game{player} to Player,
+	Hand{game} to Game,
+    Hand{winner} to Player,
+	PlayerAction{player} to Player,
+    PlayerAction{game} to Game,
+    PlayerAction{hand} to Hand,
+    PlayerAction{action} to Action,
+    PlayerAction{bettingRound} to BettingRound,
+    ShowDown{hand} to Hand,
+    ShowDown{player} to Player
+}

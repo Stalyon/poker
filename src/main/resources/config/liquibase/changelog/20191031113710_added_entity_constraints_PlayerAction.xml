@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity PlayerAction.
+    -->
+    <changeSet id="20191031113710-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="player_id"
+                                 baseTableName="player_action"
+                                 constraintName="fk_player_action_player_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="player"/>
+
+        <addForeignKeyConstraint baseColumnNames="game_id"
+                                 baseTableName="player_action"
+                                 constraintName="fk_player_action_game_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="game"/>
+
+        <addForeignKeyConstraint baseColumnNames="hand_id"
+                                 baseTableName="player_action"
+                                 constraintName="fk_player_action_hand_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hand"/>
+
+        <addForeignKeyConstraint baseColumnNames="action_id"
+                                 baseTableName="player_action"
+                                 constraintName="fk_player_action_action_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="action"/>
+
+        <addForeignKeyConstraint baseColumnNames="betting_round_id"
+                                 baseTableName="player_action"
+                                 constraintName="fk_player_action_betting_round_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="betting_round"/>
+
+    </changeSet>
+</databaseChangeLog>

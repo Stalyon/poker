@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-show-down-heading">Create or edit a Show Down</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cards">Cards</label>
+                    <input type="text" class="form-control" name="cards" id="field_cards"
+                           formControlName="cards"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_wins">Wins</label>
+                    <input type="checkbox" class="form-control" name="wins" id="field_wins"
+                           formControlName="wins"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_hand">Hand</label>
+                    <select class="form-control" id="field_hand" name="hand" formControlName="hand">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="handOption.id === editForm.get('hand').value?.id ? editForm.get('hand').value : handOption" *ngFor="let handOption of hands; trackBy: trackHandById">{{handOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_player">Player</label>
+                    <select class="form-control" id="field_player" name="player" formControlName="player">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="playerOption.id === editForm.get('player').value?.id ? editForm.get('player').value : playerOption" *ngFor="let playerOption of players; trackBy: trackPlayerById">{{playerOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -14,6 +14,18 @@
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113706_added_entity_ParseHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113707_added_entity_Game.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113708_added_entity_Player.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113709_added_entity_Hand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113710_added_entity_PlayerAction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113711_added_entity_BettingRound.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113712_added_entity_Action.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113713_added_entity_ShowDown.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20191031113707_added_entity_constraints_Game.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113709_added_entity_constraints_Hand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113710_added_entity_constraints_PlayerAction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113713_added_entity_constraints_ShowDown.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
