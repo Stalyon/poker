@@ -3,6 +3,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { take, map } from 'rxjs/operators';
 import { PlayerActionService } from 'app/entities/player-action/player-action.service';
 import { IPlayerAction, PlayerAction } from 'app/shared/model/player-action.model';
+import { BettingRound } from 'app/shared/model/enumerations/betting-round.model';
+import { Action } from 'app/shared/model/enumerations/action.model';
 
 describe('Service Tests', () => {
   describe('PlayerAction Service', () => {
@@ -20,7 +22,7 @@ describe('Service Tests', () => {
       service = injector.get(PlayerActionService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new PlayerAction(0, 0);
+      elemDefault = new PlayerAction(0, 0, BettingRound.ANTE_BLINDS, Action.CALLS);
     });
 
     describe('Service methods', () => {
@@ -56,7 +58,9 @@ describe('Service Tests', () => {
       it('should update a PlayerAction', () => {
         const returnedFromService = Object.assign(
           {
-            amount: 1
+            amount: 1,
+            bettingRound: 'BBBBBB',
+            action: 'BBBBBB'
           },
           elemDefault
         );
@@ -74,7 +78,9 @@ describe('Service Tests', () => {
       it('should return a list of PlayerAction', () => {
         const returnedFromService = Object.assign(
           {
-            amount: 1
+            amount: 1,
+            bettingRound: 'BBBBBB',
+            action: 'BBBBBB'
           },
           elemDefault
         );

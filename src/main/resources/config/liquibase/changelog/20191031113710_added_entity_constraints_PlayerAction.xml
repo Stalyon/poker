@@ -26,17 +26,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="hand"/>
 
-        <addForeignKeyConstraint baseColumnNames="action_id"
-                                 baseTableName="player_action"
-                                 constraintName="fk_player_action_action_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="action"/>
-
-        <addForeignKeyConstraint baseColumnNames="betting_round_id"
-                                 baseTableName="player_action"
-                                 constraintName="fk_player_action_betting_round_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="betting_round"/>
-
     </changeSet>
 </databaseChangeLog>

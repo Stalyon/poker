@@ -9,6 +9,14 @@
                 <dd>
                     <span>{{playerAction.amount}}</span>
                 </dd>
+                <dt><span>Betting Round</span></dt>
+                <dd>
+                    <span>{{playerAction.bettingRound}}</span>
+                </dd>
+                <dt><span>Action</span></dt>
+                <dd>
+                    <span>{{playerAction.action}}</span>
+                </dd>
                 <dt><span>Player</span></dt>
                 <dd>
                     <div *ngIf="playerAction.player">
@@ -25,18 +33,6 @@
                 <dd>
                     <div *ngIf="playerAction.hand">
                         <a [routerLink]="['/hand', playerAction.hand?.id, 'view']">{{playerAction.hand?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span>Action</span></dt>
-                <dd>
-                    <div *ngIf="playerAction.action">
-                        <a [routerLink]="['/action', playerAction.action?.id, 'view']">{{playerAction.action?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span>Betting Round</span></dt>
-                <dd>
-                    <div *ngIf="playerAction.bettingRound">
-                        <a [routerLink]="['/betting-round', playerAction.bettingRound?.id, 'view']">{{playerAction.bettingRound?.id}}</a>
                     </div>
                 </dd>
             </dl>

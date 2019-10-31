@@ -27,6 +27,8 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.stalyon.poker.domain.enumeration.BettingRound;
+import com.stalyon.poker.domain.enumeration.Action;
 /**
  * Integration tests for the {@link PlayerActionResource} REST controller.
  */
@@ -35,6 +37,12 @@ public class PlayerActionResourceIT {
 
     private static final Double DEFAULT_AMOUNT = 1D;
     private static final Double UPDATED_AMOUNT = 2D;
+
+    private static final BettingRound DEFAULT_BETTING_ROUND = BettingRound.ANTE_BLINDS;
+    private static final BettingRound UPDATED_BETTING_ROUND = BettingRound.PRE_FLOP;
+
+    private static final Action DEFAULT_ACTION = Action.CALLS;
+    private static final Action UPDATED_ACTION = Action.FOLDS;
 
     @Autowired
     private PlayerActionRepository playerActionRepository;
@@ -78,7 +86,9 @@ public class PlayerActionResourceIT {
      */
     public static PlayerAction createEntity(EntityManager em) {
         PlayerAction playerAction = new PlayerAction()
-            .amount(DEFAULT_AMOUNT);
+            .amount(DEFAULT_AMOUNT)
+            .bettingRound(DEFAULT_BETTING_ROUND)
+            .action(DEFAULT_ACTION);
         return playerAction;
     }
     /**
@@ -89,7 +99,9 @@ public class PlayerActionResourceIT {
      */
     public static PlayerAction createUpdatedEntity(EntityManager em) {
         PlayerAction playerAction = new PlayerAction()
-            .amount(UPDATED_AMOUNT);
+            .amount(UPDATED_AMOUNT)
+            .bettingRound(UPDATED_BETTING_ROUND)
+            .action(UPDATED_ACTION);
         return playerAction;
     }
 
@@ -114,6 +126,8 @@ public class PlayerActionResourceIT {
         assertThat(playerActionList).hasSize(databaseSizeBeforeCreate + 1);
         PlayerAction testPlayerAction = playerActionList.get(playerActionList.size() - 1);
         assertThat(testPlayerAction.getAmount()).isEqualTo(DEFAULT_AMOUNT);
+        assertThat(testPlayerAction.getBettingRound()).isEqualTo(DEFAULT_BETTING_ROUND);
+        assertThat(testPlayerAction.getAction()).isEqualTo(DEFAULT_ACTION);
     }
 
     @Test
@@ -147,7 +161,9 @@ public class PlayerActionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(playerAction.getId().intValue())))
-            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())));
+            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())))
+            .andExpect(jsonPath("$.[*].bettingRound").value(hasItem(DEFAULT_BETTING_ROUND.toString())))
+            .andExpect(jsonPath("$.[*].action").value(hasItem(DEFAULT_ACTION.toString())));
     }
     
     @Test
@@ -161,7 +177,9 @@ public class PlayerActionResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(playerAction.getId().intValue()))
-            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.doubleValue()));
+            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.doubleValue()))
+            .andExpect(jsonPath("$.bettingRound").value(DEFAULT_BETTING_ROUND.toString()))
+            .andExpect(jsonPath("$.action").value(DEFAULT_ACTION.toString()));
     }
 
     @Test
@@ -185,7 +203,9 @@ public class PlayerActionResourceIT {
         // Disconnect from session so that the updates on updatedPlayerAction are not directly saved in db
         em.detach(updatedPlayerAction);
         updatedPlayerAction
-            .amount(UPDATED_AMOUNT);
+            .amount(UPDATED_AMOUNT)
+            .bettingRound(UPDATED_BETTING_ROUND)
+            .action(UPDATED_ACTION);
 
         restPlayerActionMockMvc.perform(put("/api/player-actions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -197,6 +217,8 @@ public class PlayerActionResourceIT {
         assertThat(playerActionList).hasSize(databaseSizeBeforeUpdate);
         PlayerAction testPlayerAction = playerActionList.get(playerActionList.size() - 1);
         assertThat(testPlayerAction.getAmount()).isEqualTo(UPDATED_AMOUNT);
+        assertThat(testPlayerAction.getBettingRound()).isEqualTo(UPDATED_BETTING_ROUND);
+        assertThat(testPlayerAction.getAction()).isEqualTo(UPDATED_ACTION);
     }
 
     @Test

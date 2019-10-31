@@ -15,10 +15,6 @@ import { IGame } from 'app/shared/model/game.model';
 import { GameService } from 'app/entities/game/game.service';
 import { IHand } from 'app/shared/model/hand.model';
 import { HandService } from 'app/entities/hand/hand.service';
-import { IAction } from 'app/shared/model/action.model';
-import { ActionService } from 'app/entities/action/action.service';
-import { IBettingRound } from 'app/shared/model/betting-round.model';
-import { BettingRoundService } from 'app/entities/betting-round/betting-round.service';
 
 @Component({
   selector: 'jhi-player-action-update',
@@ -33,18 +29,14 @@ export class PlayerActionUpdateComponent implements OnInit {
 
   hands: IHand[];
 
-  actions: IAction[];
-
-  bettingrounds: IBettingRound[];
-
   editForm = this.fb.group({
     id: [],
     amount: [],
+    bettingRound: [],
+    action: [],
     player: [],
     game: [],
-    hand: [],
-    action: [],
-    bettingRound: []
+    hand: []
   });
 
   constructor(
@@ -53,8 +45,6 @@ export class PlayerActionUpdateComponent implements OnInit {
     protected playerService: PlayerService,
     protected gameService: GameService,
     protected handService: HandService,
-    protected actionService: ActionService,
-    protected bettingRoundService: BettingRoundService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -85,31 +75,17 @@ export class PlayerActionUpdateComponent implements OnInit {
         map((response: HttpResponse<IHand[]>) => response.body)
       )
       .subscribe((res: IHand[]) => (this.hands = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.actionService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAction[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAction[]>) => response.body)
-      )
-      .subscribe((res: IAction[]) => (this.actions = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.bettingRoundService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IBettingRound[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IBettingRound[]>) => response.body)
-      )
-      .subscribe((res: IBettingRound[]) => (this.bettingrounds = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(playerAction: IPlayerAction) {
     this.editForm.patchValue({
       id: playerAction.id,
       amount: playerAction.amount,
+      bettingRound: playerAction.bettingRound,
+      action: playerAction.action,
       player: playerAction.player,
       game: playerAction.game,
-      hand: playerAction.hand,
-      action: playerAction.action,
-      bettingRound: playerAction.bettingRound
+      hand: playerAction.hand
     });
   }
 
@@ -132,11 +108,11 @@ export class PlayerActionUpdateComponent implements OnInit {
       ...new PlayerAction(),
       id: this.editForm.get(['id']).value,
       amount: this.editForm.get(['amount']).value,
+      bettingRound: this.editForm.get(['bettingRound']).value,
+      action: this.editForm.get(['action']).value,
       player: this.editForm.get(['player']).value,
       game: this.editForm.get(['game']).value,
-      hand: this.editForm.get(['hand']).value,
-      action: this.editForm.get(['action']).value,
-      bettingRound: this.editForm.get(['bettingRound']).value
+      hand: this.editForm.get(['hand']).value
     };
   }
 
@@ -165,14 +141,6 @@ export class PlayerActionUpdateComponent implements OnInit {
   }
 
   trackHandById(index: number, item: IHand) {
-    return item.id;
-  }
-
-  trackActionById(index: number, item: IAction) {
-    return item.id;
-  }
-
-  trackBettingRoundById(index: number, item: IBettingRound) {
     return item.id;
   }
 }
