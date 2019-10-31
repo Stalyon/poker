@@ -1,0 +1,11 @@
+export const enum Action {
+  CALLS = 'CALLS',
+  FOLDS = 'FOLDS',
+  POSTS_ANTE = 'POSTS_ANTE',
+  POSTS_SB = 'POSTS_SB',
+  POSTS_BB = 'POSTS_BB',
+  RAISES = 'RAISES',
+  CHECKS = 'CHECKS',
+  BETS = 'BETS',
+  COLLECTS = 'COLLECTS'
+}

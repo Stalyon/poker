@@ -7,6 +7,10 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
+import com.stalyon.poker.domain.enumeration.BettingRound;
+
+import com.stalyon.poker.domain.enumeration.Action;
+
 /**
  * A PlayerAction.
  */
@@ -25,6 +29,14 @@ public class PlayerAction implements Serializable {
     @Column(name = "amount")
     private Double amount;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "betting_round")
+    private BettingRound bettingRound;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "action")
+    private Action action;
+
     @ManyToOne
     @JsonIgnoreProperties("playerActions")
     private Player player;
@@ -36,14 +48,6 @@ public class PlayerAction implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("playerActions")
     private Hand hand;
-
-    @ManyToOne
-    @JsonIgnoreProperties("playerActions")
-    private Action action;
-
-    @ManyToOne
-    @JsonIgnoreProperties("playerActions")
-    private BettingRound bettingRound;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -65,6 +69,32 @@ public class PlayerAction implements Serializable {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public BettingRound getBettingRound() {
+        return bettingRound;
+    }
+
+    public PlayerAction bettingRound(BettingRound bettingRound) {
+        this.bettingRound = bettingRound;
+        return this;
+    }
+
+    public void setBettingRound(BettingRound bettingRound) {
+        this.bettingRound = bettingRound;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public PlayerAction action(Action action) {
+        this.action = action;
+        return this;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
     }
 
     public Player getPlayer() {
@@ -105,32 +135,6 @@ public class PlayerAction implements Serializable {
     public void setHand(Hand hand) {
         this.hand = hand;
     }
-
-    public Action getAction() {
-        return action;
-    }
-
-    public PlayerAction action(Action action) {
-        this.action = action;
-        return this;
-    }
-
-    public void setAction(Action action) {
-        this.action = action;
-    }
-
-    public BettingRound getBettingRound() {
-        return bettingRound;
-    }
-
-    public PlayerAction bettingRound(BettingRound bettingRound) {
-        this.bettingRound = bettingRound;
-        return this;
-    }
-
-    public void setBettingRound(BettingRound bettingRound) {
-        this.bettingRound = bettingRound;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -154,6 +158,8 @@ public class PlayerAction implements Serializable {
         return "PlayerAction{" +
             "id=" + getId() +
             ", amount=" + getAmount() +
+            ", bettingRound='" + getBettingRound() + "'" +
+            ", action='" + getAction() + "'" +
             "}";
     }
 }

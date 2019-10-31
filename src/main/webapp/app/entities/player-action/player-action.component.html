@@ -20,11 +20,11 @@
             <tr>
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Amount</span></th>
+            <th scope="col" ><span>Betting Round</span></th>
+            <th scope="col" ><span>Action</span></th>
             <th scope="col" ><span>Player</span></th>
             <th scope="col" ><span>Game</span></th>
             <th scope="col" ><span>Hand</span></th>
-            <th scope="col" ><span>Action</span></th>
-            <th scope="col" ><span>Betting Round</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -32,6 +32,8 @@
             <tr *ngFor="let playerAction of playerActions ;trackBy: trackId">
                 <td><a [routerLink]="['/player-action', playerAction.id, 'view' ]">{{playerAction.id}}</a></td>
                 <td>{{playerAction.amount}}</td>
+                <td>{{playerAction.bettingRound}}</td>
+                <td>{{playerAction.action}}</td>
                 <td>
                     <div *ngIf="playerAction.player">
                         <a [routerLink]="['/player', playerAction.player?.id, 'view' ]" >{{playerAction.player?.id}}</a>
@@ -45,16 +47,6 @@
                 <td>
                     <div *ngIf="playerAction.hand">
                         <a [routerLink]="['/hand', playerAction.hand?.id, 'view' ]" >{{playerAction.hand?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="playerAction.action">
-                        <a [routerLink]="['/action', playerAction.action?.id, 'view' ]" >{{playerAction.action?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="playerAction.bettingRound">
-                        <a [routerLink]="['/betting-round', playerAction.bettingRound?.id, 'view' ]" >{{playerAction.bettingRound?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

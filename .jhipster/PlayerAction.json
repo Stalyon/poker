@@ -4,6 +4,16 @@
         {
             "fieldName": "amount",
             "fieldType": "Double"
+        },
+        {
+            "fieldName": "bettingRound",
+            "fieldType": "BettingRound",
+            "fieldValues": "ANTE_BLINDS,PRE_FLOP,FLOP,TURN,RIVER,SHOW_DOWN,SUMMARY"
+        },
+        {
+            "fieldName": "action",
+            "fieldType": "Action",
+            "fieldValues": "CALLS,FOLDS,POSTS_ANTE,POSTS_SB,POSTS_BB,RAISES,CHECKS,BETS,COLLECTS"
         }
     ],
     "relationships": [
@@ -26,20 +36,6 @@
             "otherEntityName": "hand",
             "otherEntityRelationshipName": "playerAction",
             "relationshipName": "hand",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "action",
-            "otherEntityRelationshipName": "playerAction",
-            "relationshipName": "action",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "bettingRound",
-            "otherEntityRelationshipName": "playerAction",
-            "relationshipName": "bettingRound",
             "otherEntityField": "id"
         }
     ],
