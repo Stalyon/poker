@@ -21,6 +21,7 @@
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Name</span></th>
             <th scope="col" ><span>Added Date</span></th>
+            <th scope="col" ><span>Is Me</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -29,6 +30,7 @@
                 <td><a [routerLink]="['/player', player.id, 'view' ]">{{player.id}}</a></td>
                 <td>{{player.name}}</td>
                 <td>{{player.addedDate | date:'medium'}}</td>
+                <td>{{player.isMe}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

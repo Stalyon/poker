@@ -18,6 +18,12 @@
             <column name="start_date" type="datetime">
                 <constraints nullable="true" />
             </column>
+            <column name="button_position" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="my_cards" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="game_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -49,6 +55,8 @@
                   tableName="hand">
             <column name="id" type="numeric"/>
             <column name="start_date" type="datetime"/>
+            <column name="button_position" type="numeric"/>
+            <column name="my_cards" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

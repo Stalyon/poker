@@ -30,6 +30,8 @@ export class HandUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     startDate: [],
+    buttonPosition: [],
+    myCards: [],
     game: [],
     winner: []
   });
@@ -68,6 +70,8 @@ export class HandUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: hand.id,
       startDate: hand.startDate != null ? hand.startDate.format(DATE_TIME_FORMAT) : null,
+      buttonPosition: hand.buttonPosition,
+      myCards: hand.myCards,
       game: hand.game,
       winner: hand.winner
     });
@@ -93,6 +97,8 @@ export class HandUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       startDate:
         this.editForm.get(['startDate']).value != null ? moment(this.editForm.get(['startDate']).value, DATE_TIME_FORMAT) : undefined,
+      buttonPosition: this.editForm.get(['buttonPosition']).value,
+      myCards: this.editForm.get(['myCards']).value,
       game: this.editForm.get(['game']).value,
       winner: this.editForm.get(['winner']).value
     };

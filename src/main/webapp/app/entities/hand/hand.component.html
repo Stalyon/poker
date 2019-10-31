@@ -20,6 +20,8 @@
             <tr>
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Start Date</span></th>
+            <th scope="col" ><span>Button Position</span></th>
+            <th scope="col" ><span>My Cards</span></th>
             <th scope="col" ><span>Game</span></th>
             <th scope="col" ><span>Winner</span></th>
             <th scope="col"></th>
@@ -29,6 +31,8 @@
             <tr *ngFor="let hand of hands ;trackBy: trackId">
                 <td><a [routerLink]="['/hand', hand.id, 'view' ]">{{hand.id}}</a></td>
                 <td>{{hand.startDate | date:'medium'}}</td>
+                <td>{{hand.buttonPosition}}</td>
+                <td>{{hand.myCards}}</td>
                 <td>
                     <div *ngIf="hand.game">
                         <a [routerLink]="['/game', hand.game?.id, 'view' ]" >{{hand.game?.id}}</a>

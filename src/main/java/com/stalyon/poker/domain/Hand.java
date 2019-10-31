@@ -26,6 +26,12 @@ public class Hand implements Serializable {
     @Column(name = "start_date")
     private Instant startDate;
 
+    @Column(name = "button_position")
+    private Integer buttonPosition;
+
+    @Column(name = "my_cards")
+    private String myCards;
+
     @ManyToOne
     @JsonIgnoreProperties("hands")
     private Game game;
@@ -54,6 +60,32 @@ public class Hand implements Serializable {
 
     public void setStartDate(Instant startDate) {
         this.startDate = startDate;
+    }
+
+    public Integer getButtonPosition() {
+        return buttonPosition;
+    }
+
+    public Hand buttonPosition(Integer buttonPosition) {
+        this.buttonPosition = buttonPosition;
+        return this;
+    }
+
+    public void setButtonPosition(Integer buttonPosition) {
+        this.buttonPosition = buttonPosition;
+    }
+
+    public String getMyCards() {
+        return myCards;
+    }
+
+    public Hand myCards(String myCards) {
+        this.myCards = myCards;
+        return this;
+    }
+
+    public void setMyCards(String myCards) {
+        this.myCards = myCards;
     }
 
     public Game getGame() {
@@ -104,6 +136,8 @@ public class Hand implements Serializable {
         return "Hand{" +
             "id=" + getId() +
             ", startDate='" + getStartDate() + "'" +
+            ", buttonPosition=" + getButtonPosition() +
+            ", myCards='" + getMyCards() + "'" +
             "}";
     }
 }

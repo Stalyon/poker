@@ -20,7 +20,8 @@ export class PlayerUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [],
-    addedDate: []
+    addedDate: [],
+    isMe: []
   });
 
   constructor(protected playerService: PlayerService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -36,7 +37,8 @@ export class PlayerUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: player.id,
       name: player.name,
-      addedDate: player.addedDate != null ? player.addedDate.format(DATE_TIME_FORMAT) : null
+      addedDate: player.addedDate != null ? player.addedDate.format(DATE_TIME_FORMAT) : null,
+      isMe: player.isMe
     });
   }
 
@@ -60,7 +62,8 @@ export class PlayerUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       name: this.editForm.get(['name']).value,
       addedDate:
-        this.editForm.get(['addedDate']).value != null ? moment(this.editForm.get(['addedDate']).value, DATE_TIME_FORMAT) : undefined
+        this.editForm.get(['addedDate']).value != null ? moment(this.editForm.get(['addedDate']).value, DATE_TIME_FORMAT) : undefined,
+      isMe: this.editForm.get(['isMe']).value
     };
   }
 

@@ -41,6 +41,9 @@ public class PlayerResourceIT {
     private static final Instant DEFAULT_ADDED_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_ADDED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    private static final Boolean DEFAULT_IS_ME = false;
+    private static final Boolean UPDATED_IS_ME = true;
+
     @Autowired
     private PlayerRepository playerRepository;
 
@@ -84,7 +87,8 @@ public class PlayerResourceIT {
     public static Player createEntity(EntityManager em) {
         Player player = new Player()
             .name(DEFAULT_NAME)
-            .addedDate(DEFAULT_ADDED_DATE);
+            .addedDate(DEFAULT_ADDED_DATE)
+            .isMe(DEFAULT_IS_ME);
         return player;
     }
     /**
@@ -96,7 +100,8 @@ public class PlayerResourceIT {
     public static Player createUpdatedEntity(EntityManager em) {
         Player player = new Player()
             .name(UPDATED_NAME)
-            .addedDate(UPDATED_ADDED_DATE);
+            .addedDate(UPDATED_ADDED_DATE)
+            .isMe(UPDATED_IS_ME);
         return player;
     }
 
@@ -122,6 +127,7 @@ public class PlayerResourceIT {
         Player testPlayer = playerList.get(playerList.size() - 1);
         assertThat(testPlayer.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testPlayer.getAddedDate()).isEqualTo(DEFAULT_ADDED_DATE);
+        assertThat(testPlayer.isIsMe()).isEqualTo(DEFAULT_IS_ME);
     }
 
     @Test
@@ -156,7 +162,8 @@ public class PlayerResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(player.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].addedDate").value(hasItem(DEFAULT_ADDED_DATE.toString())));
+            .andExpect(jsonPath("$.[*].addedDate").value(hasItem(DEFAULT_ADDED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].isMe").value(hasItem(DEFAULT_IS_ME.booleanValue())));
     }
     
     @Test
@@ -171,7 +178,8 @@ public class PlayerResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(player.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.addedDate").value(DEFAULT_ADDED_DATE.toString()));
+            .andExpect(jsonPath("$.addedDate").value(DEFAULT_ADDED_DATE.toString()))
+            .andExpect(jsonPath("$.isMe").value(DEFAULT_IS_ME.booleanValue()));
     }
 
     @Test
@@ -196,7 +204,8 @@ public class PlayerResourceIT {
         em.detach(updatedPlayer);
         updatedPlayer
             .name(UPDATED_NAME)
-            .addedDate(UPDATED_ADDED_DATE);
+            .addedDate(UPDATED_ADDED_DATE)
+            .isMe(UPDATED_IS_ME);
 
         restPlayerMockMvc.perform(put("/api/players")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -209,6 +218,7 @@ public class PlayerResourceIT {
         Player testPlayer = playerList.get(playerList.size() - 1);
         assertThat(testPlayer.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPlayer.getAddedDate()).isEqualTo(UPDATED_ADDED_DATE);
+        assertThat(testPlayer.isIsMe()).isEqualTo(UPDATED_IS_ME);
     }
 
     @Test

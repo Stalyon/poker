@@ -4,6 +4,14 @@
         {
             "fieldName": "startDate",
             "fieldType": "Instant"
+        },
+        {
+            "fieldName": "buttonPosition",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "myCards",
+            "fieldType": "String"
         }
     ],
     "relationships": [

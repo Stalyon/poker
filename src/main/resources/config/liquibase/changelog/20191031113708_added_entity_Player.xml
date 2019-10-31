@@ -21,6 +21,9 @@
             <column name="added_date" type="datetime">
                 <constraints nullable="true" />
             </column>
+            <column name="is_me" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="player" columnName="added_date" columnDataType="datetime"/>
@@ -47,6 +50,7 @@
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
             <column name="added_date" type="datetime"/>
+            <column name="is_me" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>
