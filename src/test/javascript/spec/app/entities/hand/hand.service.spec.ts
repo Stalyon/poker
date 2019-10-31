@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Hand(0, currentDate);
+      elemDefault = new Hand(0, currentDate, 0, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -71,7 +71,9 @@ describe('Service Tests', () => {
       it('should update a Hand', () => {
         const returnedFromService = Object.assign(
           {
-            startDate: currentDate.format(DATE_TIME_FORMAT)
+            startDate: currentDate.format(DATE_TIME_FORMAT),
+            buttonPosition: 1,
+            myCards: 'BBBBBB'
           },
           elemDefault
         );
@@ -94,7 +96,9 @@ describe('Service Tests', () => {
       it('should return a list of Hand', () => {
         const returnedFromService = Object.assign(
           {
-            startDate: currentDate.format(DATE_TIME_FORMAT)
+            startDate: currentDate.format(DATE_TIME_FORMAT),
+            buttonPosition: 1,
+            myCards: 'BBBBBB'
           },
           elemDefault
         );

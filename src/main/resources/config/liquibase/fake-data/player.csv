@@ -1,11 +1,11 @@
-id;name;added_date
-1;deliverables reinvent 24 hour;2019-10-31T14:15:11
-2;magenta monitor 1080p;2019-10-31T00:02:53
-3;Identity;2019-10-30T22:57:55
-4;Internal;2019-10-30T18:11:25
-5;Highway Ergonomic;2019-10-31T05:41:29
-6;Lempira;2019-10-30T22:36:32
-7;New York tangible Mississippi;2019-10-31T05:24:03
-8;Developer;2019-10-30T18:13:02
-9;hard drive Robust Networked;2019-10-31T13:37:14
-10;system Small;2019-10-31T04:02:49
+id;name;added_date;is_me
+1;deliverables reinvent 24 hour;2019-10-31T14:53:14;true
+2;monitor;2019-10-30T21:43:45;true
+3;Checking Account Identity deposit;2019-10-30T17:15:59;true
+4;Investment Account archive Fantastic Plastic Chicken;2019-10-31T07:25:15;true
+5;New York tangible Mississippi;2019-10-31T06:02:06;false
+6;bus synthesize Idaho;2019-10-30T20:43:20;false
+7;Sleek Metal Table Small;2019-10-31T04:40:52;false
+8;Outdoors;2019-10-30T23:57:05;false
+9;Montana;2019-10-30T22:31:59;true
+10;Phased;2019-10-31T05:22:34;true

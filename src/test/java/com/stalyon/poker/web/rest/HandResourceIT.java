@@ -38,6 +38,12 @@ public class HandResourceIT {
     private static final Instant DEFAULT_START_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_START_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    private static final Integer DEFAULT_BUTTON_POSITION = 1;
+    private static final Integer UPDATED_BUTTON_POSITION = 2;
+
+    private static final String DEFAULT_MY_CARDS = "AAAAAAAAAA";
+    private static final String UPDATED_MY_CARDS = "BBBBBBBBBB";
+
     @Autowired
     private HandRepository handRepository;
 
@@ -80,7 +86,9 @@ public class HandResourceIT {
      */
     public static Hand createEntity(EntityManager em) {
         Hand hand = new Hand()
-            .startDate(DEFAULT_START_DATE);
+            .startDate(DEFAULT_START_DATE)
+            .buttonPosition(DEFAULT_BUTTON_POSITION)
+            .myCards(DEFAULT_MY_CARDS);
         return hand;
     }
     /**
@@ -91,7 +99,9 @@ public class HandResourceIT {
      */
     public static Hand createUpdatedEntity(EntityManager em) {
         Hand hand = new Hand()
-            .startDate(UPDATED_START_DATE);
+            .startDate(UPDATED_START_DATE)
+            .buttonPosition(UPDATED_BUTTON_POSITION)
+            .myCards(UPDATED_MY_CARDS);
         return hand;
     }
 
@@ -116,6 +126,8 @@ public class HandResourceIT {
         assertThat(handList).hasSize(databaseSizeBeforeCreate + 1);
         Hand testHand = handList.get(handList.size() - 1);
         assertThat(testHand.getStartDate()).isEqualTo(DEFAULT_START_DATE);
+        assertThat(testHand.getButtonPosition()).isEqualTo(DEFAULT_BUTTON_POSITION);
+        assertThat(testHand.getMyCards()).isEqualTo(DEFAULT_MY_CARDS);
     }
 
     @Test
@@ -149,7 +161,9 @@ public class HandResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(hand.getId().intValue())))
-            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())));
+            .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
+            .andExpect(jsonPath("$.[*].buttonPosition").value(hasItem(DEFAULT_BUTTON_POSITION)))
+            .andExpect(jsonPath("$.[*].myCards").value(hasItem(DEFAULT_MY_CARDS)));
     }
     
     @Test
@@ -163,7 +177,9 @@ public class HandResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(hand.getId().intValue()))
-            .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()));
+            .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
+            .andExpect(jsonPath("$.buttonPosition").value(DEFAULT_BUTTON_POSITION))
+            .andExpect(jsonPath("$.myCards").value(DEFAULT_MY_CARDS));
     }
 
     @Test
@@ -187,7 +203,9 @@ public class HandResourceIT {
         // Disconnect from session so that the updates on updatedHand are not directly saved in db
         em.detach(updatedHand);
         updatedHand
-            .startDate(UPDATED_START_DATE);
+            .startDate(UPDATED_START_DATE)
+            .buttonPosition(UPDATED_BUTTON_POSITION)
+            .myCards(UPDATED_MY_CARDS);
 
         restHandMockMvc.perform(put("/api/hands")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -199,6 +217,8 @@ public class HandResourceIT {
         assertThat(handList).hasSize(databaseSizeBeforeUpdate);
         Hand testHand = handList.get(handList.size() - 1);
         assertThat(testHand.getStartDate()).isEqualTo(UPDATED_START_DATE);
+        assertThat(testHand.getButtonPosition()).isEqualTo(UPDATED_BUTTON_POSITION);
+        assertThat(testHand.getMyCards()).isEqualTo(UPDATED_MY_CARDS);
     }
 
     @Test
