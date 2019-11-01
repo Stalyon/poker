@@ -1,0 +1,71 @@
+
+entity ParseHistory {
+    fileName String,
+    fileSize Integer,
+    parsedDate Instant
+}
+
+entity Game {
+	name String,
+    startDate Instant,
+    endDate Instant
+}
+
+entity Player {
+    name String,
+    addedDate Instant,
+    isMe Boolean
+}
+
+entity Hand {
+	startDate Instant,
+    buttonPosition Integer,
+    myCards String,
+    flopCards String,
+    riverCards String,
+    turnCards String
+}
+
+enum BettingRound {
+	ANTE_BLINDS,
+    PRE_FLOP,
+    FLOP,
+    TURN,
+    RIVER,
+    SHOW_DOWN,
+    SUMMARY
+}
+
+enum Action {
+	CALLS,
+    FOLDS,
+    POSTS_ANTE,
+    POSTS_SB,
+    POSTS_BB,
+    RAISES,
+    CHECKS,
+    BETS,
+    COLLECTS
+}
+
+entity PlayerAction {
+	amount Double,
+    bettingRound BettingRound,
+    action Action
+}
+
+entity ShowDown {
+	cards String,
+    wins Boolean
+}
+
+relationship ManyToOne {
+	Game{player} to Player,
+	Hand{game} to Game,
+    Hand{winner} to Player,
+	PlayerAction{player} to Player,
+    PlayerAction{game} to Game,
+    PlayerAction{hand} to Hand,
+    ShowDown{hand} to Hand,
+    ShowDown{player} to Player
+}
