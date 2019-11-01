@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Hand(0, currentDate, 0, 'AAAAAAA');
+      elemDefault = new Hand(0, currentDate, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -73,7 +73,10 @@ describe('Service Tests', () => {
           {
             startDate: currentDate.format(DATE_TIME_FORMAT),
             buttonPosition: 1,
-            myCards: 'BBBBBB'
+            myCards: 'BBBBBB',
+            flopCards: 'BBBBBB',
+            riverCards: 'BBBBBB',
+            turnCards: 'BBBBBB'
           },
           elemDefault
         );
@@ -98,7 +101,10 @@ describe('Service Tests', () => {
           {
             startDate: currentDate.format(DATE_TIME_FORMAT),
             buttonPosition: 1,
-            myCards: 'BBBBBB'
+            myCards: 'BBBBBB',
+            flopCards: 'BBBBBB',
+            riverCards: 'BBBBBB',
+            turnCards: 'BBBBBB'
           },
           elemDefault
         );

@@ -32,6 +32,15 @@ public class Hand implements Serializable {
     @Column(name = "my_cards")
     private String myCards;
 
+    @Column(name = "flop_cards")
+    private String flopCards;
+
+    @Column(name = "river_cards")
+    private String riverCards;
+
+    @Column(name = "turn_cards")
+    private String turnCards;
+
     @ManyToOne
     @JsonIgnoreProperties("hands")
     private Game game;
@@ -88,6 +97,45 @@ public class Hand implements Serializable {
         this.myCards = myCards;
     }
 
+    public String getFlopCards() {
+        return flopCards;
+    }
+
+    public Hand flopCards(String flopCards) {
+        this.flopCards = flopCards;
+        return this;
+    }
+
+    public void setFlopCards(String flopCards) {
+        this.flopCards = flopCards;
+    }
+
+    public String getRiverCards() {
+        return riverCards;
+    }
+
+    public Hand riverCards(String riverCards) {
+        this.riverCards = riverCards;
+        return this;
+    }
+
+    public void setRiverCards(String riverCards) {
+        this.riverCards = riverCards;
+    }
+
+    public String getTurnCards() {
+        return turnCards;
+    }
+
+    public Hand turnCards(String turnCards) {
+        this.turnCards = turnCards;
+        return this;
+    }
+
+    public void setTurnCards(String turnCards) {
+        this.turnCards = turnCards;
+    }
+
     public Game getGame() {
         return game;
     }
@@ -138,6 +186,9 @@ public class Hand implements Serializable {
             ", startDate='" + getStartDate() + "'" +
             ", buttonPosition=" + getButtonPosition() +
             ", myCards='" + getMyCards() + "'" +
+            ", flopCards='" + getFlopCards() + "'" +
+            ", riverCards='" + getRiverCards() + "'" +
+            ", turnCards='" + getTurnCards() + "'" +
             "}";
     }
 }

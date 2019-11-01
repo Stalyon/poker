@@ -32,6 +32,9 @@ export class HandUpdateComponent implements OnInit {
     startDate: [],
     buttonPosition: [],
     myCards: [],
+    flopCards: [],
+    riverCards: [],
+    turnCards: [],
     game: [],
     winner: []
   });
@@ -72,6 +75,9 @@ export class HandUpdateComponent implements OnInit {
       startDate: hand.startDate != null ? hand.startDate.format(DATE_TIME_FORMAT) : null,
       buttonPosition: hand.buttonPosition,
       myCards: hand.myCards,
+      flopCards: hand.flopCards,
+      riverCards: hand.riverCards,
+      turnCards: hand.turnCards,
       game: hand.game,
       winner: hand.winner
     });
@@ -99,6 +105,9 @@ export class HandUpdateComponent implements OnInit {
         this.editForm.get(['startDate']).value != null ? moment(this.editForm.get(['startDate']).value, DATE_TIME_FORMAT) : undefined,
       buttonPosition: this.editForm.get(['buttonPosition']).value,
       myCards: this.editForm.get(['myCards']).value,
+      flopCards: this.editForm.get(['flopCards']).value,
+      riverCards: this.editForm.get(['riverCards']).value,
+      turnCards: this.editForm.get(['turnCards']).value,
       game: this.editForm.get(['game']).value,
       winner: this.editForm.get(['winner']).value
     };

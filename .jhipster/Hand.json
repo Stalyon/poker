@@ -12,6 +12,18 @@
         {
             "fieldName": "myCards",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "flopCards",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "riverCards",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "turnCards",
+            "fieldType": "String"
         }
     ],
     "relationships": [

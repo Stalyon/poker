@@ -22,6 +22,9 @@
             <th scope="col" ><span>Start Date</span></th>
             <th scope="col" ><span>Button Position</span></th>
             <th scope="col" ><span>My Cards</span></th>
+            <th scope="col" ><span>Flop Cards</span></th>
+            <th scope="col" ><span>River Cards</span></th>
+            <th scope="col" ><span>Turn Cards</span></th>
             <th scope="col" ><span>Game</span></th>
             <th scope="col" ><span>Winner</span></th>
             <th scope="col"></th>
@@ -33,6 +36,9 @@
                 <td>{{hand.startDate | date:'medium'}}</td>
                 <td>{{hand.buttonPosition}}</td>
                 <td>{{hand.myCards}}</td>
+                <td>{{hand.flopCards}}</td>
+                <td>{{hand.riverCards}}</td>
+                <td>{{hand.turnCards}}</td>
                 <td>
                     <div *ngIf="hand.game">
                         <a [routerLink]="['/game', hand.game?.id, 'view' ]" >{{hand.game?.id}}</a>
