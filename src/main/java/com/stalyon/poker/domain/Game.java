@@ -1,4 +1,5 @@
 package com.stalyon.poker.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,6 +36,10 @@ public class Game implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("games")
     private Player player;
+
+    @OneToOne(mappedBy = "game")
+    @JsonIgnore
+    private ParseHistory parseHistory;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -95,6 +100,19 @@ public class Game implements Serializable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public ParseHistory getParseHistory() {
+        return parseHistory;
+    }
+
+    public Game parseHistory(ParseHistory parseHistory) {
+        this.parseHistory = parseHistory;
+        return this;
+    }
+
+    public void setParseHistory(ParseHistory parseHistory) {
+        this.parseHistory = parseHistory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

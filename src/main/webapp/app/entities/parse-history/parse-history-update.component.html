@@ -26,6 +26,13 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" for="field_game">Game</label>
+                    <select class="form-control" id="field_game" name="game" formControlName="game">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="gameOption.id === editForm.get('game').value?.id ? editForm.get('game').value : gameOption" *ngFor="let gameOption of games; trackBy: trackGameById">{{gameOption.id}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

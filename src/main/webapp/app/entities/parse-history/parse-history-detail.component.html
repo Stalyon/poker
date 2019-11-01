@@ -17,6 +17,12 @@
                 <dd>
                     <span>{{parseHistory.parsedDate}}</span>
                 </dd>
+                <dt><span>Game</span></dt>
+                <dd>
+                    <div *ngIf="parseHistory.game">
+                        <a [routerLink]="['/game', parseHistory.game?.id, 'view']">{{parseHistory.game?.id}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

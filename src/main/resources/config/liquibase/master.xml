@@ -27,5 +27,6 @@
     <include file="config/liquibase/changelog/20191031113709_added_entity_constraints_Hand.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191031113710_added_entity_constraints_PlayerAction.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191031113713_added_entity_constraints_ShowDown.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191031113706_added_entity_constraints_ParseHistory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
