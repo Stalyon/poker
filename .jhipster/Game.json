@@ -21,6 +21,13 @@
             "otherEntityRelationshipName": "game",
             "relationshipName": "player",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "parseHistory",
+            "otherEntityRelationshipName": "game",
+            "relationshipName": "parseHistory",
+            "ownerSide": false
         }
     ],
     "changelogDate": "20191031113707",

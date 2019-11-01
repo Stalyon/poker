@@ -13,6 +13,8 @@ import { IGame, Game } from 'app/shared/model/game.model';
 import { GameService } from './game.service';
 import { IPlayer } from 'app/shared/model/player.model';
 import { PlayerService } from 'app/entities/player/player.service';
+import { IParseHistory } from 'app/shared/model/parse-history.model';
+import { ParseHistoryService } from 'app/entities/parse-history/parse-history.service';
 
 @Component({
   selector: 'jhi-game-update',
@@ -22,6 +24,8 @@ export class GameUpdateComponent implements OnInit {
   isSaving: boolean;
 
   players: IPlayer[];
+
+  parsehistories: IParseHistory[];
 
   editForm = this.fb.group({
     id: [],
@@ -35,6 +39,7 @@ export class GameUpdateComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected gameService: GameService,
     protected playerService: PlayerService,
+    protected parseHistoryService: ParseHistoryService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -51,6 +56,13 @@ export class GameUpdateComponent implements OnInit {
         map((response: HttpResponse<IPlayer[]>) => response.body)
       )
       .subscribe((res: IPlayer[]) => (this.players = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.parseHistoryService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IParseHistory[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IParseHistory[]>) => response.body)
+      )
+      .subscribe((res: IParseHistory[]) => (this.parsehistories = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(game: IGame) {
@@ -106,6 +118,10 @@ export class GameUpdateComponent implements OnInit {
   }
 
   trackPlayerById(index: number, item: IPlayer) {
+    return item.id;
+  }
+
+  trackParseHistoryById(index: number, item: IParseHistory) {
     return item.id;
   }
 }

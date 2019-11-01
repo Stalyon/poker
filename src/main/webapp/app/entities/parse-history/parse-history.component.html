@@ -22,6 +22,7 @@
             <th scope="col" ><span>File Name</span></th>
             <th scope="col" ><span>File Size</span></th>
             <th scope="col" ><span>Parsed Date</span></th>
+            <th scope="col" ><span>Game</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -31,6 +32,11 @@
                 <td>{{parseHistory.fileName}}</td>
                 <td>{{parseHistory.fileSize}}</td>
                 <td>{{parseHistory.parsedDate | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="parseHistory.game">
+                        <a [routerLink]="['/game', parseHistory.game?.id, 'view' ]" >{{parseHistory.game?.id}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

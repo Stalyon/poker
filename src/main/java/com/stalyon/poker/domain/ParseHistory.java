@@ -31,6 +31,10 @@ public class ParseHistory implements Serializable {
     @Column(name = "parsed_date")
     private Instant parsedDate;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Game game;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -77,6 +81,19 @@ public class ParseHistory implements Serializable {
 
     public void setParsedDate(Instant parsedDate) {
         this.parsedDate = parsedDate;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public ParseHistory game(Game game) {
+        this.game = game;
+        return this;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

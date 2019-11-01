@@ -17,6 +17,8 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing {@link com.stalyon.poker.domain.Game}.
@@ -82,10 +84,18 @@ public class GameResource {
      * {@code GET  /games} : get all the games.
      *
 
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of games in body.
      */
     @GetMapping("/games")
-    public List<Game> getAllGames() {
+    public List<Game> getAllGames(@RequestParam(required = false) String filter) {
+        if ("parsehistory-is-null".equals(filter)) {
+            log.debug("REST request to get all Games where parseHistory is null");
+            return StreamSupport
+                .stream(gameRepository.findAll().spliterator(), false)
+                .filter(game -> game.getParseHistory() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all Games");
         return gameRepository.findAll();
     }

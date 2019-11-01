@@ -14,7 +14,16 @@
             "fieldType": "Instant"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "game",
+            "otherEntityRelationshipName": "parseHistory",
+            "relationshipName": "game",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
     "changelogDate": "20191031113706",
     "entityTableName": "parse_history",
     "dto": "no",

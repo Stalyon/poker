@@ -24,6 +24,9 @@
             <column name="parsed_date" type="datetime">
                 <constraints nullable="true" />
             </column>
+            <column name="game_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_parse_history_game_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="parse_history" columnName="parsed_date" columnDataType="datetime"/>
