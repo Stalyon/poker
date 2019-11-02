@@ -25,14 +25,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./player-action/player-action.module').then(m => m.PokerPlayerActionModule)
       },
       {
-        path: 'betting-round',
-        loadChildren: () => import('./betting-round/betting-round.module').then(m => m.PokerBettingRoundModule)
-      },
-      {
-        path: 'action',
-        loadChildren: () => import('./action/action.module').then(m => m.PokerActionModule)
-      },
-      {
         path: 'show-down',
         loadChildren: () => import('./show-down/show-down.module').then(m => m.PokerShowDownModule)
       }

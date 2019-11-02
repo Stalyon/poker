@@ -47,8 +47,6 @@ public class CacheConfiguration {
             createCache(cm, com.stalyon.poker.domain.Player.class.getName());
             createCache(cm, com.stalyon.poker.domain.Hand.class.getName());
             createCache(cm, com.stalyon.poker.domain.PlayerAction.class.getName());
-            createCache(cm, com.stalyon.poker.domain.BettingRound.class.getName());
-            createCache(cm, com.stalyon.poker.domain.Action.class.getName());
             createCache(cm, com.stalyon.poker.domain.ShowDown.class.getName());
             // jhipster-needle-ehcache-add-entry
         };

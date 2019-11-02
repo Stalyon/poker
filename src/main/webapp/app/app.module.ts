@@ -13,6 +13,8 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
+import {PokerLiveModule} from "app/live/live.module";
+import {PokerPlayersDatasModule} from "app/players-datas/players-datas.module";
 
 @NgModule({
   imports: [
@@ -20,6 +22,8 @@ import { ErrorComponent } from './layouts/error/error.component';
     PokerSharedModule,
     PokerCoreModule,
     PokerHomeModule,
+    PokerLiveModule,
+    PokerPlayersDatasModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     PokerEntityModule,
     PokerAppRoutingModule

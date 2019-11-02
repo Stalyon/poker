@@ -38,10 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  isAuthenticated() {
-    return this.accountService.isAuthenticated();
-  }
-
   login() {
     this.modalRef = this.loginModalService.open();
   }

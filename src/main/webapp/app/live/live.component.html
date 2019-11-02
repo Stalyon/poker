@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="display-4">Live</h1>
+    </div>
+
+    <div class="col-md-12">
+        <button type="submit"
+                class="col btn btn-info"
+                (click)="launch()">
+            <fa-icon [icon]="'eye'"></fa-icon>
+            <span class="d-none d-md-inline">Launch</span>
+        </button>
+    </div>
+
+    <div class="col-md-12" *ngIf="games">
+        <div class="col">
+            <select class="form-control" (change)="onGameChange($event)">
+                <option *ngFor="let game of games | keyvalue" [value]="game.key">{{ game.value.gameName }}</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <ul class="list-unstyled">
+                <li *ngFor="let player of displayedPlayers">
+                    <h6>{{player.name }} ({{player.nbHands}})</h6>
+                    <span class="badge" [ngClass]="{
+                        'badge-primary': (player.vPip > 19 && player.vPip <= 28),
+                        'badge-warning': player.vPip > 28 && player.vPip <= 60,
+                        'badge-success': player.vPip <= 19,
+                        'badge-danger': player.vPip > 60 }">
+                        vPip={{player.vPip | number:'2.2-2'}}%
+                    </span>
+                    <span class="badge" [ngClass]="{
+                        'badge-primary': (player.pfr > 14 && player.pfr <= 26),
+                        'badge-warning': player.pfr > 26 && player.pfr <= 60,
+                        'badge-success': player.pfr <= 14,
+                        'badge-danger': player.pfr > 60 }">
+                        pfr={{player.pfr | number:'2.2-2'}}%
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
