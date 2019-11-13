@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cashGame">
+            <h2><span>Cash Game</span> {{cashGame.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>End Date</span></dt>
+                <dd>
+                    <span>{{cashGame.endDate}}</span>
+                </dd>
+                <dt><span>Profit</span></dt>
+                <dd>
+                    <span>{{cashGame.profit}}</span>
+                </dd>
+                <dt><span>Table</span></dt>
+                <dd>
+                    <span>{{cashGame.table}}</span>
+                </dd>
+                <dt><span>Sb Bb</span></dt>
+                <dd>
+                    <span>{{cashGame.sbBb}}</span>
+                </dd>
+                <dt><span>Nb Hands</span></dt>
+                <dd>
+                    <span>{{cashGame.nbHands}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cash-game', cashGame.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

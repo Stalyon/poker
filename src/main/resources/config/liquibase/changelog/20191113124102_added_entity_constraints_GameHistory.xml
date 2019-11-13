@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity GameHistory.
+    -->
+    <changeSet id="20191113124102-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="sit_and_go_id"
+                                 baseTableName="game_history"
+                                 constraintName="fk_game_history_sit_and_go_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sit_and_go"/>
+
+        <addForeignKeyConstraint baseColumnNames="tournoi_id"
+                                 baseTableName="game_history"
+                                 constraintName="fk_game_history_tournoi_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tournoi"/>
+
+        <addForeignKeyConstraint baseColumnNames="cash_game_id"
+                                 baseTableName="game_history"
+                                 constraintName="fk_game_history_cash_game_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cash_game"/>
+
+    </changeSet>
+</databaseChangeLog>

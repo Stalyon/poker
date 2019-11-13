@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-game-history-heading">Create or edit a Game History</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_startDate">Start Date</label>
+                    <div class="d-flex">
+                        <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" formControlName="startDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('startDate').invalid && (editForm.get('startDate').dirty || editForm.get('startDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('startDate').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('startDate').errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name').invalid && (editForm.get('name').dirty || editForm.get('name').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_type">Type</label>
+                    <select class="form-control" name="type" formControlName="type" id="field_type">
+                        <option value="TOURNOI">TOURNOI</option>
+                        <option value="SIT_AND_GO">SIT_AND_GO</option>
+                        <option value="CASH_GAME">CASH_GAME</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_netResult">Net Result</label>
+                    <input type="number" class="form-control" name="netResult" id="field_netResult"
+                           formControlName="netResult"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sitAndGo">Sit And Go</label>
+                    <select class="form-control" id="field_sitAndGo" name="sitAndGo" formControlName="sitAndGo">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sitAndGoOption.id === editForm.get('sitAndGo').value?.id ? editForm.get('sitAndGo').value : sitAndGoOption" *ngFor="let sitAndGoOption of sitandgos; trackBy: trackSitAndGoById">{{sitAndGoOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tournoi">Tournoi</label>
+                    <select class="form-control" id="field_tournoi" name="tournoi" formControlName="tournoi">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tournoiOption.id === editForm.get('tournoi').value?.id ? editForm.get('tournoi').value : tournoiOption" *ngFor="let tournoiOption of tournois; trackBy: trackTournoiById">{{tournoiOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cashGame">Cash Game</label>
+                    <select class="form-control" id="field_cashGame" name="cashGame" formControlName="cashGame">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cashGameOption.id === editForm.get('cashGame').value?.id ? editForm.get('cashGame').value : cashGameOption" *ngFor="let cashGameOption of cashgames; trackBy: trackCashGameById">{{cashGameOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

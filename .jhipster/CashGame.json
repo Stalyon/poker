@@ -1,0 +1,44 @@
+{
+    "name": "CashGame",
+    "fields": [
+        {
+            "fieldName": "endDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "profit",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "table",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sbBb",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nbHands",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "gameHistory",
+            "otherEntityRelationshipName": "cashGame",
+            "relationshipName": "gameHistory",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20191113124101",
+    "entityTableName": "cash_game",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

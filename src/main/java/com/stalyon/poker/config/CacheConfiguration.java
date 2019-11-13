@@ -48,6 +48,10 @@ public class CacheConfiguration {
             createCache(cm, com.stalyon.poker.domain.Hand.class.getName());
             createCache(cm, com.stalyon.poker.domain.PlayerAction.class.getName());
             createCache(cm, com.stalyon.poker.domain.ShowDown.class.getName());
+            createCache(cm, com.stalyon.poker.domain.Tournoi.class.getName());
+            createCache(cm, com.stalyon.poker.domain.SitAndGo.class.getName());
+            createCache(cm, com.stalyon.poker.domain.CashGame.class.getName());
+            createCache(cm, com.stalyon.poker.domain.GameHistory.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

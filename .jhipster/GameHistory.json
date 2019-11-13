@@ -1,0 +1,64 @@
+{
+    "name": "GameHistory",
+    "fields": [
+        {
+            "fieldName": "startDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "GameType",
+            "fieldValues": "TOURNOI,SIT_AND_GO,CASH_GAME"
+        },
+        {
+            "fieldName": "netResult",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "sitAndGo",
+            "otherEntityRelationshipName": "gameHistory",
+            "relationshipName": "sitAndGo",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "tournoi",
+            "otherEntityRelationshipName": "gameHistory",
+            "relationshipName": "tournoi",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "cashGame",
+            "otherEntityRelationshipName": "gameHistory",
+            "relationshipName": "cashGame",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20191113124102",
+    "entityTableName": "game_history",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tournoi">
+            <h2><span>Tournoi</span> {{tournoi.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Buy In</span></dt>
+                <dd>
+                    <span>{{tournoi.buyIn}}</span>
+                </dd>
+                <dt><span>Rebuy</span></dt>
+                <dd>
+                    <span>{{tournoi.rebuy}}</span>
+                </dd>
+                <dt><span>Ranking</span></dt>
+                <dd>
+                    <span>{{tournoi.ranking}}</span>
+                </dd>
+                <dt><span>Profit</span></dt>
+                <dd>
+                    <span>{{tournoi.profit}}</span>
+                </dd>
+                <dt><span>Bounty</span></dt>
+                <dd>
+                    <span>{{tournoi.bounty}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tournoi', tournoi.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
