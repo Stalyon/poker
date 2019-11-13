@@ -1,0 +1,41 @@
+{
+    "name": "SitAndGo",
+    "fields": [
+        {
+            "fieldName": "format",
+            "fieldType": "SitAndGoFormat",
+            "fieldValues": "EXPRESSO,SNG"
+        },
+        {
+            "fieldName": "ranking",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "profit",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "bounty",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "gameHistory",
+            "otherEntityRelationshipName": "sitAndGo",
+            "relationshipName": "gameHistory",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20191113124100",
+    "entityTableName": "sit_and_go",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

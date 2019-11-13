@@ -27,6 +27,22 @@ import { RouterModule } from '@angular/router';
       {
         path: 'show-down',
         loadChildren: () => import('./show-down/show-down.module').then(m => m.PokerShowDownModule)
+      },
+      {
+        path: 'tournoi',
+        loadChildren: () => import('./tournoi/tournoi.module').then(m => m.PokerTournoiModule)
+      },
+      {
+        path: 'sit-and-go',
+        loadChildren: () => import('./sit-and-go/sit-and-go.module').then(m => m.PokerSitAndGoModule)
+      },
+      {
+        path: 'cash-game',
+        loadChildren: () => import('./cash-game/cash-game.module').then(m => m.PokerCashGameModule)
+      },
+      {
+        path: 'game-history',
+        loadChildren: () => import('./game-history/game-history.module').then(m => m.PokerGameHistoryModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

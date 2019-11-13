@@ -1,0 +1,44 @@
+{
+    "name": "Tournoi",
+    "fields": [
+        {
+            "fieldName": "buyIn",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "rebuy",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "ranking",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "profit",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "bounty",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "gameHistory",
+            "otherEntityRelationshipName": "tournoi",
+            "relationshipName": "gameHistory",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20191113124059",
+    "entityTableName": "tournoi",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
