@@ -3,15 +3,6 @@
         <h1 class="display-4">Live</h1>
     </div>
 
-    <div class="col-md-12">
-        <button type="submit"
-                class="col btn btn-info"
-                (click)="launch()">
-            <fa-icon [icon]="'eye'"></fa-icon>
-            <span class="d-none d-md-inline">Launch</span>
-        </button>
-    </div>
-
     <div class="col-md-12" *ngIf="games">
         <div class="col">
             <select class="form-control" (change)="onGameChange($event)">
@@ -20,7 +11,7 @@
         </div>
 
         <div class="col">
-            <ul class="list-unstyled">
+            <ul *ngIf="displayedPlayers && displayedPlayers.length > 0" class="list-unstyled">
                 <li *ngFor="let player of displayedPlayers">
                     <h6>{{player.name }} ({{player.nbHands}})</h6>
                     <span class="badge" [ngClass]="{
@@ -42,6 +33,16 @@
                     </span>
                 </li>
             </ul>
+            <div *ngIf="!displayedPlayers || displayedPlayers.length === 0">Aucun joueur</div>
         </div>
+    </div>
+
+    <div class="col-md-12">
+        <button type="submit"
+                class="col btn btn-info"
+                (click)="stop()">
+            <fa-icon [icon]="'eye'"></fa-icon>
+            <span class="d-none d-md-inline">Stop</span>
+        </button>
     </div>
 </div>

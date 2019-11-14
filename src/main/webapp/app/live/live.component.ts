@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { Account } from 'app/core/user/account.model';
 import {LiveService} from "app/live/live.service";
-import {LaunchService} from "app/shared/service/launch.service";
 import {PlayerData} from "app/shared/model/player-data.model";
+import {JhiAlertService} from "ng-jhipster";
 
 @Component({
   selector: 'jhi-live',
@@ -15,10 +15,14 @@ export class LiveComponent implements OnInit, OnDestroy {
   displayedPlayers: PlayerData[] = [];
   currentGameId: number;
 
-  constructor(private launchService: LaunchService, private liveService: LiveService,
-              private cdr: ChangeDetectorRef) {}
+  constructor(private liveService: LiveService, private cdr: ChangeDetectorRef,
+              private alertService: JhiAlertService) {}
 
   ngOnInit() {
+    this.liveService.launch().subscribe(() => {
+      this.alertService.success("Live lancé avec succès", null, null);
+    });
+
     this.liveService.subscribe();
     this.liveService.receive().subscribe((liveEvent) => {
       this.games.set(liveEvent.gameId, {gameName: liveEvent.gameName, players: liveEvent.players});
@@ -37,12 +41,14 @@ export class LiveComponent implements OnInit, OnDestroy {
     this.liveService.unsubscribe();
   }
 
-  launch(): void {
-    this.launchService.proceed().subscribe();
-  }
-
   onGameChange(event: any): void {
     this.displayedPlayers = this.games.get(Number(event.target.value)).players;
     this.currentGameId = Number(event.target.value);
+  }
+
+  stop(): void {
+    this.liveService.stop().subscribe(() => {
+      this.alertService.success("Live stoppé avec succès", null, null);
+    });
   }
 }

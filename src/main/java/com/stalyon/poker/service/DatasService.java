@@ -24,9 +24,9 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Service
-public class LaunchService {
+public class DatasService {
 
-    private static final Logger log = LoggerFactory.getLogger(LaunchService.class);
+    private static final Logger log = LoggerFactory.getLogger(DatasService.class);
 
     private static String MY_NAME = "";
     public static String PATH = "";
@@ -53,11 +53,8 @@ public class LaunchService {
     @Autowired
     private ShowDownRepository showDownRepository;
 
-    @Autowired
-    private WatcherService watcherService;
-
-    public void proceed() throws IOException {
-        try (Stream<Path> paths = Files.walk(Paths.get(LaunchService.PATH))) {
+    public void update() throws IOException {
+        try (Stream<Path> paths = Files.walk(Paths.get(DatasService.PATH))) {
             paths
                 .filter(Files::isRegularFile)
                 .filter(path -> path.toFile().getName().endsWith(".txt"))
@@ -71,12 +68,10 @@ public class LaunchService {
                     }
                 });
         }
-
-        this.watcherService.launchWatcher();
     }
 
     public void treatFile(String fileName, boolean notify) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(LaunchService.PATH + fileName, "r");
+        RandomAccessFile file = new RandomAccessFile(DatasService.PATH + fileName, "r");
         FileChannel channel = file.getChannel();
         boolean hasChanged = false;
         ParseHistory parseHistory;
@@ -108,11 +103,11 @@ public class LaunchService {
         }
 
         // Me
-        Optional<Player> myPlayerOptional = this.playerRepository.findByName(LaunchService.MY_NAME);
+        Optional<Player> myPlayerOptional = this.playerRepository.findByName(DatasService.MY_NAME);
         Player myPlayer = new Player();
         if (!myPlayerOptional.isPresent()) {
             myPlayer.setAddedDate(Instant.now());
-            myPlayer.setName(LaunchService.MY_NAME);
+            myPlayer.setName(DatasService.MY_NAME);
             myPlayer.setIsMe(true);
         } else {
             myPlayer = myPlayerOptional.get();
@@ -149,7 +144,7 @@ public class LaunchService {
                     hand = this.handRepository.save(this.createHand(line, game));
                 } else if (line.contains("Winamax Poker - ")) {
                     Instant lastHandInstant = parseHistory.getGame().getEndDate();
-                    String lastHandDate = DateTimeFormatter.ofPattern(LaunchService.PATTERN_DATE, Locale.getDefault())
+                    String lastHandDate = DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault())
                         .withZone(ZoneId.systemDefault())
                         .format(lastHandInstant);
 
@@ -408,7 +403,7 @@ public class LaunchService {
 
         game.setStartDate(LocalDateTime.parse(
             StringUtils.substringsBetween(line, ") - ", " UTC")[0],
-            DateTimeFormatter.ofPattern(LaunchService.PATTERN_DATE, Locale.getDefault()))
+            DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault()))
             .atZone(ZoneId.systemDefault()).toInstant());
 
         return game;
@@ -419,7 +414,7 @@ public class LaunchService {
         hand.setGame(game);
         hand.setStartDate(LocalDateTime.parse(
             StringUtils.substringsBetween(line, ") - ", " UTC")[0],
-            DateTimeFormatter.ofPattern(LaunchService.PATTERN_DATE, Locale.getDefault()))
+            DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault()))
             .atZone(ZoneId.systemDefault()).toInstant());
 
         return hand;

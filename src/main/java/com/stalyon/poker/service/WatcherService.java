@@ -17,11 +17,11 @@ public class WatcherService {
     private boolean isRunning;
 
     @Autowired
-    private LaunchService launchService;
+    private DatasService datasService;
 
     @Async
-    public void launchWatcher() throws IOException {
-        Path filePath = Paths.get(LaunchService.PATH);
+    public void launchWatcher() {
+        Path filePath = Paths.get(DatasService.PATH);
 
         WatchService watchService;
         try {
@@ -51,7 +51,11 @@ public class WatcherService {
                         || kind.equals(StandardWatchEventKinds.ENTRY_MODIFY))
                     && path.toFile().getName().endsWith(".txt")
                     && !path.toFile().getName().endsWith("_summary.txt")) {
-                    this.launchService.treatFile(path.toFile().getName(), true);
+                    try {
+                        this.datasService.treatFile(path.toFile().getName(), true);
+                    } catch (IOException e) {
+                        log.error(e.getMessage(), e);
+                    }
                 }
             }
             key.reset();

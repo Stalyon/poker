@@ -16,18 +16,24 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="/datas" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="datas"></fa-icon>
+                        <span>Datas</span>
+                    </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="/live" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon icon="live"></fa-icon>
                         <span>Live</span>
                     </span>
                 </a>
             </li>
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="/players-datas" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon icon="data"></fa-icon>
                         <span>Players datas</span>
                     </span>
                 </a>

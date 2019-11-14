@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * Integration tests for {@link LaunchService}.
+ * Integration tests for {@link DatasService}.
  */
 @SpringBootTest(classes = PokerApp.class)
-public class LaunchServiceIT {
+public class DatasServiceIT {
 
     @Autowired
-    private LaunchService launchService;
+    private DatasService datasService;
 
     @Test
     public void proceedTest() throws Exception {
-        this.launchService.proceed();
+        this.datasService.update();
     }
 }

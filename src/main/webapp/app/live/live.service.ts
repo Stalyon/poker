@@ -4,9 +4,13 @@ import {Injectable} from "@angular/core";
 import {Observable, Observer, Subscription} from "rxjs/index";
 import {Location} from "@angular/common";
 import {AuthServerProvider} from "app/core/auth/auth-jwt.service";
+import {HttpClient, HttpResponse} from "@angular/common/http";
+import {SERVER_API_URL} from "app/app.constants";
 
 @Injectable({ providedIn: 'root' })
 export class LiveService {
+  public resourceUrl = SERVER_API_URL + 'api/live';
+
   stompClient = null;
   subscriber = null;
   connection: Promise<any>;
@@ -18,10 +22,19 @@ export class LiveService {
 
   constructor(
     private authServerProvider: AuthServerProvider,
-    private location: Location
+    private location: Location,
+    protected http: HttpClient
   ) {
     this.connection = this.createConnection();
     this.listener = this.createListener();
+  }
+
+  launch(): Observable<HttpResponse<void>> {
+    return this.http.get<void>(`${this.resourceUrl}/launch`, { observe: 'response' });
+  }
+
+  stop(): Observable<HttpResponse<void>> {
+    return this.http.get<void>(`${this.resourceUrl}/stop`, { observe: 'response' });
   }
 
   connect() {
