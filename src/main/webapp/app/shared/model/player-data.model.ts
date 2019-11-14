@@ -4,6 +4,7 @@ export interface IPlayerData {
   isMe?: boolean;
   vPip?: number;
   pfr?: number;
+  cBet?: number;
 }
 
 export class PlayerData implements IPlayerData {
@@ -12,6 +13,7 @@ export class PlayerData implements IPlayerData {
     public nbHands?: number,
     public isMe?: boolean,
     public vPip?: number,
-    public pfr?: number
+    public pfr?: number,
+    public cBet?: number
   ) {}
 }

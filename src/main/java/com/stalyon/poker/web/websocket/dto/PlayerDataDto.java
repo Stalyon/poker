@@ -7,6 +7,7 @@ public class PlayerDataDto {
     private Boolean isMe;
     private Double vPip;
     private Double pfr;
+    private Double cBet;
 
     public String getName() {
         return name;
@@ -46,5 +47,13 @@ public class PlayerDataDto {
 
     public void setPfr(Double pfr) {
         this.pfr = pfr;
+    }
+
+    public Double getcBet() {
+        return cBet;
+    }
+
+    public void setcBet(Double cBet) {
+        this.cBet = cBet;
     }
 }

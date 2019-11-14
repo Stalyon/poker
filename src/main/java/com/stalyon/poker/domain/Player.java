@@ -1,7 +1,7 @@
 package com.stalyon.poker.domain;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 
@@ -31,25 +31,6 @@ public class Player implements Serializable {
 
     @Column(name = "is_me")
     private Boolean isMe;
-
-    @Formula("(select count(distinct pa.hand_id) from player_action pa where pa.player_id = id)")
-    private Integer nbHands;
-
-    @Formula("(select CASE WHEN count(distinct pa.hand_id) != 0 THEN (" +
-        "100.0 " +
-        "* count(select distinct pa2.hand_id from player_action pa2 where pa2.id = pa.id " +
-        "       and (pa2.action = 'CALLS' or pa2.action = 'RAISES')) " +
-        "/ count(select distinct pa3.hand_id from player_action pa3 where pa3.id = pa.id)) ELSE 0. END " +
-        "from player_action pa where pa.player_id = id and pa.betting_round = 'PRE_FLOP')")
-    private Double vPip;
-
-    @Formula("(select CASE WHEN count(distinct pa.hand_id) != 0 THEN (" +
-        "100.0 " +
-        "* count(select distinct pa2.hand_id from player_action pa2 where pa2.id = pa.id " +
-        "       and pa2.action = 'RAISES') " +
-        "/ count(select distinct pa3.hand_id from player_action pa3 where pa3.id = pa.id)) ELSE 0. END " +
-        "from player_action pa where pa.player_id = id and pa.betting_round = 'PRE_FLOP')")
-    private Double pfr;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -99,31 +80,6 @@ public class Player implements Serializable {
         this.isMe = isMe;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-
-    public Integer getNbHands() {
-        return nbHands;
-    }
-
-    public void setNbHands(Integer nbHands) {
-        this.nbHands = nbHands;
-    }
-
-    public Double getvPip() {
-        return vPip;
-    }
-
-    public void setvPip(Double vPip) {
-        this.vPip = vPip;
-    }
-
-    public Double getPfr() {
-        return pfr;
-    }
-
-    public void setPfr(Double pfr) {
-        this.pfr = pfr;
-    }
 
     @Override
     public boolean equals(Object o) {

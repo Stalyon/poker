@@ -1,6 +1,6 @@
 package com.stalyon.poker.service.mapper;
 
-import com.stalyon.poker.domain.Player;
+import com.stalyon.poker.domain.PlayerData;
 import com.stalyon.poker.web.websocket.dto.PlayerDataDto;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +11,21 @@ import java.util.stream.Collectors;
 @Service
 public class PlayerMapper {
 
-    public PlayerDataDto playerToPlayerDataDto(Player player) {
-        PlayerDataDto playerDataDto = new PlayerDataDto();
-        playerDataDto.setName(player.getName());
-        playerDataDto.setNbHands(player.getNbHands());
-        playerDataDto.setvPip(player.getvPip());
-        playerDataDto.setPfr(player.getPfr());
-        playerDataDto.setMe(player.isIsMe());
-        return playerDataDto;
-    }
-
-    public List<PlayerDataDto> playerToPlayerDataDtos(List<Player> players) {
-        if (players == null) {
+    public List<PlayerDataDto> playerToPlayerDataDtos(List<PlayerData> playerDatas) {
+        if (playerDatas == null) {
             return new ArrayList<>();
         }
-        return players.stream().map(this::playerToPlayerDataDto).collect(Collectors.toList());
+        return playerDatas.stream().map(this::playerToPlayerDataDto).collect(Collectors.toList());
+    }
+
+    private PlayerDataDto playerToPlayerDataDto(PlayerData playerData) {
+        PlayerDataDto playerDataDto = new PlayerDataDto();
+        playerDataDto.setName(playerData.getName());
+        playerDataDto.setNbHands(playerData.getNbHands());
+        playerDataDto.setvPip(playerData.getvPip());
+        playerDataDto.setPfr(playerData.getPfr());
+        playerDataDto.setcBet(playerData.getcBet());
+        playerDataDto.setMe(playerData.isMe());
+        return playerDataDto;
     }
 }

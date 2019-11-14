@@ -134,7 +134,7 @@ public class LaunchService {
         String line;
         while((line = file.readLine()) != null) {
             if (hasChanged) {
-                if (waitNextHand && line.startsWith("Winamax Poker - ")) {
+                if (waitNextHand && line.contains("Winamax Poker - ")) {
                     hasChanged = false;
                     isSummary = false;
 
@@ -147,7 +147,7 @@ public class LaunchService {
 
                     // Hand
                     hand = this.handRepository.save(this.createHand(line, game));
-                } else if (line.startsWith("Winamax Poker - ")) {
+                } else if (line.contains("Winamax Poker - ")) {
                     Instant lastHandInstant = parseHistory.getGame().getEndDate();
                     String lastHandDate = DateTimeFormatter.ofPattern(LaunchService.PATTERN_DATE, Locale.getDefault())
                         .withZone(ZoneId.systemDefault())
@@ -158,7 +158,7 @@ public class LaunchService {
                         waitNextHand = true;
                     }
                 }
-            } else if (line.startsWith("Winamax Poker - ")) {
+            } else if (line.contains("Winamax Poker - ")) {
                 isSummary = false;
 
                 if (game == null) {
@@ -183,14 +183,20 @@ public class LaunchService {
                 isPreFlop = false;
                 isFlop = true;
                 hand.setFlopCards(this.getCards(line));
+
+                hand = this.handRepository.save(hand);
             } else if (line.startsWith("*** TURN ***")) {
                 isFlop = false;
                 isTurn = true;
                 hand.setTurnCards(this.getCards(line));
+
+                hand = this.handRepository.save(hand);
             } else if (line.startsWith("*** RIVER ***")) {
                 isTurn = false;
                 isRiver = true;
                 hand.setRiverCards(this.getCards(line));
+
+                hand = this.handRepository.save(hand);
             } else if (line.startsWith("*** SHOW DOWN ***")) {
                 isRiver = false;
                 isShowDown = true;
@@ -297,13 +303,14 @@ public class LaunchService {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
             playerAction.setPlayer(player);
             playerAction.setAction(Action.RAISES);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " to ",
-                " and is all-in")));
+            playerAction.setAmount(this.convertToAmount(
+                StringUtils.substringBetween(StringUtils.substringAfter(line, " raises "), " to "," and is all-in")));
         } else if (line.contains(" raises ")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
             playerAction.setPlayer(player);
             playerAction.setAction(Action.RAISES);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " to ")));
+            playerAction.setAmount(this.convertToAmount(
+                StringUtils.substringAfter(StringUtils.substringAfter(line, " raises "), " to ")));
         } else if (line.contains(" checks")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " checks"));
             playerAction.setPlayer(player);
@@ -325,15 +332,15 @@ public class LaunchService {
     }
 
     private void treatActionAnteBlinds(String line, Game game, Hand hand, Map<String, Player> playersInHand) {
-        PlayerAction playerAction = new PlayerAction();
-        playerAction.setGame(game);
-        playerAction.setHand(hand);
-        playerAction.setBettingRound(BettingRound.ANTE_BLINDS);
-
         if (line.contains("Dealt to ")) {
             hand.setMyCards("[" + StringUtils.substringBetween(line, "[", "]") + "]");
             return;
         }
+
+        PlayerAction playerAction = new PlayerAction();
+        playerAction.setGame(game);
+        playerAction.setHand(hand);
+        playerAction.setBettingRound(BettingRound.ANTE_BLINDS);
 
         if (line.contains(" posts big blind ") && line.contains(" and is all-in")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts big blind"));

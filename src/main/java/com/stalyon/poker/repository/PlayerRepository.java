@@ -1,9 +1,9 @@
 package com.stalyon.poker.repository;
+
 import com.stalyon.poker.domain.Player;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,5 +14,4 @@ import java.util.Optional;
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     Optional<Player> findByName(String name);
-    List<Player> findByNameIgnoreCaseContaining(String name);
 }

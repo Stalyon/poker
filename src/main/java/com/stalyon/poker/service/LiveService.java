@@ -1,10 +1,8 @@
 package com.stalyon.poker.service;
 
-import com.stalyon.poker.domain.Game;
-import com.stalyon.poker.domain.Hand;
-import com.stalyon.poker.domain.Player;
-import com.stalyon.poker.domain.PlayerAction;
+import com.stalyon.poker.domain.*;
 import com.stalyon.poker.repository.PlayerActionRepository;
+import com.stalyon.poker.repository.PlayerDataRepository;
 import com.stalyon.poker.service.mapper.PlayerMapper;
 import com.stalyon.poker.web.websocket.dto.LiveEventDto;
 import com.stalyon.poker.web.websocket.dto.PlayerDataDto;
@@ -29,6 +27,9 @@ public class LiveService {
     private PlayerActionRepository playerActionRepository;
 
     @Autowired
+    private PlayerDataRepository playerDataRepository;
+
+    @Autowired
     private PlayerMapper playerMapper;
 
     public LiveService(SimpMessageSendingOperations messagingTemplate) {
@@ -42,18 +43,20 @@ public class LiveService {
 
         List<PlayerAction> playerActions = this.playerActionRepository.findAllByHand(hand);
         if (playerActions != null) {
-            Set<Player> players = playerActions.stream().map(PlayerAction::getPlayer).collect(Collectors.toSet());
+            Set<Long> playerIds = playerActions.stream().map(PlayerAction::getPlayer).map(Player::getId).collect(Collectors.toSet());
 
-            List<PlayerDataDto> playerDatas = this.playerMapper.playerToPlayerDataDtos(new ArrayList<>(players));
+            List<PlayerData> playerDatas = this.playerDataRepository.findAllById(playerIds);
+
+            List<PlayerDataDto> playerDataDtos = this.playerMapper.playerToPlayerDataDtos(playerDatas);
 
             OptionalInt myPosition = IntStream.range(0, playerDatas.size())
-                .filter(i -> playerDatas.get(i).getMe() == Boolean.TRUE)
+                .filter(i -> playerDataDtos.get(i).getMe() == Boolean.TRUE)
                 .findFirst();
             if (myPosition.isPresent()) {
                 Collections.rotate(playerDatas, -myPosition.getAsInt());
             }
 
-            liveEventDto.getPlayers().addAll(playerDatas);
+            liveEventDto.getPlayers().addAll(playerDataDtos);
         }
 
         log.info("Sending live notif");
