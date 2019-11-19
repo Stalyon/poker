@@ -112,4 +112,7 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+poker:
+  stats-path: YOUR_PATH
+  histo-path: YOUR_PATH
+  me: YOUR_PSEUDO

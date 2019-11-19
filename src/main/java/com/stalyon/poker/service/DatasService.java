@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -28,9 +29,13 @@ public class DatasService {
 
     private static final Logger log = LoggerFactory.getLogger(DatasService.class);
 
-    private static String MY_NAME = "";
-    public static String PATH = "";
     private static String PATTERN_DATE = "uuuu/MM/dd HH:mm:ss";
+
+    @Value("${poker.histo-path}")
+    private String histoPath;
+
+    @Value("${poker.me}")
+    private String myName;
 
     @Autowired
     private GameRepository gameRepository;
@@ -54,7 +59,7 @@ public class DatasService {
     private ShowDownRepository showDownRepository;
 
     public void update() throws IOException {
-        try (Stream<Path> paths = Files.walk(Paths.get(DatasService.PATH))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(this.histoPath))) {
             paths
                 .filter(Files::isRegularFile)
                 .filter(path -> path.toFile().getName().endsWith(".txt"))
@@ -71,7 +76,7 @@ public class DatasService {
     }
 
     public void treatFile(String fileName, boolean notify) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(DatasService.PATH + fileName, "r");
+        RandomAccessFile file = new RandomAccessFile(this.histoPath + fileName, "r");
         FileChannel channel = file.getChannel();
         boolean hasChanged = false;
         ParseHistory parseHistory;
@@ -103,11 +108,11 @@ public class DatasService {
         }
 
         // Me
-        Optional<Player> myPlayerOptional = this.playerRepository.findByName(DatasService.MY_NAME);
+        Optional<Player> myPlayerOptional = this.playerRepository.findByName(this.myName);
         Player myPlayer = new Player();
         if (!myPlayerOptional.isPresent()) {
             myPlayer.setAddedDate(Instant.now());
-            myPlayer.setName(DatasService.MY_NAME);
+            myPlayer.setName(this.myName);
             myPlayer.setIsMe(true);
         } else {
             myPlayer = myPlayerOptional.get();

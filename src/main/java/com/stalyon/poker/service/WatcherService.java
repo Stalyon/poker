@@ -3,6 +3,7 @@ package com.stalyon.poker.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +17,15 @@ public class WatcherService {
 
     private boolean isRunning;
 
+    @Value("${poker.histo-path}")
+    private String histoPath;
+
     @Autowired
     private DatasService datasService;
 
     @Async
     public void launchWatcher() {
-        Path filePath = Paths.get(DatasService.PATH);
+        Path filePath = Paths.get(this.histoPath);
 
         WatchService watchService;
         try {

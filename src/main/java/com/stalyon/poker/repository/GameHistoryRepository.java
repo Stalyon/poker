@@ -3,6 +3,9 @@ import com.stalyon.poker.domain.GameHistory;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
+import java.util.Optional;
+
 
 /**
  * Spring Data  repository for the GameHistory entity.
@@ -11,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GameHistoryRepository extends JpaRepository<GameHistory, Long> {
 
+    Optional<GameHistory> findByStartDateAndName(Instant startDate, String name);
 }
