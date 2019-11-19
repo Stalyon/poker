@@ -28,6 +28,9 @@ public class SitAndGo implements Serializable {
     @Column(name = "format")
     private SitAndGoFormat format;
 
+    @Column(name = "buy_in")
+    private Double buyIn;
+
     @Column(name = "ranking")
     private Integer ranking;
 
@@ -61,6 +64,19 @@ public class SitAndGo implements Serializable {
 
     public void setFormat(SitAndGoFormat format) {
         this.format = format;
+    }
+
+    public Double getBuyIn() {
+        return buyIn;
+    }
+
+    public SitAndGo buyIn(Double buyIn) {
+        this.buyIn = buyIn;
+        return this;
+    }
+
+    public void setBuyIn(Double buyIn) {
+        this.buyIn = buyIn;
     }
 
     public Integer getRanking() {
@@ -137,6 +153,7 @@ public class SitAndGo implements Serializable {
         return "SitAndGo{" +
             "id=" + getId() +
             ", format='" + getFormat() + "'" +
+            ", buyIn=" + getBuyIn() +
             ", ranking=" + getRanking() +
             ", profit=" + getProfit() +
             ", bounty=" + getBounty() +

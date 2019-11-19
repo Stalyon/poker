@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(SitAndGoService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new SitAndGo(0, SitAndGoFormat.EXPRESSO, 0, 0, 0);
+      elemDefault = new SitAndGo(0, SitAndGoFormat.EXPRESSO, 0, 0, 0, 0);
     });
 
     describe('Service methods', () => {
@@ -58,6 +58,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             format: 'BBBBBB',
+            buyIn: 1,
             ranking: 1,
             profit: 1,
             bounty: 1
@@ -79,6 +80,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             format: 'BBBBBB',
+            buyIn: 1,
             ranking: 1,
             profit: 1,
             bounty: 1

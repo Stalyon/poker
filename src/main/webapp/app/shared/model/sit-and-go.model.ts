@@ -4,6 +4,7 @@ import { SitAndGoFormat } from 'app/shared/model/enumerations/sit-and-go-format.
 export interface ISitAndGo {
   id?: number;
   format?: SitAndGoFormat;
+  buyIn?: number;
   ranking?: number;
   profit?: number;
   bounty?: number;
@@ -14,6 +15,7 @@ export class SitAndGo implements ISitAndGo {
   constructor(
     public id?: number,
     public format?: SitAndGoFormat,
+    public buyIn?: number,
     public ranking?: number,
     public profit?: number,
     public bounty?: number,

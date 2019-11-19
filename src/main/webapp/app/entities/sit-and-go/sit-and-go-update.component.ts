@@ -23,6 +23,7 @@ export class SitAndGoUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     format: [],
+    buyIn: [],
     ranking: [],
     profit: [],
     bounty: []
@@ -53,6 +54,7 @@ export class SitAndGoUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: sitAndGo.id,
       format: sitAndGo.format,
+      buyIn: sitAndGo.buyIn,
       ranking: sitAndGo.ranking,
       profit: sitAndGo.profit,
       bounty: sitAndGo.bounty
@@ -78,6 +80,7 @@ export class SitAndGoUpdateComponent implements OnInit {
       ...new SitAndGo(),
       id: this.editForm.get(['id']).value,
       format: this.editForm.get(['format']).value,
+      buyIn: this.editForm.get(['buyIn']).value,
       ranking: this.editForm.get(['ranking']).value,
       profit: this.editForm.get(['profit']).value,
       bounty: this.editForm.get(['bounty']).value

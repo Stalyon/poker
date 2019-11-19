@@ -37,6 +37,9 @@ public class SitAndGoResourceIT {
     private static final SitAndGoFormat DEFAULT_FORMAT = SitAndGoFormat.EXPRESSO;
     private static final SitAndGoFormat UPDATED_FORMAT = SitAndGoFormat.SNG;
 
+    private static final Double DEFAULT_BUY_IN = 1D;
+    private static final Double UPDATED_BUY_IN = 2D;
+
     private static final Integer DEFAULT_RANKING = 1;
     private static final Integer UPDATED_RANKING = 2;
 
@@ -89,6 +92,7 @@ public class SitAndGoResourceIT {
     public static SitAndGo createEntity(EntityManager em) {
         SitAndGo sitAndGo = new SitAndGo()
             .format(DEFAULT_FORMAT)
+            .buyIn(DEFAULT_BUY_IN)
             .ranking(DEFAULT_RANKING)
             .profit(DEFAULT_PROFIT)
             .bounty(DEFAULT_BOUNTY);
@@ -103,6 +107,7 @@ public class SitAndGoResourceIT {
     public static SitAndGo createUpdatedEntity(EntityManager em) {
         SitAndGo sitAndGo = new SitAndGo()
             .format(UPDATED_FORMAT)
+            .buyIn(UPDATED_BUY_IN)
             .ranking(UPDATED_RANKING)
             .profit(UPDATED_PROFIT)
             .bounty(UPDATED_BOUNTY);
@@ -130,6 +135,7 @@ public class SitAndGoResourceIT {
         assertThat(sitAndGoList).hasSize(databaseSizeBeforeCreate + 1);
         SitAndGo testSitAndGo = sitAndGoList.get(sitAndGoList.size() - 1);
         assertThat(testSitAndGo.getFormat()).isEqualTo(DEFAULT_FORMAT);
+        assertThat(testSitAndGo.getBuyIn()).isEqualTo(DEFAULT_BUY_IN);
         assertThat(testSitAndGo.getRanking()).isEqualTo(DEFAULT_RANKING);
         assertThat(testSitAndGo.getProfit()).isEqualTo(DEFAULT_PROFIT);
         assertThat(testSitAndGo.getBounty()).isEqualTo(DEFAULT_BOUNTY);
@@ -167,6 +173,7 @@ public class SitAndGoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(sitAndGo.getId().intValue())))
             .andExpect(jsonPath("$.[*].format").value(hasItem(DEFAULT_FORMAT.toString())))
+            .andExpect(jsonPath("$.[*].buyIn").value(hasItem(DEFAULT_BUY_IN.doubleValue())))
             .andExpect(jsonPath("$.[*].ranking").value(hasItem(DEFAULT_RANKING)))
             .andExpect(jsonPath("$.[*].profit").value(hasItem(DEFAULT_PROFIT.doubleValue())))
             .andExpect(jsonPath("$.[*].bounty").value(hasItem(DEFAULT_BOUNTY.doubleValue())));
@@ -184,6 +191,7 @@ public class SitAndGoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(sitAndGo.getId().intValue()))
             .andExpect(jsonPath("$.format").value(DEFAULT_FORMAT.toString()))
+            .andExpect(jsonPath("$.buyIn").value(DEFAULT_BUY_IN.doubleValue()))
             .andExpect(jsonPath("$.ranking").value(DEFAULT_RANKING))
             .andExpect(jsonPath("$.profit").value(DEFAULT_PROFIT.doubleValue()))
             .andExpect(jsonPath("$.bounty").value(DEFAULT_BOUNTY.doubleValue()));
@@ -211,6 +219,7 @@ public class SitAndGoResourceIT {
         em.detach(updatedSitAndGo);
         updatedSitAndGo
             .format(UPDATED_FORMAT)
+            .buyIn(UPDATED_BUY_IN)
             .ranking(UPDATED_RANKING)
             .profit(UPDATED_PROFIT)
             .bounty(UPDATED_BOUNTY);
@@ -225,6 +234,7 @@ public class SitAndGoResourceIT {
         assertThat(sitAndGoList).hasSize(databaseSizeBeforeUpdate);
         SitAndGo testSitAndGo = sitAndGoList.get(sitAndGoList.size() - 1);
         assertThat(testSitAndGo.getFormat()).isEqualTo(UPDATED_FORMAT);
+        assertThat(testSitAndGo.getBuyIn()).isEqualTo(UPDATED_BUY_IN);
         assertThat(testSitAndGo.getRanking()).isEqualTo(UPDATED_RANKING);
         assertThat(testSitAndGo.getProfit()).isEqualTo(UPDATED_PROFIT);
         assertThat(testSitAndGo.getBounty()).isEqualTo(UPDATED_BOUNTY);
