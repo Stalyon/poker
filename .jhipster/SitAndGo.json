@@ -7,6 +7,10 @@
             "fieldValues": "EXPRESSO,SNG"
         },
         {
+            "fieldName": "buyIn",
+            "fieldType": "Double"
+        },
+        {
             "fieldName": "ranking",
             "fieldType": "Integer"
         },

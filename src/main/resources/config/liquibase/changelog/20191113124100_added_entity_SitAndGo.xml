@@ -18,6 +18,9 @@
             <column name="format" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="buy_in" type="double">
+                <constraints nullable="true" />
+            </column>
             <column name="ranking" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -51,6 +54,7 @@
                   tableName="sit_and_go">
             <column name="id" type="numeric"/>
             <column name="format" type="string"/>
+            <column name="buy_in" type="numeric"/>
             <column name="ranking" type="numeric"/>
             <column name="profit" type="numeric"/>
             <column name="bounty" type="numeric"/>

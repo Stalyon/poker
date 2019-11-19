@@ -20,6 +20,7 @@
             <tr>
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Format</span></th>
+            <th scope="col" ><span>Buy In</span></th>
             <th scope="col" ><span>Ranking</span></th>
             <th scope="col" ><span>Profit</span></th>
             <th scope="col" ><span>Bounty</span></th>
@@ -30,6 +31,7 @@
             <tr *ngFor="let sitAndGo of sitAndGos ;trackBy: trackId">
                 <td><a [routerLink]="['/sit-and-go', sitAndGo.id, 'view' ]">{{sitAndGo.id}}</a></td>
                 <td>{{sitAndGo.format}}</td>
+                <td>{{sitAndGo.buyIn}}</td>
                 <td>{{sitAndGo.ranking}}</td>
                 <td>{{sitAndGo.profit}}</td>
                 <td>{{sitAndGo.bounty}}</td>
