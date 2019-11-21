@@ -7,16 +7,16 @@
         Added the constraints for entity PlayerHand.
     -->
     <changeSet id="20191121211522-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="player_id"
                                  baseTableName="player_hand"
                                  constraintName="fk_player_hand_player_id"
                                  referencedColumnNames="id"
                                  referencedTableName="player"/>
 
-        <addForeignKeyConstraint baseColumnNames="player_id"
+        <addForeignKeyConstraint baseColumnNames="hand_id"
                                  baseTableName="player_hand"
-                                 constraintName="fk_player_hand_player_id"
+                                 constraintName="fk_player_hand_hand_id"
                                  referencedColumnNames="id"
                                  referencedTableName="hand"/>
 

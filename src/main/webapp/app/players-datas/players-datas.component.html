@@ -36,6 +36,13 @@
                         'badge-danger': player.pfr > 60 }">
                         pfr={{player.pfr | number:'2.2-2'}}%
                     </span>
+                    <span class="badge" [ngClass]="{
+                        'badge-primary': (player.pfr > 14 && player.pfr <= 26),
+                        'badge-warning': player.pfr > 26 && player.pfr <= 60,
+                        'badge-success': player.pfr <= 14,
+                        'badge-danger': player.pfr > 60 }">
+                        pfr={{player.pfr | number:'2.2-2'}}%
+                    </span>
                     <span class="badge badge-info">
                         cBet={{player.cBet | number:'2.2-2'}}%
                     </span>

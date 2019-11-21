@@ -54,6 +54,9 @@ public class DatasService {
     private PlayerActionRepository playerActionRepository;
 
     @Autowired
+    private PlayerHandRepository playerHandRepository;
+
+    @Autowired
     private PlayerRepository playerRepository;
 
     @Autowired
@@ -101,10 +104,10 @@ public class DatasService {
                 hasChanged = true;
             }
         } else {
-            parseHistory = new ParseHistory();
-            parseHistory.setFileSize(((Long) channel.size()).intValue());
-            parseHistory.setFileName(fileName);
-            parseHistory.setParsedDate(Instant.now());
+            parseHistory = new ParseHistory()
+                .fileSize(((Long) channel.size()).intValue())
+                .fileName(fileName)
+                .parsedDate(Instant.now());
             this.parseHistoryRepository.save(parseHistory);
         }
 
@@ -112,8 +115,8 @@ public class DatasService {
         Optional<Player> myPlayerOptional = this.playerRepository.findByName(this.myName);
         Player myPlayer = new Player();
         if (!myPlayerOptional.isPresent()) {
-            myPlayer.setAddedDate(Instant.now());
-            myPlayer.setName(this.myName);
+            myPlayer.addedDate(Instant.now())
+                .name(this.myName);
         } else {
             myPlayer = myPlayerOptional.get();
         }
@@ -227,7 +230,7 @@ public class DatasService {
             } else if (isAnteBlinds) {
                 this.treatActionAnteBlinds(line, game, hand, playersInHand);
             } else if (isPreFlop) {
-                this.treatAction(BettingRound.PRE_FLOP, line, game, hand, playersInHand, raisedPreFlop);
+                raisedPreFlop = this.treatAction(BettingRound.PRE_FLOP, line, game, hand, playersInHand, raisedPreFlop);
             } else if (isFlop) {
                 this.treatAction(BettingRound.FLOP, line, game, hand, playersInHand, false);
             } else if (isTurn) {
@@ -262,99 +265,151 @@ public class DatasService {
                 showDownOptional.get().setWins(true);
                 this.showDownRepository.save(showDownOptional.get());
             } else {
-                ShowDown showDown = new ShowDown();
-                showDown.setWins(true);
-                showDown.setHand(hand);
-                showDown.setPlayer(player);
+                this.showDownRepository.save(new ShowDown()
+                    .wins(true)
+                    .hand(hand)
+                    .player(player));
             }
         }
     }
 
     private void treatShow(String line, Hand hand, Map<String, Player> playersInHand) {
-        ShowDown showDown = new ShowDown();
-        showDown.setHand(hand);
-        showDown.setCards("[" + StringUtils.substringBetween(line, " shows [ ", "]") + "]");
-
         Player player = playersInHand.get(StringUtils.substringBefore(line, " shows "));
-        showDown.setPlayer(player);
 
-        this.showDownRepository.save(showDown);
+        this.showDownRepository.save(new ShowDown()
+            .hand(hand)
+            .cards("[" + StringUtils.substringBetween(line, " shows [ ", "]") + "]")
+            .player(player));
     }
 
-    private void treatAction(BettingRound bettingRound, String line, Game game, Hand hand, Map<String, Player> playersInHand,
+    private boolean treatAction(BettingRound bettingRound, String line, Game game, Hand hand, Map<String, Player> playersInHand,
                              boolean raisedPreFlop) {
-        PlayerAction playerAction = new PlayerAction();
-        playerAction.setGame(game);
-        playerAction.setHand(hand);
-        playerAction.setBettingRound(bettingRound);
+        PlayerAction playerAction = new PlayerAction()
+            .game(game)
+            .hand(hand)
+            .bettingRound(bettingRound);
 
+        Player player = null;
         if (line.contains(" folds")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " folds"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.FOLDS);
+            player = playersInHand.get(StringUtils.substringBefore(line, " folds"));
+            playerAction.player(player)
+                .action(Action.FOLDS);
         } else if (line.contains(" calls ") && line.contains(" and is all-in")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " calls "));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.CALLS);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " calls ",
-                " and is all-in")));
+            player = playersInHand.get(StringUtils.substringBefore(line, " calls "));
+            playerAction.player(player)
+                .action(Action.CALLS)
+                .amount(this.convertToAmount(StringUtils.substringBetween(line, " calls ",
+                    " and is all-in")));
         } else if (line.contains(" calls ")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " calls "));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.CALLS);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " calls ")));
+            player = playersInHand.get(StringUtils.substringBefore(line, " calls "));
+            playerAction.player(player)
+                .action(Action.CALLS)
+                .amount(this.convertToAmount(StringUtils.substringAfter(line, " calls ")));
         } else if (line.contains(" raises ") && line.contains(" and is all-in")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.RAISES);
-            playerAction.setAmount(this.convertToAmount(
-                StringUtils.substringBetween(StringUtils.substringAfter(line, " raises "), " to "," and is all-in")));
+            player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
+            playerAction.player(player)
+                .action(Action.RAISES)
+                .amount(this.convertToAmount(
+                    StringUtils.substringBetween(StringUtils.substringAfter(line, " raises "), " to "," and is all-in")));
         } else if (line.contains(" raises ")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.RAISES);
-            playerAction.setAmount(this.convertToAmount(
-                StringUtils.substringAfter(StringUtils.substringAfter(line, " raises "), " to ")));
+            player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
+            playerAction.player(player)
+                .action(Action.RAISES)
+                .amount(this.convertToAmount(
+                    StringUtils.substringAfter(StringUtils.substringAfter(line, " raises "), " to ")));
         } else if (line.contains(" checks")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " checks"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.CHECKS);
+            player = playersInHand.get(StringUtils.substringBefore(line, " checks"));
+            playerAction.player(player)
+                .action(Action.CHECKS);
         } else if (line.contains(" bets ") && line.contains(" and is all-in")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " bets "));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.BETS);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " bets ",
-                " and is all-in")));
+            player = playersInHand.get(StringUtils.substringBefore(line, " bets "));
+            playerAction.player(player)
+                .action(Action.BETS)
+                .amount(this.convertToAmount(StringUtils.substringBetween(line, " bets ",
+                    " and is all-in")));
         } else if (line.contains(" bets ")) {
-            Player player = playersInHand.get(StringUtils.substringBefore(line, " bets "));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.BETS);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " bets ")));
+            player = playersInHand.get(StringUtils.substringBefore(line, " bets "));
+            playerAction.player(player)
+                .action(Action.BETS)
+                .amount(this.convertToAmount(StringUtils.substringAfter(line, " bets ")));
         }
 
-        if (bettingRound == BettingRound.PRE_FLOP && !raisedPreFlop && playerAction.getAction() == Action.RAISES) {
-            raisedPreFlop = true;
-        } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.RAISES) {
-            // 3bet
-            playerAction.setThreeBetPf(true);
-        } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.RAISES) {
-            // Raises PréFlop
-            playerAction.setRaisesPf(true);
-        } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.CALLS) {
-            // Calls PréFlop
-            playerAction.setCallsPf(true);
-        } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.BETS) {
-            // Bets Flop
-            playerAction.setBetsFlop(true);
-        } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.CALLS) {
-            // Bets Flop
-            playerAction.setCallsFlop(true);
-        } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.RAISES) {
-            // Bets Flop
-            playerAction.setRaisesFlop(true);
+        if (player != null) {
+            if (bettingRound == BettingRound.PRE_FLOP && !raisedPreFlop && playerAction.getAction() == Action.RAISES) {
+                raisedPreFlop = true;
+
+                // Raises PréFlop
+                Optional<PlayerHand> playerHandOptional = this.playerHandRepository.findByHandAndPlayer(hand, player);
+                if (playerHandOptional.isPresent()) {
+                    this.playerHandRepository.save(playerHandOptional.get().raisesPf(true));
+                } else {
+                    this.playerHandRepository.save(new PlayerHand()
+                        .player(player)
+                        .hand(hand)
+                        .raisesPf(true));
+                }
+            } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.RAISES) {
+                // 3bet
+                Optional<PlayerHand> playerHandOptional = this.playerHandRepository.findByHandAndPlayer(hand, player);
+                if (playerHandOptional.isPresent()) {
+                    this.playerHandRepository.save(playerHandOptional.get().threeBetPf(true).raisesPf(true));
+                } else {
+                    this.playerHandRepository.save(new PlayerHand()
+                        .player(player)
+                        .hand(hand)
+                        .threeBetPf(true)
+                        .raisesPf(true));
+                }
+            } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.CALLS) {
+                // Calls PréFlop
+                Optional<PlayerHand> playerHandOptional = this.playerHandRepository.findByHandAndPlayer(hand, player);
+                if (playerHandOptional.isPresent()) {
+                    this.playerHandRepository.save(playerHandOptional.get().callsPf(true));
+                } else {
+                    this.playerHandRepository.save(new PlayerHand()
+                        .player(player)
+                        .hand(hand)
+                        .callsPf(true));
+                }
+            } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.BETS) {
+                // Bets Flop
+                Optional<PlayerHand> playerHandOptional = this.playerHandRepository.findByHandAndPlayer(hand, player);
+                if (playerHandOptional.isPresent()) {
+                    this.playerHandRepository.save(playerHandOptional.get().betsFlop(true));
+                } else {
+                    this.playerHandRepository.save(new PlayerHand()
+                        .player(player)
+                        .hand(hand)
+                        .betsFlop(true));
+                }
+            } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.CALLS) {
+                // Bets Flop
+                Optional<PlayerHand> playerHandOptional = this.playerHandRepository.findByHandAndPlayer(hand, player);
+                if (playerHandOptional.isPresent()) {
+                    this.playerHandRepository.save(playerHandOptional.get().callsFlop(true));
+                } else {
+                    this.playerHandRepository.save(new PlayerHand()
+                        .player(player)
+                        .hand(hand)
+                        .callsFlop(true));
+                }
+            } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.RAISES) {
+                // Bets Flop
+                Optional<PlayerHand> playerHandOptional = this.playerHandRepository.findByHandAndPlayer(hand, player);
+                if (playerHandOptional.isPresent()) {
+                    this.playerHandRepository.save(playerHandOptional.get().raisesFlop(true));
+                } else {
+                    this.playerHandRepository.save(new PlayerHand()
+                        .player(player)
+                        .hand(hand)
+                        .raisesFlop(true));
+                }
+            }
         }
 
         this.playerActionRepository.save(playerAction);
+
+        return raisedPreFlop;
     }
 
     private void treatActionAnteBlinds(String line, Game game, Hand hand, Map<String, Player> playersInHand) {
@@ -363,50 +418,50 @@ public class DatasService {
             return;
         }
 
-        PlayerAction playerAction = new PlayerAction();
-        playerAction.setGame(game);
-        playerAction.setHand(hand);
-        playerAction.setBettingRound(BettingRound.ANTE_BLINDS);
+        PlayerAction playerAction = new PlayerAction()
+            .game(game)
+            .hand(hand)
+            .bettingRound(BettingRound.ANTE_BLINDS);
 
         if (line.contains(" posts big blind ") && line.contains(" and is all-in")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts big blind"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_BB);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " posts big blind ",
-                " and is all-in")));
+            playerAction.player(player)
+                .action(Action.POSTS_BB)
+                .amount(this.convertToAmount(StringUtils.substringBetween(line, " posts big blind ",
+                    " and is all-in")));
         } else if (line.contains(" posts big blind ") && line.contains(" out of position")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts big blind"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_BB);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " posts big blind ",
-                " out of position")));
+            playerAction.player(player)
+                .action(Action.POSTS_BB)
+                .amount(this.convertToAmount(StringUtils.substringBetween(line, " posts big blind ",
+                    " out of position")));
         } else if (line.contains(" posts big blind ")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts big blind"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_BB);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " posts big blind ")));
+            playerAction.player(player)
+                .action(Action.POSTS_BB)
+                .amount(this.convertToAmount(StringUtils.substringAfter(line, " posts big blind ")));
         } else if (line.contains(" posts small blind ") && line.contains(" and is all-in")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts small blind"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_SB);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " posts small blind ",
-                " and is all-in")));
+            playerAction.player(player)
+                .action(Action.POSTS_SB)
+                .amount(this.convertToAmount(StringUtils.substringBetween(line, " posts small blind ",
+                    " and is all-in")));
         } else if (line.contains(" posts small blind ")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts small blind"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_SB);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " posts small blind ")));
+            playerAction.player(player)
+                .action(Action.POSTS_SB)
+                .amount(this.convertToAmount(StringUtils.substringAfter(line, " posts small blind ")));
         } else if (line.contains(" posts ante ") && line.contains(" and is all-in")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts ante"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_ANTE);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringBetween(line, " posts ante ",
-                " and is all-in")));
+            playerAction.player(player)
+                .action(Action.POSTS_ANTE)
+                .amount(this.convertToAmount(StringUtils.substringBetween(line, " posts ante ",
+                    " and is all-in")));
         } else if (line.contains(" posts ante ")) {
             Player player = playersInHand.get(StringUtils.substringBefore(line, " posts ante"));
-            playerAction.setPlayer(player);
-            playerAction.setAction(Action.POSTS_ANTE);
-            playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " posts ante ")));
+            playerAction.player(player)
+                .action(Action.POSTS_ANTE)
+                .amount(this.convertToAmount(StringUtils.substringAfter(line, " posts ante ")));
         }
 
         this.playerActionRepository.save(playerAction);
@@ -419,36 +474,31 @@ public class DatasService {
         if (optionalPlayer.isPresent()) {
             return optionalPlayer.get();
         } else {
-            Player player = new Player();
-            player.setAddedDate(Instant.now());
-            player.setName(playerName);
+            Player player = new Player()
+                .addedDate(Instant.now())
+                .name(playerName);
 
             return this.playerRepository.save(player);
         }
     }
 
     private Game createGame(String line, Player me) {
-        Game game = new Game();
-        game.setPlayer(me);
-        game.setName(line);
-
-        game.setStartDate(LocalDateTime.parse(
-            StringUtils.substringsBetween(line, ") - ", " UTC")[0],
-            DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault()))
-            .atZone(ZoneId.systemDefault()).toInstant());
-
-        return game;
+        return new Game()
+            .player(me)
+            .name(line)
+            .startDate(LocalDateTime.parse(
+                StringUtils.substringsBetween(line, ") - ", " UTC")[0],
+                DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault()))
+                .atZone(ZoneId.systemDefault()).toInstant());
     }
 
     private Hand createHand(String line, Game game) {
-        Hand hand = new Hand();
-        hand.setGame(game);
-        hand.setStartDate(LocalDateTime.parse(
-            StringUtils.substringsBetween(line, ") - ", " UTC")[0],
-            DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault()))
-            .atZone(ZoneId.systemDefault()).toInstant());
-
-        return hand;
+        return new Hand()
+            .game(game)
+            .startDate(LocalDateTime.parse(
+                StringUtils.substringsBetween(line, ") - ", " UTC")[0],
+                DateTimeFormatter.ofPattern(DatasService.PATTERN_DATE, Locale.getDefault()))
+                .atZone(ZoneId.systemDefault()).toInstant());
     }
 
     private Double convertToAmount(String amount) {

@@ -50,18 +50,21 @@ enum Action {
 entity PlayerAction {
 	amount Double,
     bettingRound BettingRound,
-    action Action,
+    action Action
+}
+
+entity ShowDown {
+	cards String,
+    wins Boolean
+}
+
+entity PlayerHand {
     callsPf Boolean,
     raisesPf Boolean,
     threeBetPf Boolean,
     callsFlop Boolean,
     betsFlop Boolean,
     raisesFlop Boolean
-}
-
-entity ShowDown {
-	cards String,
-    wins Boolean
 }
 
 relationship OneToOne {
@@ -76,5 +79,7 @@ relationship ManyToOne {
     PlayerAction{game} to Game,
     PlayerAction{hand} to Hand,
     ShowDown{hand} to Hand,
-    ShowDown{player} to Player
+    ShowDown{player} to Player,
+    PlayerHand{player} to Player,
+    PlayerHand{player} to Hand
 }

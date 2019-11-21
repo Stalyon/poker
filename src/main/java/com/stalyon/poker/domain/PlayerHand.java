@@ -46,7 +46,7 @@ public class PlayerHand implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("playerHands")
-    private Hand player;
+    private Hand hand;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -148,17 +148,17 @@ public class PlayerHand implements Serializable {
         this.player = player;
     }
 
-    public Hand getPlayer() {
-        return player;
+    public Hand getHand() {
+        return hand;
     }
 
-    public PlayerHand player(Hand hand) {
-        this.player = hand;
+    public PlayerHand hand(Hand hand) {
+        this.hand = hand;
         return this;
     }
 
-    public void setPlayer(Hand hand) {
-        this.player = hand;
+    public void setHand(Hand hand) {
+        this.hand = hand;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -14,9 +14,9 @@ import javax.persistence.Id;
         "    player_data.id, " +
         "    player_data.name, " +
         "    player_data.nb_hands as nb_hands, " +
-        "    100 * (SELECT COUNT(distinct pa2.hand_id) FROM player_action pa2 WHERE pa2.player_id = player_data.id AND pa2.betting_round = 'PRE_FLOP' AND (pa2.raises_pf = true OR pa2.calls_pf = true)) / NULLIF(player_data.nb_hands, 0) as v_pip, " +
-        "    100 * (SELECT COUNT(distinct pa2.hand_id) FROM player_action pa2 WHERE pa2.player_id = player_data.id AND pa2.betting_round = 'PRE_FLOP' AND pa2.raises_pf = true) / NULLIF(player_data.nb_hands, 0) as pfr, " +
-        "    0 as c_bet " +
+        "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND (ph.raises_pf = true OR ph.calls_pf = true)) / NULLIF(player_data.nb_hands, 0) as v_pip, " +
+        "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.raises_pf = true) / NULLIF(player_data.nb_hands, 0) as pfr, " +
+        "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.raises_pf = true AND (ph.calls_flop = true OR ph.bets_flop = true OR ph.raises_flop = true)) / NULLIF(player_data.nb_hands, 0) as c_bet " +
         "FROM " +
         "( " +
         "    SELECT " +
