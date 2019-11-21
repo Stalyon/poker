@@ -149,14 +149,14 @@ public class StatsService {
             gameHistory.setStartDate(startDate);
             gameHistory.setName(rows[1]);
             gameHistory.setType(GameType.TOURNOI);
-            gameHistory.setNetResult(profit);
+            gameHistory.setNetResult(bounty - rebuy - buyIn + profit);
 
             Tournoi tournoi = new Tournoi();
             tournoi.setBounty(bounty);
             tournoi.setBuyIn(buyIn);
             tournoi.setRebuy(rebuy);
             tournoi.setRanking(Integer.parseInt(rows[5]));
-            tournoi.setProfit(bounty - rebuy - bounty + profit);
+            tournoi.setProfit(profit);
             this.tournoiRepository.save(tournoi);
 
             gameHistory.setTournoi(tournoi);
@@ -192,12 +192,12 @@ public class StatsService {
             gameHistory.setStartDate(startDate);
             gameHistory.setName(rows[1]);
             gameHistory.setType(GameType.SIT_AND_GO);
-            gameHistory.setNetResult(profit);
+            gameHistory.setNetResult(bounty - buyIn + profit);
 
             SitAndGo sitAndGo = new SitAndGo();
             sitAndGo.setBounty(bounty);
             sitAndGo.setRanking(Integer.parseInt(rows[5]));
-            sitAndGo.setProfit(bounty - bounty + profit);
+            sitAndGo.setProfit(profit);
             sitAndGo.setBuyIn(buyIn);
             sitAndGo.setFormat(this.getSitAndGoFormat(rows[4]));
             this.sitAndGoRepository.save(sitAndGo);

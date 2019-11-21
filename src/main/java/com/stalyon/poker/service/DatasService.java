@@ -30,6 +30,7 @@ public class DatasService {
     private static final Logger log = LoggerFactory.getLogger(DatasService.class);
 
     private static String PATTERN_DATE = "uuuu/MM/dd HH:mm:ss";
+    private static String EURO = "\u20ac";
 
     @Value("${poker.histo-path}")
     private String histoPath;
@@ -113,7 +114,6 @@ public class DatasService {
         if (!myPlayerOptional.isPresent()) {
             myPlayer.setAddedDate(Instant.now());
             myPlayer.setName(this.myName);
-            myPlayer.setIsMe(true);
         } else {
             myPlayer = myPlayerOptional.get();
         }
@@ -130,6 +130,7 @@ public class DatasService {
         boolean isShowDown = false;
         boolean isSummary = false;
         boolean waitNextHand = false;
+        boolean raisedPreFlop = false;
         Hand lastHand = null;
         String line;
         while((line = file.readLine()) != null) {
@@ -179,6 +180,7 @@ public class DatasService {
             } else if (line.startsWith("*** PRE-FLOP *** ")) {
                 isAnteBlinds = false;
                 isPreFlop = true;
+                raisedPreFlop = false;
             } else if (line.startsWith("*** FLOP ***")) {
                 isPreFlop = false;
                 isFlop = true;
@@ -208,6 +210,7 @@ public class DatasService {
                 isRiver = false;
                 isShowDown = false;
                 isSummary = true;
+                raisedPreFlop = false;
 
                 // Fin de la main
                 game.setEndDate(hand.getStartDate());
@@ -224,15 +227,15 @@ public class DatasService {
             } else if (isAnteBlinds) {
                 this.treatActionAnteBlinds(line, game, hand, playersInHand);
             } else if (isPreFlop) {
-                this.treatAction(BettingRound.PRE_FLOP, line, game, hand, playersInHand);
+                this.treatAction(BettingRound.PRE_FLOP, line, game, hand, playersInHand, raisedPreFlop);
             } else if (isFlop) {
-                this.treatAction(BettingRound.FLOP, line, game, hand, playersInHand);
+                this.treatAction(BettingRound.FLOP, line, game, hand, playersInHand, false);
             } else if (isTurn) {
-                this.treatAction(BettingRound.TURN, line, game, hand, playersInHand);
+                this.treatAction(BettingRound.TURN, line, game, hand, playersInHand, false);
             } else if (isRiver) {
-                this.treatAction(BettingRound.RIVER, line, game, hand, playersInHand);
+                this.treatAction(BettingRound.RIVER, line, game, hand, playersInHand, false);
             } else if (isShowDown) {
-                this.treatAction(BettingRound.SHOW_DOWN, line, game, hand, playersInHand);
+                this.treatAction(BettingRound.SHOW_DOWN, line, game, hand, playersInHand, false);
             }
         }
 
@@ -278,7 +281,8 @@ public class DatasService {
         this.showDownRepository.save(showDown);
     }
 
-    private void treatAction(BettingRound bettingRound, String line, Game game, Hand hand, Map<String, Player> playersInHand) {
+    private void treatAction(BettingRound bettingRound, String line, Game game, Hand hand, Map<String, Player> playersInHand,
+                             boolean raisedPreFlop) {
         PlayerAction playerAction = new PlayerAction();
         playerAction.setGame(game);
         playerAction.setHand(hand);
@@ -326,6 +330,28 @@ public class DatasService {
             playerAction.setPlayer(player);
             playerAction.setAction(Action.BETS);
             playerAction.setAmount(this.convertToAmount(StringUtils.substringAfter(line, " bets ")));
+        }
+
+        if (bettingRound == BettingRound.PRE_FLOP && !raisedPreFlop && playerAction.getAction() == Action.RAISES) {
+            raisedPreFlop = true;
+        } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.RAISES) {
+            // 3bet
+            playerAction.setThreeBetPf(true);
+        } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.RAISES) {
+            // Raises PréFlop
+            playerAction.setRaisesPf(true);
+        } else if (bettingRound == BettingRound.PRE_FLOP && playerAction.getAction() == Action.CALLS) {
+            // Calls PréFlop
+            playerAction.setCallsPf(true);
+        } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.BETS) {
+            // Bets Flop
+            playerAction.setBetsFlop(true);
+        } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.CALLS) {
+            // Bets Flop
+            playerAction.setCallsFlop(true);
+        } else if (bettingRound == BettingRound.FLOP && playerAction.getAction() == Action.RAISES) {
+            // Bets Flop
+            playerAction.setRaisesFlop(true);
         }
 
         this.playerActionRepository.save(playerAction);

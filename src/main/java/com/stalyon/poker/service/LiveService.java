@@ -9,6 +9,7 @@ import com.stalyon.poker.web.websocket.dto.PlayerDataDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ import java.util.stream.IntStream;
 public class LiveService {
 
     private static final Logger log = LoggerFactory.getLogger(LiveService.class);
+
+    @Value("${poker.me}")
+    private String myName;
 
     private final SimpMessageSendingOperations messagingTemplate;
 
@@ -61,7 +65,7 @@ public class LiveService {
             List<PlayerDataDto> playerDataDtos = this.playerMapper.playerToPlayerDataDtos(playerDatas);
 
             OptionalInt myPosition = IntStream.range(0, playerDatas.size())
-                .filter(i -> playerDataDtos.get(i).getMe() == Boolean.TRUE)
+                .filter(i -> playerDataDtos.get(i).getName().equals(this.myName))
                 .findFirst();
             if (myPosition.isPresent()) {
                 Collections.rotate(playerDatas, -myPosition.getAsInt());

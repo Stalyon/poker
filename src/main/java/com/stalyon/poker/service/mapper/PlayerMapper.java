@@ -25,7 +25,6 @@ public class PlayerMapper {
         playerDataDto.setvPip(playerData.getvPip());
         playerDataDto.setPfr(playerData.getPfr());
         playerDataDto.setcBet(playerData.getcBet());
-        playerDataDto.setMe(playerData.isMe());
         return playerDataDto;
     }
 }

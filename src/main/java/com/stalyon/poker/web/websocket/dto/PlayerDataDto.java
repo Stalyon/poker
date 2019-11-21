@@ -4,7 +4,6 @@ public class PlayerDataDto {
 
     private String name;
     private Integer nbHands;
-    private Boolean isMe;
     private Double vPip;
     private Double pfr;
     private Double cBet;
@@ -23,14 +22,6 @@ public class PlayerDataDto {
 
     public void setNbHands(Integer nbHands) {
         this.nbHands = nbHands;
-    }
-
-    public Boolean getMe() {
-        return isMe;
-    }
-
-    public void setMe(Boolean me) {
-        isMe = me;
     }
 
     public Double getvPip() {
