@@ -286,19 +286,4 @@ public class HandResourceIT {
         List<Hand> handList = handRepository.findAll();
         assertThat(handList).hasSize(databaseSizeBeforeDelete - 1);
     }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Hand.class);
-        Hand hand1 = new Hand();
-        hand1.setId(1L);
-        Hand hand2 = new Hand();
-        hand2.setId(hand1.getId());
-        assertThat(hand1).isEqualTo(hand2);
-        hand2.setId(2L);
-        assertThat(hand1).isNotEqualTo(hand2);
-        hand1.setId(null);
-        assertThat(hand1).isNotEqualTo(hand2);
-    }
 }

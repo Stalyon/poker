@@ -5,14 +5,12 @@ import { PokerSharedModule } from 'app/shared/shared.module';
 import { GameComponent } from './game.component';
 import { GameDetailComponent } from './game-detail.component';
 import { GameUpdateComponent } from './game-update.component';
-import { GameDeletePopupComponent, GameDeleteDialogComponent } from './game-delete-dialog.component';
-import { gameRoute, gamePopupRoute } from './game.route';
-
-const ENTITY_STATES = [...gameRoute, ...gamePopupRoute];
+import { GameDeleteDialogComponent } from './game-delete-dialog.component';
+import { gameRoute } from './game.route';
 
 @NgModule({
-  imports: [PokerSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [GameComponent, GameDetailComponent, GameUpdateComponent, GameDeleteDialogComponent, GameDeletePopupComponent],
+  imports: [PokerSharedModule, RouterModule.forChild(gameRoute)],
+  declarations: [GameComponent, GameDetailComponent, GameUpdateComponent, GameDeleteDialogComponent],
   entryComponents: [GameDeleteDialogComponent]
 })
 export class PokerGameModule {}

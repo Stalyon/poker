@@ -5,7 +5,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -55,18 +54,10 @@ export class HandUpdateComponent implements OnInit {
     });
     this.gameService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IGame[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IGame[]>) => response.body)
-      )
-      .subscribe((res: IGame[]) => (this.games = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IGame[]>) => (this.games = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.playerService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IPlayer[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IPlayer[]>) => response.body)
-      )
-      .subscribe((res: IPlayer[]) => (this.players = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IPlayer[]>) => (this.players = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(hand: IHand) {

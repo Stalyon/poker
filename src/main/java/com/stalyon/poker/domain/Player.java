@@ -1,5 +1,4 @@
 package com.stalyon.poker.domain;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -28,9 +27,6 @@ public class Player implements Serializable {
 
     @Column(name = "added_date")
     private Instant addedDate;
-
-    @Column(name = "is_me")
-    private Boolean isMe;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -66,19 +62,6 @@ public class Player implements Serializable {
     public void setAddedDate(Instant addedDate) {
         this.addedDate = addedDate;
     }
-
-    public Boolean isIsMe() {
-        return isMe;
-    }
-
-    public Player isMe(Boolean isMe) {
-        this.isMe = isMe;
-        return this;
-    }
-
-    public void setIsMe(Boolean isMe) {
-        this.isMe = isMe;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -103,7 +86,6 @@ public class Player implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", addedDate='" + getAddedDate() + "'" +
-            ", isMe='" + isIsMe() + "'" +
             "}";
     }
 }

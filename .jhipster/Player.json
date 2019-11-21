@@ -8,10 +8,6 @@
         {
             "fieldName": "addedDate",
             "fieldType": "Instant"
-        },
-        {
-            "fieldName": "isMe",
-            "fieldType": "Boolean"
         }
     ],
     "relationships": [],

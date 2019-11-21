@@ -5,7 +5,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IPlayerAction, PlayerAction } from 'app/shared/model/player-action.model';
 import { PlayerActionService } from './player-action.service';
@@ -34,6 +33,12 @@ export class PlayerActionUpdateComponent implements OnInit {
     amount: [],
     bettingRound: [],
     action: [],
+    callsPf: [],
+    raisesPf: [],
+    threeBetPf: [],
+    callsFlop: [],
+    betsFlop: [],
+    raisesFlop: [],
     player: [],
     game: [],
     hand: []
@@ -56,25 +61,13 @@ export class PlayerActionUpdateComponent implements OnInit {
     });
     this.playerService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IPlayer[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IPlayer[]>) => response.body)
-      )
-      .subscribe((res: IPlayer[]) => (this.players = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IPlayer[]>) => (this.players = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.gameService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IGame[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IGame[]>) => response.body)
-      )
-      .subscribe((res: IGame[]) => (this.games = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IGame[]>) => (this.games = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.handService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IHand[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IHand[]>) => response.body)
-      )
-      .subscribe((res: IHand[]) => (this.hands = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IHand[]>) => (this.hands = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(playerAction: IPlayerAction) {
@@ -83,6 +76,12 @@ export class PlayerActionUpdateComponent implements OnInit {
       amount: playerAction.amount,
       bettingRound: playerAction.bettingRound,
       action: playerAction.action,
+      callsPf: playerAction.callsPf,
+      raisesPf: playerAction.raisesPf,
+      threeBetPf: playerAction.threeBetPf,
+      callsFlop: playerAction.callsFlop,
+      betsFlop: playerAction.betsFlop,
+      raisesFlop: playerAction.raisesFlop,
       player: playerAction.player,
       game: playerAction.game,
       hand: playerAction.hand
@@ -110,6 +109,12 @@ export class PlayerActionUpdateComponent implements OnInit {
       amount: this.editForm.get(['amount']).value,
       bettingRound: this.editForm.get(['bettingRound']).value,
       action: this.editForm.get(['action']).value,
+      callsPf: this.editForm.get(['callsPf']).value,
+      raisesPf: this.editForm.get(['raisesPf']).value,
+      threeBetPf: this.editForm.get(['threeBetPf']).value,
+      callsFlop: this.editForm.get(['callsFlop']).value,
+      betsFlop: this.editForm.get(['betsFlop']).value,
+      raisesFlop: this.editForm.get(['raisesFlop']).value,
       player: this.editForm.get(['player']).value,
       game: this.editForm.get(['game']).value,
       hand: this.editForm.get(['hand']).value

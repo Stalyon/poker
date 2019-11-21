@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IPlayer } from 'app/shared/model/player.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { PlayerService } from './player.service';
+import { PlayerDeleteDialogComponent } from './player-delete-dialog.component';
 
 @Component({
   selector: 'jhi-player',
@@ -15,28 +14,18 @@ import { PlayerService } from './player.service';
 })
 export class PlayerComponent implements OnInit, OnDestroy {
   players: IPlayer[];
-  currentAccount: any;
   eventSubscriber: Subscription;
 
-  constructor(protected playerService: PlayerService, protected eventManager: JhiEventManager, protected accountService: AccountService) {}
+  constructor(protected playerService: PlayerService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
 
   loadAll() {
-    this.playerService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IPlayer[]>) => res.ok),
-        map((res: HttpResponse<IPlayer[]>) => res.body)
-      )
-      .subscribe((res: IPlayer[]) => {
-        this.players = res;
-      });
+    this.playerService.query().subscribe((res: HttpResponse<IPlayer[]>) => {
+      this.players = res.body;
+    });
   }
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInPlayers();
   }
 
@@ -49,6 +38,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInPlayers() {
-    this.eventSubscriber = this.eventManager.subscribe('playerListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('playerListModification', () => this.loadAll());
+  }
+
+  delete(player: IPlayer) {
+    const modalRef = this.modalService.open(PlayerDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.player = player;
   }
 }

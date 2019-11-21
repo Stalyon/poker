@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IPlayerAction } from 'app/shared/model/player-action.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { PlayerActionService } from './player-action.service';
+import { PlayerActionDeleteDialogComponent } from './player-action-delete-dialog.component';
 
 @Component({
   selector: 'jhi-player-action',
@@ -15,32 +14,22 @@ import { PlayerActionService } from './player-action.service';
 })
 export class PlayerActionComponent implements OnInit, OnDestroy {
   playerActions: IPlayerAction[];
-  currentAccount: any;
   eventSubscriber: Subscription;
 
   constructor(
     protected playerActionService: PlayerActionService,
     protected eventManager: JhiEventManager,
-    protected accountService: AccountService
+    protected modalService: NgbModal
   ) {}
 
   loadAll() {
-    this.playerActionService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IPlayerAction[]>) => res.ok),
-        map((res: HttpResponse<IPlayerAction[]>) => res.body)
-      )
-      .subscribe((res: IPlayerAction[]) => {
-        this.playerActions = res;
-      });
+    this.playerActionService.query().subscribe((res: HttpResponse<IPlayerAction[]>) => {
+      this.playerActions = res.body;
+    });
   }
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInPlayerActions();
   }
 
@@ -53,6 +42,11 @@ export class PlayerActionComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInPlayerActions() {
-    this.eventSubscriber = this.eventManager.subscribe('playerActionListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('playerActionListModification', () => this.loadAll());
+  }
+
+  delete(playerAction: IPlayerAction) {
+    const modalRef = this.modalService.open(PlayerActionDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.playerAction = playerAction;
   }
 }

@@ -1,1 +1,1 @@
-id;amount;betting_round;action
+id;amount;betting_round;action;calls_pf;raises_pf;three_bet_pf;calls_flop;bets_flop;raises_flop
