@@ -1,14 +1,14 @@
 package com.stalyon.poker.repository;
-import com.stalyon.poker.domain.Player;
+import com.stalyon.poker.domain.PlayerHand;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data  repository for the Player entity.
+ * Spring Data  repository for the PlayerHand entity.
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PlayerRepository extends JpaRepository<Player, Long> {
+public interface PlayerHandRepository extends JpaRepository<PlayerHand, Long> {
 
 }

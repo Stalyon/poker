@@ -1,0 +1,77 @@
+<div>
+    <h2 id="page-heading">
+        <span>Player Hands</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-player-hand" [routerLink]="['/player-hand/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Player Hand
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="playerHands?.length === 0">
+        <span>No playerHands found</span>
+    </div>
+    <div class="table-responsive" *ngIf="playerHands?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Calls Pf</span></th>
+            <th scope="col" ><span>Raises Pf</span></th>
+            <th scope="col" ><span>Three Bet Pf</span></th>
+            <th scope="col" ><span>Calls Flop</span></th>
+            <th scope="col" ><span>Bets Flop</span></th>
+            <th scope="col" ><span>Raises Flop</span></th>
+            <th scope="col" ><span>Player</span></th>
+            <th scope="col" ><span>Player</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let playerHand of playerHands ;trackBy: trackId">
+                <td><a [routerLink]="['/player-hand', playerHand.id, 'view' ]">{{playerHand.id}}</a></td>
+                <td>{{playerHand.callsPf}}</td>
+                <td>{{playerHand.raisesPf}}</td>
+                <td>{{playerHand.threeBetPf}}</td>
+                <td>{{playerHand.callsFlop}}</td>
+                <td>{{playerHand.betsFlop}}</td>
+                <td>{{playerHand.raisesFlop}}</td>
+                <td>
+                    <div *ngIf="playerHand.player">
+                        <a [routerLink]="['/player', playerHand.player?.id, 'view' ]" >{{playerHand.player?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="playerHand.player">
+                        <a [routerLink]="['/hand', playerHand.player?.id, 'view' ]" >{{playerHand.player?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/player-hand', playerHand.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/player-hand', playerHand.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(playerHand)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

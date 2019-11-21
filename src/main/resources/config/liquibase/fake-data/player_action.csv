@@ -1,1 +1,11 @@
-id;amount;betting_round;action;calls_pf;raises_pf;three_bet_pf;calls_flop;bets_flop;raises_flop
+id;amount;betting_round;action
+1;32539;RIVER;CALLS
+2;50881;RIVER;POSTS_SB
+3;79481;TURN;CALLS
+4;76855;PRE_FLOP;POSTS_ANTE
+5;42818;SHOW_DOWN;POSTS_SB
+6;19091;FLOP;CHECKS
+7;99005;SUMMARY;CHECKS
+8;13662;FLOP;CALLS
+9;50151;RIVER;POSTS_SB
+10;2761;RIVER;FOLDS
