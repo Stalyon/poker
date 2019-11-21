@@ -22,7 +22,7 @@ describe('Service Tests', () => {
       service = injector.get(PlayerActionService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new PlayerAction(0, 0, BettingRound.ANTE_BLINDS, Action.CALLS);
+      elemDefault = new PlayerAction(0, 0, BettingRound.ANTE_BLINDS, Action.CALLS, false, false, false, false, false, false);
     });
 
     describe('Service methods', () => {
@@ -60,7 +60,13 @@ describe('Service Tests', () => {
           {
             amount: 1,
             bettingRound: 'BBBBBB',
-            action: 'BBBBBB'
+            action: 'BBBBBB',
+            callsPf: true,
+            raisesPf: true,
+            threeBetPf: true,
+            callsFlop: true,
+            betsFlop: true,
+            raisesFlop: true
           },
           elemDefault
         );
@@ -80,7 +86,13 @@ describe('Service Tests', () => {
           {
             amount: 1,
             bettingRound: 'BBBBBB',
-            action: 'BBBBBB'
+            action: 'BBBBBB',
+            callsPf: true,
+            raisesPf: true,
+            threeBetPf: true,
+            callsFlop: true,
+            betsFlop: true,
+            raisesFlop: true
           },
           elemDefault
         );

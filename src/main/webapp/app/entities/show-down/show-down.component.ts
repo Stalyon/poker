@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IShowDown } from 'app/shared/model/show-down.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { ShowDownService } from './show-down.service';
+import { ShowDownDeleteDialogComponent } from './show-down-delete-dialog.component';
 
 @Component({
   selector: 'jhi-show-down',
@@ -15,32 +14,18 @@ import { ShowDownService } from './show-down.service';
 })
 export class ShowDownComponent implements OnInit, OnDestroy {
   showDowns: IShowDown[];
-  currentAccount: any;
   eventSubscriber: Subscription;
 
-  constructor(
-    protected showDownService: ShowDownService,
-    protected eventManager: JhiEventManager,
-    protected accountService: AccountService
-  ) {}
+  constructor(protected showDownService: ShowDownService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
 
   loadAll() {
-    this.showDownService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IShowDown[]>) => res.ok),
-        map((res: HttpResponse<IShowDown[]>) => res.body)
-      )
-      .subscribe((res: IShowDown[]) => {
-        this.showDowns = res;
-      });
+    this.showDownService.query().subscribe((res: HttpResponse<IShowDown[]>) => {
+      this.showDowns = res.body;
+    });
   }
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInShowDowns();
   }
 
@@ -53,6 +38,11 @@ export class ShowDownComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInShowDowns() {
-    this.eventSubscriber = this.eventManager.subscribe('showDownListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('showDownListModification', () => this.loadAll());
+  }
+
+  delete(showDown: IShowDown) {
+    const modalRef = this.modalService.open(ShowDownDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.showDown = showDown;
   }
 }

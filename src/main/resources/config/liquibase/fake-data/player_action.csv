@@ -1,1 +1,11 @@
-id;amount;betting_round;action
+id;amount;betting_round;action;calls_pf;raises_pf;three_bet_pf;calls_flop;bets_flop;raises_flop
+1;32539;RIVER;CALLS;true;false;true;false;false;false
+2;58987;TURN;BETS;false;false;true;false;false;true
+3;2431;SUMMARY;POSTS_SB;true;false;true;true;false;false
+4;55276;FLOP;POSTS_BB;false;false;true;false;true;true
+5;69602;SUMMARY;BETS;false;true;true;true;false;true
+6;70891;FLOP;CALLS;true;true;true;false;true;false
+7;70196;FLOP;CALLS;false;true;true;false;false;false
+8;15504;SUMMARY;CALLS;true;false;false;true;false;false
+9;52224;ANTE_BLINDS;CHECKS;false;true;true;true;true;false
+10;4106;PRE_FLOP;CALLS;true;false;true;true;false;false

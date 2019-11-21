@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IParseHistory } from 'app/shared/model/parse-history.model';
-import { AccountService } from 'app/core/auth/account.service';
 import { ParseHistoryService } from './parse-history.service';
+import { ParseHistoryDeleteDialogComponent } from './parse-history-delete-dialog.component';
 
 @Component({
   selector: 'jhi-parse-history',
@@ -15,32 +14,22 @@ import { ParseHistoryService } from './parse-history.service';
 })
 export class ParseHistoryComponent implements OnInit, OnDestroy {
   parseHistories: IParseHistory[];
-  currentAccount: any;
   eventSubscriber: Subscription;
 
   constructor(
     protected parseHistoryService: ParseHistoryService,
     protected eventManager: JhiEventManager,
-    protected accountService: AccountService
+    protected modalService: NgbModal
   ) {}
 
   loadAll() {
-    this.parseHistoryService
-      .query()
-      .pipe(
-        filter((res: HttpResponse<IParseHistory[]>) => res.ok),
-        map((res: HttpResponse<IParseHistory[]>) => res.body)
-      )
-      .subscribe((res: IParseHistory[]) => {
-        this.parseHistories = res;
-      });
+    this.parseHistoryService.query().subscribe((res: HttpResponse<IParseHistory[]>) => {
+      this.parseHistories = res.body;
+    });
   }
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().subscribe(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInParseHistories();
   }
 
@@ -53,6 +42,11 @@ export class ParseHistoryComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInParseHistories() {
-    this.eventSubscriber = this.eventManager.subscribe('parseHistoryListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('parseHistoryListModification', () => this.loadAll());
+  }
+
+  delete(parseHistory: IParseHistory) {
+    const modalRef = this.modalService.open(ParseHistoryDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.parseHistory = parseHistory;
   }
 }

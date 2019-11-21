@@ -5,14 +5,12 @@ import { PokerSharedModule } from 'app/shared/shared.module';
 import { HandComponent } from './hand.component';
 import { HandDetailComponent } from './hand-detail.component';
 import { HandUpdateComponent } from './hand-update.component';
-import { HandDeletePopupComponent, HandDeleteDialogComponent } from './hand-delete-dialog.component';
-import { handRoute, handPopupRoute } from './hand.route';
-
-const ENTITY_STATES = [...handRoute, ...handPopupRoute];
+import { HandDeleteDialogComponent } from './hand-delete-dialog.component';
+import { handRoute } from './hand.route';
 
 @NgModule({
-  imports: [PokerSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [HandComponent, HandDetailComponent, HandUpdateComponent, HandDeleteDialogComponent, HandDeletePopupComponent],
+  imports: [PokerSharedModule, RouterModule.forChild(handRoute)],
+  declarations: [HandComponent, HandDetailComponent, HandUpdateComponent, HandDeleteDialogComponent],
   entryComponents: [HandDeleteDialogComponent]
 })
 export class PokerHandModule {}

@@ -5,7 +5,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
@@ -44,31 +43,21 @@ export class ParseHistoryUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ parseHistory }) => {
       this.updateForm(parseHistory);
     });
-    this.gameService
-      .query({ filter: 'parsehistory-is-null' })
-      .pipe(
-        filter((mayBeOk: HttpResponse<IGame[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IGame[]>) => response.body)
-      )
-      .subscribe(
-        (res: IGame[]) => {
-          if (!this.editForm.get('game').value || !this.editForm.get('game').value.id) {
-            this.games = res;
-          } else {
-            this.gameService
-              .find(this.editForm.get('game').value.id)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IGame>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IGame>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IGame) => (this.games = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    this.gameService.query({ filter: 'parsehistory-is-null' }).subscribe(
+      (res: HttpResponse<IGame[]>) => {
+        if (!this.editForm.get('game').value || !this.editForm.get('game').value.id) {
+          this.games = res.body;
+        } else {
+          this.gameService
+            .find(this.editForm.get('game').value.id)
+            .subscribe(
+              (subRes: HttpResponse<IGame>) => (this.games = [subRes.body].concat(res.body)),
+              (subRes: HttpErrorResponse) => this.onError(subRes.message)
+            );
+        }
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   updateForm(parseHistory: IParseHistory) {

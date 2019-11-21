@@ -37,6 +37,24 @@ public class PlayerAction implements Serializable {
     @Column(name = "action")
     private Action action;
 
+    @Column(name = "calls_pf")
+    private Boolean callsPf;
+
+    @Column(name = "raises_pf")
+    private Boolean raisesPf;
+
+    @Column(name = "three_bet_pf")
+    private Boolean threeBetPf;
+
+    @Column(name = "calls_flop")
+    private Boolean callsFlop;
+
+    @Column(name = "bets_flop")
+    private Boolean betsFlop;
+
+    @Column(name = "raises_flop")
+    private Boolean raisesFlop;
+
     @ManyToOne
     @JsonIgnoreProperties("playerActions")
     private Player player;
@@ -95,6 +113,84 @@ public class PlayerAction implements Serializable {
 
     public void setAction(Action action) {
         this.action = action;
+    }
+
+    public Boolean isCallsPf() {
+        return callsPf;
+    }
+
+    public PlayerAction callsPf(Boolean callsPf) {
+        this.callsPf = callsPf;
+        return this;
+    }
+
+    public void setCallsPf(Boolean callsPf) {
+        this.callsPf = callsPf;
+    }
+
+    public Boolean isRaisesPf() {
+        return raisesPf;
+    }
+
+    public PlayerAction raisesPf(Boolean raisesPf) {
+        this.raisesPf = raisesPf;
+        return this;
+    }
+
+    public void setRaisesPf(Boolean raisesPf) {
+        this.raisesPf = raisesPf;
+    }
+
+    public Boolean isThreeBetPf() {
+        return threeBetPf;
+    }
+
+    public PlayerAction threeBetPf(Boolean threeBetPf) {
+        this.threeBetPf = threeBetPf;
+        return this;
+    }
+
+    public void setThreeBetPf(Boolean threeBetPf) {
+        this.threeBetPf = threeBetPf;
+    }
+
+    public Boolean isCallsFlop() {
+        return callsFlop;
+    }
+
+    public PlayerAction callsFlop(Boolean callsFlop) {
+        this.callsFlop = callsFlop;
+        return this;
+    }
+
+    public void setCallsFlop(Boolean callsFlop) {
+        this.callsFlop = callsFlop;
+    }
+
+    public Boolean isBetsFlop() {
+        return betsFlop;
+    }
+
+    public PlayerAction betsFlop(Boolean betsFlop) {
+        this.betsFlop = betsFlop;
+        return this;
+    }
+
+    public void setBetsFlop(Boolean betsFlop) {
+        this.betsFlop = betsFlop;
+    }
+
+    public Boolean isRaisesFlop() {
+        return raisesFlop;
+    }
+
+    public PlayerAction raisesFlop(Boolean raisesFlop) {
+        this.raisesFlop = raisesFlop;
+        return this;
+    }
+
+    public void setRaisesFlop(Boolean raisesFlop) {
+        this.raisesFlop = raisesFlop;
     }
 
     public Player getPlayer() {
@@ -160,6 +256,12 @@ public class PlayerAction implements Serializable {
             ", amount=" + getAmount() +
             ", bettingRound='" + getBettingRound() + "'" +
             ", action='" + getAction() + "'" +
+            ", callsPf='" + isCallsPf() + "'" +
+            ", raisesPf='" + isRaisesPf() + "'" +
+            ", threeBetPf='" + isThreeBetPf() + "'" +
+            ", callsFlop='" + isCallsFlop() + "'" +
+            ", betsFlop='" + isBetsFlop() + "'" +
+            ", raisesFlop='" + isRaisesFlop() + "'" +
             "}";
     }
 }

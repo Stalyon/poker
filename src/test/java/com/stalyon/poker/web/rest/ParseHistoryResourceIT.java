@@ -256,19 +256,4 @@ public class ParseHistoryResourceIT {
         List<ParseHistory> parseHistoryList = parseHistoryRepository.findAll();
         assertThat(parseHistoryList).hasSize(databaseSizeBeforeDelete - 1);
     }
-
-    @Test
-    @Transactional
-    public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ParseHistory.class);
-        ParseHistory parseHistory1 = new ParseHistory();
-        parseHistory1.setId(1L);
-        ParseHistory parseHistory2 = new ParseHistory();
-        parseHistory2.setId(parseHistory1.getId());
-        assertThat(parseHistory1).isEqualTo(parseHistory2);
-        parseHistory2.setId(2L);
-        assertThat(parseHistory1).isNotEqualTo(parseHistory2);
-        parseHistory1.setId(null);
-        assertThat(parseHistory1).isNotEqualTo(parseHistory2);
-    }
 }

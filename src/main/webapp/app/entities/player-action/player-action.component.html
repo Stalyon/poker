@@ -22,6 +22,12 @@
             <th scope="col" ><span>Amount</span></th>
             <th scope="col" ><span>Betting Round</span></th>
             <th scope="col" ><span>Action</span></th>
+            <th scope="col" ><span>Calls Pf</span></th>
+            <th scope="col" ><span>Raises Pf</span></th>
+            <th scope="col" ><span>Three Bet Pf</span></th>
+            <th scope="col" ><span>Calls Flop</span></th>
+            <th scope="col" ><span>Bets Flop</span></th>
+            <th scope="col" ><span>Raises Flop</span></th>
             <th scope="col" ><span>Player</span></th>
             <th scope="col" ><span>Game</span></th>
             <th scope="col" ><span>Hand</span></th>
@@ -34,6 +40,12 @@
                 <td>{{playerAction.amount}}</td>
                 <td>{{playerAction.bettingRound}}</td>
                 <td>{{playerAction.action}}</td>
+                <td>{{playerAction.callsPf}}</td>
+                <td>{{playerAction.raisesPf}}</td>
+                <td>{{playerAction.threeBetPf}}</td>
+                <td>{{playerAction.callsFlop}}</td>
+                <td>{{playerAction.betsFlop}}</td>
+                <td>{{playerAction.raisesFlop}}</td>
                 <td>
                     <div *ngIf="playerAction.player">
                         <a [routerLink]="['/player', playerAction.player?.id, 'view' ]" >{{playerAction.player?.id}}</a>
@@ -63,10 +75,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/player-action', { outlets: { popup: playerAction.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <button type="submit" (click)="delete(playerAction)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>

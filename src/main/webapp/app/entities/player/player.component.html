@@ -21,7 +21,6 @@
             <th scope="col" ><span>ID</span></th>
             <th scope="col" ><span>Name</span></th>
             <th scope="col" ><span>Added Date</span></th>
-            <th scope="col" ><span>Is Me</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -30,7 +29,6 @@
                 <td><a [routerLink]="['/player', player.id, 'view' ]">{{player.id}}</a></td>
                 <td>{{player.name}}</td>
                 <td>{{player.addedDate | date:'medium'}}</td>
-                <td>{{player.isMe}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
@@ -45,10 +43,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/player', { outlets: { popup: player.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <button type="submit" (click)="delete(player)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline">Delete</span>

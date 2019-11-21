@@ -5,7 +5,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IShowDown, ShowDown } from 'app/shared/model/show-down.model';
 import { ShowDownService } from './show-down.service';
@@ -49,18 +48,10 @@ export class ShowDownUpdateComponent implements OnInit {
     });
     this.handService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IHand[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IHand[]>) => response.body)
-      )
-      .subscribe((res: IHand[]) => (this.hands = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IHand[]>) => (this.hands = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.playerService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IPlayer[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IPlayer[]>) => response.body)
-      )
-      .subscribe((res: IPlayer[]) => (this.players = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IPlayer[]>) => (this.players = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(showDown: IShowDown) {

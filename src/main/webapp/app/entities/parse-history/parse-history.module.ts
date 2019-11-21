@@ -5,20 +5,12 @@ import { PokerSharedModule } from 'app/shared/shared.module';
 import { ParseHistoryComponent } from './parse-history.component';
 import { ParseHistoryDetailComponent } from './parse-history-detail.component';
 import { ParseHistoryUpdateComponent } from './parse-history-update.component';
-import { ParseHistoryDeletePopupComponent, ParseHistoryDeleteDialogComponent } from './parse-history-delete-dialog.component';
-import { parseHistoryRoute, parseHistoryPopupRoute } from './parse-history.route';
-
-const ENTITY_STATES = [...parseHistoryRoute, ...parseHistoryPopupRoute];
+import { ParseHistoryDeleteDialogComponent } from './parse-history-delete-dialog.component';
+import { parseHistoryRoute } from './parse-history.route';
 
 @NgModule({
-  imports: [PokerSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [
-    ParseHistoryComponent,
-    ParseHistoryDetailComponent,
-    ParseHistoryUpdateComponent,
-    ParseHistoryDeleteDialogComponent,
-    ParseHistoryDeletePopupComponent
-  ],
+  imports: [PokerSharedModule, RouterModule.forChild(parseHistoryRoute)],
+  declarations: [ParseHistoryComponent, ParseHistoryDetailComponent, ParseHistoryUpdateComponent, ParseHistoryDeleteDialogComponent],
   entryComponents: [ParseHistoryDeleteDialogComponent]
 })
 export class PokerParseHistoryModule {}
