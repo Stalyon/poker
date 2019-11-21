@@ -1,17 +1,15 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
-import { PlayerActionService } from 'app/entities/player-action/player-action.service';
-import { IPlayerAction, PlayerAction } from 'app/shared/model/player-action.model';
-import { BettingRound } from 'app/shared/model/enumerations/betting-round.model';
-import { Action } from 'app/shared/model/enumerations/action.model';
+import { PlayerHandService } from 'app/entities/player-hand/player-hand.service';
+import { IPlayerHand, PlayerHand } from 'app/shared/model/player-hand.model';
 
 describe('Service Tests', () => {
-  describe('PlayerAction Service', () => {
+  describe('PlayerHand Service', () => {
     let injector: TestBed;
-    let service: PlayerActionService;
+    let service: PlayerHandService;
     let httpMock: HttpTestingController;
-    let elemDefault: IPlayerAction;
+    let elemDefault: IPlayerHand;
     let expectedResult;
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,10 +17,10 @@ describe('Service Tests', () => {
       });
       expectedResult = {};
       injector = getTestBed();
-      service = injector.get(PlayerActionService);
+      service = injector.get(PlayerHandService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new PlayerAction(0, 0, BettingRound.ANTE_BLINDS, Action.CALLS);
+      elemDefault = new PlayerHand(0, false, false, false, false, false, false);
     });
 
     describe('Service methods', () => {
@@ -38,7 +36,7 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: elemDefault });
       });
 
-      it('should create a PlayerAction', () => {
+      it('should create a PlayerHand', () => {
         const returnedFromService = Object.assign(
           {
             id: 0
@@ -47,7 +45,7 @@ describe('Service Tests', () => {
         );
         const expected = Object.assign({}, returnedFromService);
         service
-          .create(new PlayerAction(null))
+          .create(new PlayerHand(null))
           .pipe(take(1))
           .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'POST' });
@@ -55,12 +53,15 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should update a PlayerAction', () => {
+      it('should update a PlayerHand', () => {
         const returnedFromService = Object.assign(
           {
-            amount: 1,
-            bettingRound: 'BBBBBB',
-            action: 'BBBBBB'
+            callsPf: true,
+            raisesPf: true,
+            threeBetPf: true,
+            callsFlop: true,
+            betsFlop: true,
+            raisesFlop: true
           },
           elemDefault
         );
@@ -75,12 +76,15 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should return a list of PlayerAction', () => {
+      it('should return a list of PlayerHand', () => {
         const returnedFromService = Object.assign(
           {
-            amount: 1,
-            bettingRound: 'BBBBBB',
-            action: 'BBBBBB'
+            callsPf: true,
+            raisesPf: true,
+            threeBetPf: true,
+            callsFlop: true,
+            betsFlop: true,
+            raisesFlop: true
           },
           elemDefault
         );
@@ -98,7 +102,7 @@ describe('Service Tests', () => {
         expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a PlayerAction', () => {
+      it('should delete a PlayerHand', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });

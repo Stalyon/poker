@@ -14,30 +14,6 @@
             "fieldName": "action",
             "fieldType": "Action",
             "fieldValues": "CALLS,FOLDS,POSTS_ANTE,POSTS_SB,POSTS_BB,RAISES,CHECKS,BETS,COLLECTS"
-        },
-        {
-            "fieldName": "callsPf",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "raisesPf",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "threeBetPf",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "callsFlop",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "betsFlop",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "raisesFlop",
-            "fieldType": "Boolean"
         }
     ],
     "relationships": [

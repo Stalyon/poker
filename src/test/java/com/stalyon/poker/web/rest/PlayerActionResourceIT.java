@@ -44,24 +44,6 @@ public class PlayerActionResourceIT {
     private static final Action DEFAULT_ACTION = Action.CALLS;
     private static final Action UPDATED_ACTION = Action.FOLDS;
 
-    private static final Boolean DEFAULT_CALLS_PF = false;
-    private static final Boolean UPDATED_CALLS_PF = true;
-
-    private static final Boolean DEFAULT_RAISES_PF = false;
-    private static final Boolean UPDATED_RAISES_PF = true;
-
-    private static final Boolean DEFAULT_THREE_BET_PF = false;
-    private static final Boolean UPDATED_THREE_BET_PF = true;
-
-    private static final Boolean DEFAULT_CALLS_FLOP = false;
-    private static final Boolean UPDATED_CALLS_FLOP = true;
-
-    private static final Boolean DEFAULT_BETS_FLOP = false;
-    private static final Boolean UPDATED_BETS_FLOP = true;
-
-    private static final Boolean DEFAULT_RAISES_FLOP = false;
-    private static final Boolean UPDATED_RAISES_FLOP = true;
-
     @Autowired
     private PlayerActionRepository playerActionRepository;
 
@@ -106,13 +88,7 @@ public class PlayerActionResourceIT {
         PlayerAction playerAction = new PlayerAction()
             .amount(DEFAULT_AMOUNT)
             .bettingRound(DEFAULT_BETTING_ROUND)
-            .action(DEFAULT_ACTION)
-            .callsPf(DEFAULT_CALLS_PF)
-            .raisesPf(DEFAULT_RAISES_PF)
-            .threeBetPf(DEFAULT_THREE_BET_PF)
-            .callsFlop(DEFAULT_CALLS_FLOP)
-            .betsFlop(DEFAULT_BETS_FLOP)
-            .raisesFlop(DEFAULT_RAISES_FLOP);
+            .action(DEFAULT_ACTION);
         return playerAction;
     }
     /**
@@ -125,13 +101,7 @@ public class PlayerActionResourceIT {
         PlayerAction playerAction = new PlayerAction()
             .amount(UPDATED_AMOUNT)
             .bettingRound(UPDATED_BETTING_ROUND)
-            .action(UPDATED_ACTION)
-            .callsPf(UPDATED_CALLS_PF)
-            .raisesPf(UPDATED_RAISES_PF)
-            .threeBetPf(UPDATED_THREE_BET_PF)
-            .callsFlop(UPDATED_CALLS_FLOP)
-            .betsFlop(UPDATED_BETS_FLOP)
-            .raisesFlop(UPDATED_RAISES_FLOP);
+            .action(UPDATED_ACTION);
         return playerAction;
     }
 
@@ -158,12 +128,6 @@ public class PlayerActionResourceIT {
         assertThat(testPlayerAction.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testPlayerAction.getBettingRound()).isEqualTo(DEFAULT_BETTING_ROUND);
         assertThat(testPlayerAction.getAction()).isEqualTo(DEFAULT_ACTION);
-        assertThat(testPlayerAction.isCallsPf()).isEqualTo(DEFAULT_CALLS_PF);
-        assertThat(testPlayerAction.isRaisesPf()).isEqualTo(DEFAULT_RAISES_PF);
-        assertThat(testPlayerAction.isThreeBetPf()).isEqualTo(DEFAULT_THREE_BET_PF);
-        assertThat(testPlayerAction.isCallsFlop()).isEqualTo(DEFAULT_CALLS_FLOP);
-        assertThat(testPlayerAction.isBetsFlop()).isEqualTo(DEFAULT_BETS_FLOP);
-        assertThat(testPlayerAction.isRaisesFlop()).isEqualTo(DEFAULT_RAISES_FLOP);
     }
 
     @Test
@@ -199,13 +163,7 @@ public class PlayerActionResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(playerAction.getId().intValue())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].bettingRound").value(hasItem(DEFAULT_BETTING_ROUND.toString())))
-            .andExpect(jsonPath("$.[*].action").value(hasItem(DEFAULT_ACTION.toString())))
-            .andExpect(jsonPath("$.[*].callsPf").value(hasItem(DEFAULT_CALLS_PF.booleanValue())))
-            .andExpect(jsonPath("$.[*].raisesPf").value(hasItem(DEFAULT_RAISES_PF.booleanValue())))
-            .andExpect(jsonPath("$.[*].threeBetPf").value(hasItem(DEFAULT_THREE_BET_PF.booleanValue())))
-            .andExpect(jsonPath("$.[*].callsFlop").value(hasItem(DEFAULT_CALLS_FLOP.booleanValue())))
-            .andExpect(jsonPath("$.[*].betsFlop").value(hasItem(DEFAULT_BETS_FLOP.booleanValue())))
-            .andExpect(jsonPath("$.[*].raisesFlop").value(hasItem(DEFAULT_RAISES_FLOP.booleanValue())));
+            .andExpect(jsonPath("$.[*].action").value(hasItem(DEFAULT_ACTION.toString())));
     }
     
     @Test
@@ -221,13 +179,7 @@ public class PlayerActionResourceIT {
             .andExpect(jsonPath("$.id").value(playerAction.getId().intValue()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.doubleValue()))
             .andExpect(jsonPath("$.bettingRound").value(DEFAULT_BETTING_ROUND.toString()))
-            .andExpect(jsonPath("$.action").value(DEFAULT_ACTION.toString()))
-            .andExpect(jsonPath("$.callsPf").value(DEFAULT_CALLS_PF.booleanValue()))
-            .andExpect(jsonPath("$.raisesPf").value(DEFAULT_RAISES_PF.booleanValue()))
-            .andExpect(jsonPath("$.threeBetPf").value(DEFAULT_THREE_BET_PF.booleanValue()))
-            .andExpect(jsonPath("$.callsFlop").value(DEFAULT_CALLS_FLOP.booleanValue()))
-            .andExpect(jsonPath("$.betsFlop").value(DEFAULT_BETS_FLOP.booleanValue()))
-            .andExpect(jsonPath("$.raisesFlop").value(DEFAULT_RAISES_FLOP.booleanValue()));
+            .andExpect(jsonPath("$.action").value(DEFAULT_ACTION.toString()));
     }
 
     @Test
@@ -253,13 +205,7 @@ public class PlayerActionResourceIT {
         updatedPlayerAction
             .amount(UPDATED_AMOUNT)
             .bettingRound(UPDATED_BETTING_ROUND)
-            .action(UPDATED_ACTION)
-            .callsPf(UPDATED_CALLS_PF)
-            .raisesPf(UPDATED_RAISES_PF)
-            .threeBetPf(UPDATED_THREE_BET_PF)
-            .callsFlop(UPDATED_CALLS_FLOP)
-            .betsFlop(UPDATED_BETS_FLOP)
-            .raisesFlop(UPDATED_RAISES_FLOP);
+            .action(UPDATED_ACTION);
 
         restPlayerActionMockMvc.perform(put("/api/player-actions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -273,12 +219,6 @@ public class PlayerActionResourceIT {
         assertThat(testPlayerAction.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testPlayerAction.getBettingRound()).isEqualTo(UPDATED_BETTING_ROUND);
         assertThat(testPlayerAction.getAction()).isEqualTo(UPDATED_ACTION);
-        assertThat(testPlayerAction.isCallsPf()).isEqualTo(UPDATED_CALLS_PF);
-        assertThat(testPlayerAction.isRaisesPf()).isEqualTo(UPDATED_RAISES_PF);
-        assertThat(testPlayerAction.isThreeBetPf()).isEqualTo(UPDATED_THREE_BET_PF);
-        assertThat(testPlayerAction.isCallsFlop()).isEqualTo(UPDATED_CALLS_FLOP);
-        assertThat(testPlayerAction.isBetsFlop()).isEqualTo(UPDATED_BETS_FLOP);
-        assertThat(testPlayerAction.isRaisesFlop()).isEqualTo(UPDATED_RAISES_FLOP);
     }
 
     @Test

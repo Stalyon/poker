@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="playerHand">
+            <h2><span>Player Hand</span> {{playerHand.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Calls Pf</span></dt>
+                <dd>
+                    <span>{{playerHand.callsPf}}</span>
+                </dd>
+                <dt><span>Raises Pf</span></dt>
+                <dd>
+                    <span>{{playerHand.raisesPf}}</span>
+                </dd>
+                <dt><span>Three Bet Pf</span></dt>
+                <dd>
+                    <span>{{playerHand.threeBetPf}}</span>
+                </dd>
+                <dt><span>Calls Flop</span></dt>
+                <dd>
+                    <span>{{playerHand.callsFlop}}</span>
+                </dd>
+                <dt><span>Bets Flop</span></dt>
+                <dd>
+                    <span>{{playerHand.betsFlop}}</span>
+                </dd>
+                <dt><span>Raises Flop</span></dt>
+                <dd>
+                    <span>{{playerHand.raisesFlop}}</span>
+                </dd>
+                <dt><span>Player</span></dt>
+                <dd>
+                    <div *ngIf="playerHand.player">
+                        <a [routerLink]="['/player', playerHand.player?.id, 'view']">{{playerHand.player?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Player</span></dt>
+                <dd>
+                    <div *ngIf="playerHand.player">
+                        <a [routerLink]="['/hand', playerHand.player?.id, 'view']">{{playerHand.player?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/player-hand', playerHand.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

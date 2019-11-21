@@ -6,43 +6,40 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
-import { IPlayerAction, PlayerAction } from 'app/shared/model/player-action.model';
-import { PlayerActionService } from './player-action.service';
+import { IPlayerHand, PlayerHand } from 'app/shared/model/player-hand.model';
+import { PlayerHandService } from './player-hand.service';
 import { IPlayer } from 'app/shared/model/player.model';
 import { PlayerService } from 'app/entities/player/player.service';
-import { IGame } from 'app/shared/model/game.model';
-import { GameService } from 'app/entities/game/game.service';
 import { IHand } from 'app/shared/model/hand.model';
 import { HandService } from 'app/entities/hand/hand.service';
 
 @Component({
-  selector: 'jhi-player-action-update',
-  templateUrl: './player-action-update.component.html'
+  selector: 'jhi-player-hand-update',
+  templateUrl: './player-hand-update.component.html'
 })
-export class PlayerActionUpdateComponent implements OnInit {
+export class PlayerHandUpdateComponent implements OnInit {
   isSaving: boolean;
 
   players: IPlayer[];
-
-  games: IGame[];
 
   hands: IHand[];
 
   editForm = this.fb.group({
     id: [],
-    amount: [],
-    bettingRound: [],
-    action: [],
+    callsPf: [],
+    raisesPf: [],
+    threeBetPf: [],
+    callsFlop: [],
+    betsFlop: [],
+    raisesFlop: [],
     player: [],
-    game: [],
-    hand: []
+    player: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
-    protected playerActionService: PlayerActionService,
+    protected playerHandService: PlayerHandService,
     protected playerService: PlayerService,
-    protected gameService: GameService,
     protected handService: HandService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -50,29 +47,28 @@ export class PlayerActionUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ playerAction }) => {
-      this.updateForm(playerAction);
+    this.activatedRoute.data.subscribe(({ playerHand }) => {
+      this.updateForm(playerHand);
     });
     this.playerService
       .query()
       .subscribe((res: HttpResponse<IPlayer[]>) => (this.players = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.gameService
-      .query()
-      .subscribe((res: HttpResponse<IGame[]>) => (this.games = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.handService
       .query()
       .subscribe((res: HttpResponse<IHand[]>) => (this.hands = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
-  updateForm(playerAction: IPlayerAction) {
+  updateForm(playerHand: IPlayerHand) {
     this.editForm.patchValue({
-      id: playerAction.id,
-      amount: playerAction.amount,
-      bettingRound: playerAction.bettingRound,
-      action: playerAction.action,
-      player: playerAction.player,
-      game: playerAction.game,
-      hand: playerAction.hand
+      id: playerHand.id,
+      callsPf: playerHand.callsPf,
+      raisesPf: playerHand.raisesPf,
+      threeBetPf: playerHand.threeBetPf,
+      callsFlop: playerHand.callsFlop,
+      betsFlop: playerHand.betsFlop,
+      raisesFlop: playerHand.raisesFlop,
+      player: playerHand.player,
+      player: playerHand.player
     });
   }
 
@@ -82,28 +78,30 @@ export class PlayerActionUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    const playerAction = this.createFromForm();
-    if (playerAction.id !== undefined) {
-      this.subscribeToSaveResponse(this.playerActionService.update(playerAction));
+    const playerHand = this.createFromForm();
+    if (playerHand.id !== undefined) {
+      this.subscribeToSaveResponse(this.playerHandService.update(playerHand));
     } else {
-      this.subscribeToSaveResponse(this.playerActionService.create(playerAction));
+      this.subscribeToSaveResponse(this.playerHandService.create(playerHand));
     }
   }
 
-  private createFromForm(): IPlayerAction {
+  private createFromForm(): IPlayerHand {
     return {
-      ...new PlayerAction(),
+      ...new PlayerHand(),
       id: this.editForm.get(['id']).value,
-      amount: this.editForm.get(['amount']).value,
-      bettingRound: this.editForm.get(['bettingRound']).value,
-      action: this.editForm.get(['action']).value,
+      callsPf: this.editForm.get(['callsPf']).value,
+      raisesPf: this.editForm.get(['raisesPf']).value,
+      threeBetPf: this.editForm.get(['threeBetPf']).value,
+      callsFlop: this.editForm.get(['callsFlop']).value,
+      betsFlop: this.editForm.get(['betsFlop']).value,
+      raisesFlop: this.editForm.get(['raisesFlop']).value,
       player: this.editForm.get(['player']).value,
-      game: this.editForm.get(['game']).value,
-      hand: this.editForm.get(['hand']).value
+      player: this.editForm.get(['player']).value
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IPlayerAction>>) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IPlayerHand>>) {
     result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 
@@ -120,10 +118,6 @@ export class PlayerActionUpdateComponent implements OnInit {
   }
 
   trackPlayerById(index: number, item: IPlayer) {
-    return item.id;
-  }
-
-  trackGameById(index: number, item: IGame) {
     return item.id;
   }
 

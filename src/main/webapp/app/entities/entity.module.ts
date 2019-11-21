@@ -43,6 +43,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'game-history',
         loadChildren: () => import('./game-history/game-history.module').then(m => m.PokerGameHistoryModule)
+      },
+      {
+        path: 'player-hand',
+        loadChildren: () => import('./player-hand/player-hand.module').then(m => m.PokerPlayerHandModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])
