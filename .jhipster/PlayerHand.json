@@ -38,7 +38,7 @@
             "relationshipType": "many-to-one",
             "otherEntityName": "hand",
             "otherEntityRelationshipName": "playerHand",
-            "relationshipName": "player",
+            "relationshipName": "hand",
             "otherEntityField": "id"
         }
     ],
