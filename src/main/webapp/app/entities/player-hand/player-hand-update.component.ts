@@ -33,7 +33,7 @@ export class PlayerHandUpdateComponent implements OnInit {
     betsFlop: [],
     raisesFlop: [],
     player: [],
-    player: []
+    hand: []
   });
 
   constructor(
@@ -68,7 +68,7 @@ export class PlayerHandUpdateComponent implements OnInit {
       betsFlop: playerHand.betsFlop,
       raisesFlop: playerHand.raisesFlop,
       player: playerHand.player,
-      player: playerHand.player
+      hand: playerHand.hand
     });
   }
 
@@ -97,7 +97,7 @@ export class PlayerHandUpdateComponent implements OnInit {
       betsFlop: this.editForm.get(['betsFlop']).value,
       raisesFlop: this.editForm.get(['raisesFlop']).value,
       player: this.editForm.get(['player']).value,
-      player: this.editForm.get(['player']).value
+      hand: this.editForm.get(['hand']).value
     };
   }
 

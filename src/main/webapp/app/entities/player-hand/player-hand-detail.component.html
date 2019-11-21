@@ -35,10 +35,10 @@
                         <a [routerLink]="['/player', playerHand.player?.id, 'view']">{{playerHand.player?.id}}</a>
                     </div>
                 </dd>
-                <dt><span>Player</span></dt>
+                <dt><span>Hand</span></dt>
                 <dd>
-                    <div *ngIf="playerHand.player">
-                        <a [routerLink]="['/hand', playerHand.player?.id, 'view']">{{playerHand.player?.id}}</a>
+                    <div *ngIf="playerHand.hand">
+                        <a [routerLink]="['/hand', playerHand.hand?.id, 'view']">{{playerHand.hand?.id}}</a>
                     </div>
                 </dd>
             </dl>

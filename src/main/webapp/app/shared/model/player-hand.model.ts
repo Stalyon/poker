@@ -10,7 +10,7 @@ export interface IPlayerHand {
   betsFlop?: boolean;
   raisesFlop?: boolean;
   player?: IPlayer;
-  player?: IHand;
+  hand?: IHand;
 }
 
 export class PlayerHand implements IPlayerHand {
@@ -23,7 +23,7 @@ export class PlayerHand implements IPlayerHand {
     public betsFlop?: boolean,
     public raisesFlop?: boolean,
     public player?: IPlayer,
-    public player?: IHand
+    public hand?: IHand
   ) {
     this.callsPf = this.callsPf || false;
     this.raisesPf = this.raisesPf || false;

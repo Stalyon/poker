@@ -26,7 +26,7 @@
             <th scope="col" ><span>Bets Flop</span></th>
             <th scope="col" ><span>Raises Flop</span></th>
             <th scope="col" ><span>Player</span></th>
-            <th scope="col" ><span>Player</span></th>
+            <th scope="col" ><span>Hand</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -45,8 +45,8 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="playerHand.player">
-                        <a [routerLink]="['/hand', playerHand.player?.id, 'view' ]" >{{playerHand.player?.id}}</a>
+                    <div *ngIf="playerHand.hand">
+                        <a [routerLink]="['/hand', playerHand.hand?.id, 'view' ]" >{{playerHand.hand?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">
