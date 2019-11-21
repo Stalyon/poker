@@ -16,7 +16,8 @@ import javax.persistence.Id;
         "    player_data.nb_hands as nb_hands, " +
         "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND (ph.raises_pf = true OR ph.calls_pf = true)) / NULLIF(player_data.nb_hands, 0) as v_pip, " +
         "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.raises_pf = true) / NULLIF(player_data.nb_hands, 0) as pfr, " +
-        "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.raises_pf = true AND (ph.calls_flop = true OR ph.bets_flop = true OR ph.raises_flop = true)) / NULLIF(player_data.nb_hands, 0) as c_bet " +
+        "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.raises_pf = true AND (ph.calls_flop = true OR ph.bets_flop = true OR ph.raises_flop = true)) / NULLIF(player_data.nb_hands, 0) as c_bet, " +
+        "    100 * (SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.three_bet_pf = true) / NULLIF((SELECT COUNT(distinct ph.hand_id) FROM player_hand ph WHERE ph.player_id = player_data.id AND ph.raises_pf = true), 0) as three_bet " +
         "FROM " +
         "( " +
         "    SELECT " +
@@ -48,6 +49,9 @@ public class PlayerData {
 
     @Column(name = "c_bet")
     private Double cBet;
+
+    @Column(name = "three_bet")
+    private Double threeBet;
 
     public Long getId() {
         return id;
@@ -95,5 +99,13 @@ public class PlayerData {
 
     public void setcBet(Double cBet) {
         this.cBet = cBet;
+    }
+
+    public Double getThreeBet() {
+        return threeBet;
+    }
+
+    public void setThreeBet(Double threeBet) {
+        this.threeBet = threeBet;
     }
 }

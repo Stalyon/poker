@@ -4,6 +4,7 @@ export interface IPlayerData {
   vPip?: number;
   pfr?: number;
   cBet?: number;
+  threeBet?: number;
 }
 
 export class PlayerData implements IPlayerData {
@@ -12,6 +13,7 @@ export class PlayerData implements IPlayerData {
     public nbHands?: number,
     public vPip?: number,
     public pfr?: number,
-    public cBet?: number
+    public cBet?: number,
+    public threeBet?: number
   ) {}
 }

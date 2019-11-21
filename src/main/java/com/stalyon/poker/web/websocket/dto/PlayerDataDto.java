@@ -7,6 +7,7 @@ public class PlayerDataDto {
     private Double vPip;
     private Double pfr;
     private Double cBet;
+    private Double threeBet;
 
     public String getName() {
         return name;
@@ -46,5 +47,13 @@ public class PlayerDataDto {
 
     public void setcBet(Double cBet) {
         this.cBet = cBet;
+    }
+
+    public Double getThreeBet() {
+        return threeBet;
+    }
+
+    public void setThreeBet(Double threeBet) {
+        this.threeBet = threeBet;
     }
 }

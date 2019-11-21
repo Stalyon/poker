@@ -5,7 +5,7 @@ export const LIVE_ROUTE: Route = {
   path: 'live',
   component: LiveComponent,
   data: {
-    authorities: [],
+    authorities: ['ROLE_USER'],
     pageTitle: 'Live'
   }
 };

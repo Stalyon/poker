@@ -5,7 +5,7 @@ export const DATAS_ROUTE: Route = {
   path: 'datas',
   component: DatasComponent,
   data: {
-    authorities: [],
+    authorities: ['ROLE_USER'],
     pageTitle: 'Datas'
   }
 };

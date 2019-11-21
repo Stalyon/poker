@@ -81,5 +81,5 @@ relationship ManyToOne {
     ShowDown{hand} to Hand,
     ShowDown{player} to Player,
     PlayerHand{player} to Player,
-    PlayerHand{player} to Hand
+    PlayerHand{hand} to Hand
 }
