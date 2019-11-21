@@ -13,8 +13,7 @@ entity Game {
 
 entity Player {
     name String,
-    addedDate Instant,
-    isMe Boolean
+    addedDate Instant
 }
 
 entity Hand {
@@ -51,7 +50,13 @@ enum Action {
 entity PlayerAction {
 	amount Double,
     bettingRound BettingRound,
-    action Action
+    action Action,
+    callsPf Boolean,
+    raisesPf Boolean,
+    threeBetPf Boolean,
+    callsFlop Boolean,
+    betsFlop Boolean,
+    raisesFlop Boolean
 }
 
 entity ShowDown {

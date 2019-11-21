@@ -8,6 +8,7 @@ entity Tournoi {
 
 entity SitAndGo {
     format SitAndGoFormat,
+    buyIn Double,
     ranking Integer,
     profit Double,
     bounty Double,
