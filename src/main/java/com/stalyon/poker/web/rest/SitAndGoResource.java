@@ -3,19 +3,17 @@ package com.stalyon.poker.web.rest;
 import com.stalyon.poker.domain.SitAndGo;
 import com.stalyon.poker.repository.SitAndGoRepository;
 import com.stalyon.poker.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,14 +27,11 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class SitAndGoResource {
 
-    private final Logger log = LoggerFactory.getLogger(SitAndGoResource.class);
-
     private static final String ENTITY_NAME = "sitAndGo";
-
+    private final Logger log = LoggerFactory.getLogger(SitAndGoResource.class);
+    private final SitAndGoRepository sitAndGoRepository;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final SitAndGoRepository sitAndGoRepository;
 
     public SitAndGoResource(SitAndGoRepository sitAndGoRepository) {
         this.sitAndGoRepository = sitAndGoRepository;
@@ -85,7 +80,6 @@ public class SitAndGoResource {
     /**
      * {@code GET  /sit-and-gos} : get all the sitAndGos.
      *
-
      * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of sitAndGos in body.
      */

@@ -1,10 +1,10 @@
 package com.stalyon.poker.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -62,17 +62,21 @@ public class Hand implements Serializable {
         return startDate;
     }
 
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
+    }
+
     public Hand startDate(Instant startDate) {
         this.startDate = startDate;
         return this;
     }
 
-    public void setStartDate(Instant startDate) {
-        this.startDate = startDate;
-    }
-
     public Integer getButtonPosition() {
         return buttonPosition;
+    }
+
+    public void setButtonPosition(Integer buttonPosition) {
+        this.buttonPosition = buttonPosition;
     }
 
     public Hand buttonPosition(Integer buttonPosition) {
@@ -80,12 +84,12 @@ public class Hand implements Serializable {
         return this;
     }
 
-    public void setButtonPosition(Integer buttonPosition) {
-        this.buttonPosition = buttonPosition;
-    }
-
     public String getMyCards() {
         return myCards;
+    }
+
+    public void setMyCards(String myCards) {
+        this.myCards = myCards;
     }
 
     public Hand myCards(String myCards) {
@@ -93,12 +97,12 @@ public class Hand implements Serializable {
         return this;
     }
 
-    public void setMyCards(String myCards) {
-        this.myCards = myCards;
-    }
-
     public String getFlopCards() {
         return flopCards;
+    }
+
+    public void setFlopCards(String flopCards) {
+        this.flopCards = flopCards;
     }
 
     public Hand flopCards(String flopCards) {
@@ -106,12 +110,12 @@ public class Hand implements Serializable {
         return this;
     }
 
-    public void setFlopCards(String flopCards) {
-        this.flopCards = flopCards;
-    }
-
     public String getRiverCards() {
         return riverCards;
+    }
+
+    public void setRiverCards(String riverCards) {
+        this.riverCards = riverCards;
     }
 
     public Hand riverCards(String riverCards) {
@@ -119,12 +123,12 @@ public class Hand implements Serializable {
         return this;
     }
 
-    public void setRiverCards(String riverCards) {
-        this.riverCards = riverCards;
-    }
-
     public String getTurnCards() {
         return turnCards;
+    }
+
+    public void setTurnCards(String turnCards) {
+        this.turnCards = turnCards;
     }
 
     public Hand turnCards(String turnCards) {
@@ -132,12 +136,12 @@ public class Hand implements Serializable {
         return this;
     }
 
-    public void setTurnCards(String turnCards) {
-        this.turnCards = turnCards;
-    }
-
     public Game getGame() {
         return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public Hand game(Game game) {
@@ -145,21 +149,17 @@ public class Hand implements Serializable {
         return this;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public Player getWinner() {
         return winner;
+    }
+
+    public void setWinner(Player player) {
+        this.winner = player;
     }
 
     public Hand winner(Player player) {
         this.winner = player;
         return this;
-    }
-
-    public void setWinner(Player player) {
-        this.winner = player;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

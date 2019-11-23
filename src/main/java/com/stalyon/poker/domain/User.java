@@ -1,8 +1,7 @@
 package com.stalyon.poker.domain;
 
-import com.stalyon.poker.config.Constants;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stalyon.poker.config.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;

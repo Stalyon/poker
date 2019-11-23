@@ -1,13 +1,12 @@
 package com.stalyon.poker.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stalyon.poker.domain.enumeration.SitAndGoFormat;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
-
-import com.stalyon.poker.domain.enumeration.SitAndGoFormat;
 
 /**
  * A SitAndGo.
@@ -57,17 +56,21 @@ public class SitAndGo implements Serializable {
         return format;
     }
 
+    public void setFormat(SitAndGoFormat format) {
+        this.format = format;
+    }
+
     public SitAndGo format(SitAndGoFormat format) {
         this.format = format;
         return this;
     }
 
-    public void setFormat(SitAndGoFormat format) {
-        this.format = format;
-    }
-
     public Double getBuyIn() {
         return buyIn;
+    }
+
+    public void setBuyIn(Double buyIn) {
+        this.buyIn = buyIn;
     }
 
     public SitAndGo buyIn(Double buyIn) {
@@ -75,12 +78,12 @@ public class SitAndGo implements Serializable {
         return this;
     }
 
-    public void setBuyIn(Double buyIn) {
-        this.buyIn = buyIn;
-    }
-
     public Integer getRanking() {
         return ranking;
+    }
+
+    public void setRanking(Integer ranking) {
+        this.ranking = ranking;
     }
 
     public SitAndGo ranking(Integer ranking) {
@@ -88,12 +91,12 @@ public class SitAndGo implements Serializable {
         return this;
     }
 
-    public void setRanking(Integer ranking) {
-        this.ranking = ranking;
-    }
-
     public Double getProfit() {
         return profit;
+    }
+
+    public void setProfit(Double profit) {
+        this.profit = profit;
     }
 
     public SitAndGo profit(Double profit) {
@@ -101,12 +104,12 @@ public class SitAndGo implements Serializable {
         return this;
     }
 
-    public void setProfit(Double profit) {
-        this.profit = profit;
-    }
-
     public Double getBounty() {
         return bounty;
+    }
+
+    public void setBounty(Double bounty) {
+        this.bounty = bounty;
     }
 
     public SitAndGo bounty(Double bounty) {
@@ -114,21 +117,17 @@ public class SitAndGo implements Serializable {
         return this;
     }
 
-    public void setBounty(Double bounty) {
-        this.bounty = bounty;
-    }
-
     public GameHistory getGameHistory() {
         return gameHistory;
+    }
+
+    public void setGameHistory(GameHistory gameHistory) {
+        this.gameHistory = gameHistory;
     }
 
     public SitAndGo gameHistory(GameHistory gameHistory) {
         this.gameHistory = gameHistory;
         return this;
-    }
-
-    public void setGameHistory(GameHistory gameHistory) {
-        this.gameHistory = gameHistory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

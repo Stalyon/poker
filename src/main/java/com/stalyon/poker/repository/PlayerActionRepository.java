@@ -2,7 +2,7 @@ package com.stalyon.poker.repository;
 
 import com.stalyon.poker.domain.Hand;
 import com.stalyon.poker.domain.PlayerAction;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

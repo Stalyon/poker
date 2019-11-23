@@ -2,9 +2,7 @@ package com.stalyon.poker;
 
 import com.stalyon.poker.config.ApplicationProperties;
 import com.stalyon.poker.config.DefaultProfileUtil;
-
 import io.github.jhipster.config.JHipsterConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,26 +28,6 @@ public class PokerApp implements InitializingBean {
 
     public PokerApp(Environment env) {
         this.env = env;
-    }
-
-    /**
-     * Initializes poker.
-     * <p>
-     * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
-     * <p>
-     * You can find more information on how profiles work with JHipster on <a href="https://www.jhipster.tech/profiles/">https://www.jhipster.tech/profiles/</a>.
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-        if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
-            log.error("You have misconfigured your application! It should not run " +
-                "with both the 'dev' and 'prod' profiles at the same time.");
-        }
-        if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_CLOUD)) {
-            log.error("You have misconfigured your application! It should not " +
-                "run with both the 'dev' and 'cloud' profiles at the same time.");
-        }
     }
 
     /**
@@ -94,5 +72,25 @@ public class PokerApp implements InitializingBean {
             serverPort,
             contextPath,
             env.getActiveProfiles());
+    }
+
+    /**
+     * Initializes poker.
+     * <p>
+     * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
+     * <p>
+     * You can find more information on how profiles work with JHipster on <a href="https://www.jhipster.tech/profiles/">https://www.jhipster.tech/profiles/</a>.
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+        if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
+            log.error("You have misconfigured your application! It should not run " +
+                "with both the 'dev' and 'prod' profiles at the same time.");
+        }
+        if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_CLOUD)) {
+            log.error("You have misconfigured your application! It should not " +
+                "run with both the 'dev' and 'cloud' profiles at the same time.");
+        }
     }
 }

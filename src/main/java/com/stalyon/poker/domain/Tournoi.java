@@ -1,10 +1,10 @@
 package com.stalyon.poker.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 
 /**
@@ -54,17 +54,21 @@ public class Tournoi implements Serializable {
         return buyIn;
     }
 
+    public void setBuyIn(Double buyIn) {
+        this.buyIn = buyIn;
+    }
+
     public Tournoi buyIn(Double buyIn) {
         this.buyIn = buyIn;
         return this;
     }
 
-    public void setBuyIn(Double buyIn) {
-        this.buyIn = buyIn;
-    }
-
     public Double getRebuy() {
         return rebuy;
+    }
+
+    public void setRebuy(Double rebuy) {
+        this.rebuy = rebuy;
     }
 
     public Tournoi rebuy(Double rebuy) {
@@ -72,12 +76,12 @@ public class Tournoi implements Serializable {
         return this;
     }
 
-    public void setRebuy(Double rebuy) {
-        this.rebuy = rebuy;
-    }
-
     public Integer getRanking() {
         return ranking;
+    }
+
+    public void setRanking(Integer ranking) {
+        this.ranking = ranking;
     }
 
     public Tournoi ranking(Integer ranking) {
@@ -85,12 +89,12 @@ public class Tournoi implements Serializable {
         return this;
     }
 
-    public void setRanking(Integer ranking) {
-        this.ranking = ranking;
-    }
-
     public Double getProfit() {
         return profit;
+    }
+
+    public void setProfit(Double profit) {
+        this.profit = profit;
     }
 
     public Tournoi profit(Double profit) {
@@ -98,12 +102,12 @@ public class Tournoi implements Serializable {
         return this;
     }
 
-    public void setProfit(Double profit) {
-        this.profit = profit;
-    }
-
     public Double getBounty() {
         return bounty;
+    }
+
+    public void setBounty(Double bounty) {
+        this.bounty = bounty;
     }
 
     public Tournoi bounty(Double bounty) {
@@ -111,21 +115,17 @@ public class Tournoi implements Serializable {
         return this;
     }
 
-    public void setBounty(Double bounty) {
-        this.bounty = bounty;
-    }
-
     public GameHistory getGameHistory() {
         return gameHistory;
+    }
+
+    public void setGameHistory(GameHistory gameHistory) {
+        this.gameHistory = gameHistory;
     }
 
     public Tournoi gameHistory(GameHistory gameHistory) {
         this.gameHistory = gameHistory;
         return this;
-    }
-
-    public void setGameHistory(GameHistory gameHistory) {
-        this.gameHistory = gameHistory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

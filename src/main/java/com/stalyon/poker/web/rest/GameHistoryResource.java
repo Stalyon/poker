@@ -3,20 +3,18 @@ package com.stalyon.poker.web.rest;
 import com.stalyon.poker.domain.GameHistory;
 import com.stalyon.poker.repository.GameHistoryRepository;
 import com.stalyon.poker.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -28,14 +26,11 @@ import java.util.Optional;
 @Transactional
 public class GameHistoryResource {
 
-    private final Logger log = LoggerFactory.getLogger(GameHistoryResource.class);
-
     private static final String ENTITY_NAME = "gameHistory";
-
+    private final Logger log = LoggerFactory.getLogger(GameHistoryResource.class);
+    private final GameHistoryRepository gameHistoryRepository;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final GameHistoryRepository gameHistoryRepository;
 
     public GameHistoryResource(GameHistoryRepository gameHistoryRepository) {
         this.gameHistoryRepository = gameHistoryRepository;
@@ -84,7 +79,6 @@ public class GameHistoryResource {
     /**
      * {@code GET  /game-histories} : get all the gameHistories.
      *
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of gameHistories in body.
      */
     @GetMapping("/game-histories")

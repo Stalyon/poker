@@ -24,7 +24,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     private WatcherService watcherService;
 
     @Override
-    public void run(String...args) throws Exception {
+    public void run(String... args) throws Exception {
         log.info("Updating statistics");
         this.statsService.update();
 

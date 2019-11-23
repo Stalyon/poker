@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,12 +24,9 @@ import java.util.stream.IntStream;
 public class LiveService {
 
     private static final Logger log = LoggerFactory.getLogger(LiveService.class);
-
+    private final SimpMessageSendingOperations messagingTemplate;
     @Value("${poker.me}")
     private String myName;
-
-    private final SimpMessageSendingOperations messagingTemplate;
-
     @Autowired
     private PlayerActionRepository playerActionRepository;
 

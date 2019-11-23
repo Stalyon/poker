@@ -3,19 +3,17 @@ package com.stalyon.poker.web.rest;
 import com.stalyon.poker.domain.Game;
 import com.stalyon.poker.repository.GameRepository;
 import com.stalyon.poker.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,14 +27,11 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class GameResource {
 
-    private final Logger log = LoggerFactory.getLogger(GameResource.class);
-
     private static final String ENTITY_NAME = "game";
-
+    private final Logger log = LoggerFactory.getLogger(GameResource.class);
+    private final GameRepository gameRepository;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final GameRepository gameRepository;
 
     public GameResource(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
@@ -85,7 +80,6 @@ public class GameResource {
     /**
      * {@code GET  /games} : get all the games.
      *
-
      * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of games in body.
      */

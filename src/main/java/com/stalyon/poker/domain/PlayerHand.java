@@ -1,10 +1,10 @@
 package com.stalyon.poker.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 
 /**
@@ -139,26 +139,26 @@ public class PlayerHand implements Serializable {
         return player;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public PlayerHand player(Player player) {
         this.player = player;
         return this;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public Hand getHand() {
         return hand;
     }
 
+    public void setHand(Hand hand) {
+        this.hand = hand;
+    }
+
     public PlayerHand hand(Hand hand) {
         this.hand = hand;
         return this;
-    }
-
-    public void setHand(Hand hand) {
-        this.hand = hand;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,14 +1,13 @@
 package com.stalyon.poker.domain;
+
+import com.stalyon.poker.domain.enumeration.GameType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
-
-import com.stalyon.poker.domain.enumeration.GameType;
 
 /**
  * A GameHistory.
@@ -68,17 +67,21 @@ public class GameHistory implements Serializable {
         return startDate;
     }
 
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
+    }
+
     public GameHistory startDate(Instant startDate) {
         this.startDate = startDate;
         return this;
     }
 
-    public void setStartDate(Instant startDate) {
-        this.startDate = startDate;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public GameHistory name(String name) {
@@ -86,12 +89,12 @@ public class GameHistory implements Serializable {
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public GameType getType() {
         return type;
+    }
+
+    public void setType(GameType type) {
+        this.type = type;
     }
 
     public GameHistory type(GameType type) {
@@ -99,12 +102,12 @@ public class GameHistory implements Serializable {
         return this;
     }
 
-    public void setType(GameType type) {
-        this.type = type;
-    }
-
     public Double getNetResult() {
         return netResult;
+    }
+
+    public void setNetResult(Double netResult) {
+        this.netResult = netResult;
     }
 
     public GameHistory netResult(Double netResult) {
@@ -112,12 +115,12 @@ public class GameHistory implements Serializable {
         return this;
     }
 
-    public void setNetResult(Double netResult) {
-        this.netResult = netResult;
-    }
-
     public SitAndGo getSitAndGo() {
         return sitAndGo;
+    }
+
+    public void setSitAndGo(SitAndGo sitAndGo) {
+        this.sitAndGo = sitAndGo;
     }
 
     public GameHistory sitAndGo(SitAndGo sitAndGo) {
@@ -125,12 +128,12 @@ public class GameHistory implements Serializable {
         return this;
     }
 
-    public void setSitAndGo(SitAndGo sitAndGo) {
-        this.sitAndGo = sitAndGo;
-    }
-
     public Tournoi getTournoi() {
         return tournoi;
+    }
+
+    public void setTournoi(Tournoi tournoi) {
+        this.tournoi = tournoi;
     }
 
     public GameHistory tournoi(Tournoi tournoi) {
@@ -138,21 +141,17 @@ public class GameHistory implements Serializable {
         return this;
     }
 
-    public void setTournoi(Tournoi tournoi) {
-        this.tournoi = tournoi;
-    }
-
     public CashGame getCashGame() {
         return cashGame;
+    }
+
+    public void setCashGame(CashGame cashGame) {
+        this.cashGame = cashGame;
     }
 
     public GameHistory cashGame(CashGame cashGame) {
         this.cashGame = cashGame;
         return this;
-    }
-
-    public void setCashGame(CashGame cashGame) {
-        this.cashGame = cashGame;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

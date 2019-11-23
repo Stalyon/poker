@@ -1,10 +1,10 @@
 package com.stalyon.poker.domain;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -55,17 +55,21 @@ public class CashGame implements Serializable {
         return endDate;
     }
 
+    public void setEndDate(Instant endDate) {
+        this.endDate = endDate;
+    }
+
     public CashGame endDate(Instant endDate) {
         this.endDate = endDate;
         return this;
     }
 
-    public void setEndDate(Instant endDate) {
-        this.endDate = endDate;
-    }
-
     public Double getProfit() {
         return profit;
+    }
+
+    public void setProfit(Double profit) {
+        this.profit = profit;
     }
 
     public CashGame profit(Double profit) {
@@ -73,12 +77,12 @@ public class CashGame implements Serializable {
         return this;
     }
 
-    public void setProfit(Double profit) {
-        this.profit = profit;
-    }
-
     public String getTable() {
         return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
     }
 
     public CashGame table(String table) {
@@ -86,12 +90,12 @@ public class CashGame implements Serializable {
         return this;
     }
 
-    public void setTable(String table) {
-        this.table = table;
-    }
-
     public String getSbBb() {
         return sbBb;
+    }
+
+    public void setSbBb(String sbBb) {
+        this.sbBb = sbBb;
     }
 
     public CashGame sbBb(String sbBb) {
@@ -99,12 +103,12 @@ public class CashGame implements Serializable {
         return this;
     }
 
-    public void setSbBb(String sbBb) {
-        this.sbBb = sbBb;
-    }
-
     public Integer getNbHands() {
         return nbHands;
+    }
+
+    public void setNbHands(Integer nbHands) {
+        this.nbHands = nbHands;
     }
 
     public CashGame nbHands(Integer nbHands) {
@@ -112,21 +116,17 @@ public class CashGame implements Serializable {
         return this;
     }
 
-    public void setNbHands(Integer nbHands) {
-        this.nbHands = nbHands;
-    }
-
     public GameHistory getGameHistory() {
         return gameHistory;
+    }
+
+    public void setGameHistory(GameHistory gameHistory) {
+        this.gameHistory = gameHistory;
     }
 
     public CashGame gameHistory(GameHistory gameHistory) {
         this.gameHistory = gameHistory;
         return this;
-    }
-
-    public void setGameHistory(GameHistory gameHistory) {
-        this.gameHistory = gameHistory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

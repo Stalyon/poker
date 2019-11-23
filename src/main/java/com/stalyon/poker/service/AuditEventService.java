@@ -1,8 +1,8 @@
 package com.stalyon.poker.service;
 
-import io.github.jhipster.config.JHipsterProperties;
 import com.stalyon.poker.config.audit.AuditEventConverter;
 import com.stalyon.poker.repository.PersistenceAuditEventRepository;
+import io.github.jhipster.config.JHipsterProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -43,10 +43,10 @@ public class AuditEventService {
     }
 
     /**
-    * Old audit events should be automatically deleted after 30 days.
-    *
-    * This is scheduled to get fired at 12:00 (am).
-    */
+     * Old audit events should be automatically deleted after 30 days.
+     * <p>
+     * This is scheduled to get fired at 12:00 (am).
+     */
     @Scheduled(cron = "0 0 12 * * ?")
     public void removeOldAuditEvents() {
         persistenceAuditEventRepository

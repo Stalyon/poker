@@ -1,7 +1,6 @@
 package com.stalyon.poker.config.audit;
 
 import com.stalyon.poker.domain.PersistentAuditEvent;
-
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,9 @@
 package com.stalyon.poker.domain;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -41,26 +41,26 @@ public class Player implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Player name(String name) {
         this.name = name;
         return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Instant getAddedDate() {
         return addedDate;
     }
 
+    public void setAddedDate(Instant addedDate) {
+        this.addedDate = addedDate;
+    }
+
     public Player addedDate(Instant addedDate) {
         this.addedDate = addedDate;
         return this;
-    }
-
-    public void setAddedDate(Instant addedDate) {
-        this.addedDate = addedDate;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

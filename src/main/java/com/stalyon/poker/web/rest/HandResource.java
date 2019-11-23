@@ -3,19 +3,17 @@ package com.stalyon.poker.web.rest;
 import com.stalyon.poker.domain.Hand;
 import com.stalyon.poker.repository.HandRepository;
 import com.stalyon.poker.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -27,14 +25,11 @@ import java.util.Optional;
 @Transactional
 public class HandResource {
 
-    private final Logger log = LoggerFactory.getLogger(HandResource.class);
-
     private static final String ENTITY_NAME = "hand";
-
+    private final Logger log = LoggerFactory.getLogger(HandResource.class);
+    private final HandRepository handRepository;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final HandRepository handRepository;
 
     public HandResource(HandRepository handRepository) {
         this.handRepository = handRepository;
@@ -83,7 +78,6 @@ public class HandResource {
     /**
      * {@code GET  /hands} : get all the hands.
      *
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of hands in body.
      */
     @GetMapping("/hands")

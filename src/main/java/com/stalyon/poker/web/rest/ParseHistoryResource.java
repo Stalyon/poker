@@ -3,19 +3,17 @@ package com.stalyon.poker.web.rest;
 import com.stalyon.poker.domain.ParseHistory;
 import com.stalyon.poker.repository.ParseHistoryRepository;
 import com.stalyon.poker.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -27,14 +25,11 @@ import java.util.Optional;
 @Transactional
 public class ParseHistoryResource {
 
-    private final Logger log = LoggerFactory.getLogger(ParseHistoryResource.class);
-
     private static final String ENTITY_NAME = "parseHistory";
-
+    private final Logger log = LoggerFactory.getLogger(ParseHistoryResource.class);
+    private final ParseHistoryRepository parseHistoryRepository;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final ParseHistoryRepository parseHistoryRepository;
 
     public ParseHistoryResource(ParseHistoryRepository parseHistoryRepository) {
         this.parseHistoryRepository = parseHistoryRepository;
@@ -83,7 +78,6 @@ public class ParseHistoryResource {
     /**
      * {@code GET  /parse-histories} : get all the parseHistories.
      *
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of parseHistories in body.
      */
     @GetMapping("/parse-histories")

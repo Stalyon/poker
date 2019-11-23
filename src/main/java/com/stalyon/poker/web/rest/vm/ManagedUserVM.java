@@ -1,6 +1,7 @@
 package com.stalyon.poker.web.rest.vm;
 
 import com.stalyon.poker.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 /**

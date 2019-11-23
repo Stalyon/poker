@@ -3,19 +3,17 @@ package com.stalyon.poker.web.rest;
 import com.stalyon.poker.domain.CashGame;
 import com.stalyon.poker.repository.CashGameRepository;
 import com.stalyon.poker.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,14 +27,11 @@ import java.util.stream.StreamSupport;
 @Transactional
 public class CashGameResource {
 
-    private final Logger log = LoggerFactory.getLogger(CashGameResource.class);
-
     private static final String ENTITY_NAME = "cashGame";
-
+    private final Logger log = LoggerFactory.getLogger(CashGameResource.class);
+    private final CashGameRepository cashGameRepository;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final CashGameRepository cashGameRepository;
 
     public CashGameResource(CashGameRepository cashGameRepository) {
         this.cashGameRepository = cashGameRepository;
@@ -85,7 +80,6 @@ public class CashGameResource {
     /**
      * {@code GET  /cash-games} : get all the cashGames.
      *
-
      * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cashGames in body.
      */

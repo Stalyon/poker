@@ -34,7 +34,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -120,7 +123,7 @@ public class StatsService {
         return new StatsDto(chartOption);
     }
 
-    private Stream<Double> toCumulativeSumStream(Stream<Double> doubles){
+    private Stream<Double> toCumulativeSumStream(Stream<Double> doubles) {
         AtomicDouble sum = new AtomicDouble(0);
         return doubles.sequential().map(sum::addAndGet);
     }
@@ -129,7 +132,7 @@ public class StatsService {
         RandomAccessFile file = new RandomAccessFile(this.statsPath + fileName, "r");
 
         String line;
-        while((line = file.readLine()) != null) {
+        while ((line = file.readLine()) != null) {
             String[] rows = StringUtils.split(line, ";");
             if (rows == null || rows.length != 6) {
                 log.error("File is not correct");
@@ -137,7 +140,7 @@ public class StatsService {
             }
 
             Instant startDate = LocalDateTime.parse(rows[0],
-                    DateTimeFormatter.ofPattern(StatsService.PATTERN_DATE, Locale.getDefault()))
+                DateTimeFormatter.ofPattern(StatsService.PATTERN_DATE, Locale.getDefault()))
                 .atZone(ZoneId.systemDefault()).toInstant();
 
             Optional<GameHistory> gameHistoryOptional = this.gameHistoryRepository.findByStartDateAndName(startDate, rows[2]);
@@ -174,7 +177,7 @@ public class StatsService {
         RandomAccessFile file = new RandomAccessFile(this.statsPath + fileName, "r");
 
         String line;
-        while((line = file.readLine()) != null) {
+        while ((line = file.readLine()) != null) {
             String[] rows = StringUtils.split(line, ";");
             if (rows == null || rows.length != 8) {
                 log.error("File is not correct");
@@ -218,7 +221,7 @@ public class StatsService {
         RandomAccessFile file = new RandomAccessFile(this.statsPath + fileName, "r");
 
         String line;
-        while((line = file.readLine()) != null) {
+        while ((line = file.readLine()) != null) {
             String[] rows = StringUtils.split(line, ";");
             if (rows == null || rows.length != 9) {
                 log.error("File is not correct");

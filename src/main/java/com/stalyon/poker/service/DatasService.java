@@ -21,7 +21,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -136,7 +139,7 @@ public class DatasService {
         boolean raisedPreFlop = false;
         Hand lastHand = null;
         String line;
-        while((line = file.readLine()) != null) {
+        while ((line = file.readLine()) != null) {
             if (hasChanged) {
                 if (waitNextHand && line.contains("Winamax Poker - ")) {
                     hasChanged = false;
@@ -283,7 +286,7 @@ public class DatasService {
     }
 
     private boolean treatAction(BettingRound bettingRound, String line, Game game, Hand hand, Map<String, Player> playersInHand,
-                             boolean raisedPreFlop) {
+                                boolean raisedPreFlop) {
         PlayerAction playerAction = new PlayerAction()
             .game(game)
             .hand(hand)
@@ -310,7 +313,7 @@ public class DatasService {
             playerAction.player(player)
                 .action(Action.RAISES)
                 .amount(this.convertToAmount(
-                    StringUtils.substringBetween(StringUtils.substringAfter(line, " raises "), " to "," and is all-in")));
+                    StringUtils.substringBetween(StringUtils.substringAfter(line, " raises "), " to ", " and is all-in")));
         } else if (line.contains(" raises ")) {
             player = playersInHand.get(StringUtils.substringBefore(line, " raises "));
             playerAction.player(player)

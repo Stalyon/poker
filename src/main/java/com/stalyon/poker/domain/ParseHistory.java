@@ -1,9 +1,9 @@
 package com.stalyon.poker.domain;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -48,17 +48,21 @@ public class ParseHistory implements Serializable {
         return fileName;
     }
 
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public ParseHistory fileName(String fileName) {
         this.fileName = fileName;
         return this;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public Integer getFileSize() {
         return fileSize;
+    }
+
+    public void setFileSize(Integer fileSize) {
+        this.fileSize = fileSize;
     }
 
     public ParseHistory fileSize(Integer fileSize) {
@@ -66,12 +70,12 @@ public class ParseHistory implements Serializable {
         return this;
     }
 
-    public void setFileSize(Integer fileSize) {
-        this.fileSize = fileSize;
-    }
-
     public Instant getParsedDate() {
         return parsedDate;
+    }
+
+    public void setParsedDate(Instant parsedDate) {
+        this.parsedDate = parsedDate;
     }
 
     public ParseHistory parsedDate(Instant parsedDate) {
@@ -79,21 +83,17 @@ public class ParseHistory implements Serializable {
         return this;
     }
 
-    public void setParsedDate(Instant parsedDate) {
-        this.parsedDate = parsedDate;
-    }
-
     public Game getGame() {
         return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public ParseHistory game(Game game) {
         this.game = game;
         return this;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

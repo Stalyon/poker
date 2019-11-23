@@ -1,6 +1,7 @@
 package com.stalyon.poker.repository;
+
 import com.stalyon.poker.domain.GameHistory;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
@@ -16,5 +17,6 @@ import java.util.Optional;
 public interface GameHistoryRepository extends JpaRepository<GameHistory, Long> {
 
     Optional<GameHistory> findByStartDateAndName(Instant startDate, String name);
+
     List<GameHistory> findAllByOrderByStartDate();
 }

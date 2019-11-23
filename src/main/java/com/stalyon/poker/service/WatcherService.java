@@ -58,7 +58,7 @@ public class WatcherService {
                 Path path = (Path) event.context();
 
                 if ((kind.equals(StandardWatchEventKinds.ENTRY_CREATE)
-                        || kind.equals(StandardWatchEventKinds.ENTRY_MODIFY))
+                    || kind.equals(StandardWatchEventKinds.ENTRY_MODIFY))
                     && path.toFile().getName().endsWith(".txt")
                     && !path.toFile().getName().endsWith("_summary.txt")) {
                     try {
