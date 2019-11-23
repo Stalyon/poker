@@ -29,7 +29,7 @@
                         pfr={{player.pfr | number:'2.2-2'}}%
                     </span>
                     <span class="badge badge-info">
-                        cBet={{player.threeBet | number:'2.2-2'}}%
+                        3bet={{player.threeBet | number:'2.2-2'}}%
                     </span>
                     <span class="badge badge-info">
                         cBet={{player.cBet | number:'2.2-2'}}%
@@ -38,14 +38,5 @@
             </ul>
             <div *ngIf="!displayedPlayers || displayedPlayers.length === 0">Aucun joueur</div>
         </div>
-    </div>
-
-    <div class="col-md-12">
-        <button type="submit"
-                class="col btn btn-info"
-                (click)="stop()">
-            <fa-icon [icon]="'eye'"></fa-icon>
-            <span class="d-none d-md-inline">Stop</span>
-        </button>
     </div>
 </div>

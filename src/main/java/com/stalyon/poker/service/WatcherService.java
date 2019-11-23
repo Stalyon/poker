@@ -20,11 +20,17 @@ public class WatcherService {
     @Value("${poker.histo-path}")
     private String histoPath;
 
+    @Value("${poker.stats-path}")
+    private String statsPath;
+
     @Autowired
     private DatasService datasService;
 
+    @Autowired
+    private StatsService statsService;
+
     @Async
-    public void launchWatcher() {
+    public void launchLiveWatcher() {
         Path filePath = Paths.get(this.histoPath);
 
         WatchService watchService;
@@ -60,6 +66,44 @@ public class WatcherService {
                     } catch (IOException e) {
                         log.error(e.getMessage(), e);
                     }
+                }
+            }
+            key.reset();
+        }
+    }
+
+    @Async
+    public void launchStatsWatcher() {
+        Path filePath = Paths.get(this.statsPath);
+
+        WatchService watchService;
+        try {
+            watchService = FileSystems.getDefault().newWatchService();
+
+            filePath.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+                StandardWatchEventKinds.ENTRY_MODIFY);
+            isRunning = true;
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            return;
+        }
+
+        while (isRunning) {
+            WatchKey key;
+            try {
+                key = watchService.take();
+            } catch (InterruptedException ex) {
+                return;
+            }
+
+            for (WatchEvent<?> event : key.pollEvents()) {
+                WatchEvent.Kind<?> kind = event.kind();
+                Path path = (Path) event.context();
+
+                if ((kind.equals(StandardWatchEventKinds.ENTRY_CREATE)
+                    || kind.equals(StandardWatchEventKinds.ENTRY_MODIFY))
+                    && path.toFile().getName().endsWith(".csv")) {
+                    this.statsService.treatFile(path);
                 }
             }
             key.reset();

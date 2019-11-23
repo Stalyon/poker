@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { Account } from 'app/core/user/account.model';
 import {LiveService} from "app/live/live.service";
 import {PlayerData} from "app/shared/model/player-data.model";
-import {JhiAlertService} from "ng-jhipster";
 
 @Component({
   selector: 'jhi-live',
@@ -15,14 +14,9 @@ export class LiveComponent implements OnInit, OnDestroy {
   displayedPlayers: PlayerData[] = [];
   currentGameId: number;
 
-  constructor(private liveService: LiveService, private cdr: ChangeDetectorRef,
-              private alertService: JhiAlertService) {}
+  constructor(private liveService: LiveService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.liveService.launch().subscribe(() => {
-      this.alertService.success("Live lancé avec succès", null, null);
-    });
-
     this.liveService.subscribe();
     this.liveService.receive().subscribe((liveEvent) => {
       this.games.set(liveEvent.gameId, {gameName: liveEvent.gameName, players: liveEvent.players});
@@ -44,11 +38,5 @@ export class LiveComponent implements OnInit, OnDestroy {
   onGameChange(event: any): void {
     this.displayedPlayers = this.games.get(Number(event.target.value)).players;
     this.currentGameId = Number(event.target.value);
-  }
-
-  stop(): void {
-    this.liveService.stop().subscribe(() => {
-      this.alertService.success("Live stoppé avec succès", null, null);
-    });
   }
 }

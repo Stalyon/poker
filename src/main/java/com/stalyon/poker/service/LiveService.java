@@ -36,19 +36,8 @@ public class LiveService {
     @Autowired
     private PlayerMapper playerMapper;
 
-    @Autowired
-    private WatcherService watcherService;
-
     public LiveService(SimpMessageSendingOperations messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
-    }
-
-    public void launch() {
-        this.watcherService.launchWatcher();
-    }
-
-    public void stop() {
-        this.watcherService.setRunning(false);
     }
 
     public void sendNotif(Game game, Hand hand) {

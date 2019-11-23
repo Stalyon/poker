@@ -57,21 +57,23 @@ public class StatsService {
             paths
                 .filter(Files::isRegularFile)
                 .filter(path -> path.toFile().getName().endsWith(".csv"))
-                .forEach(path -> {
-                    try {
-                        log.info("File {} is processing", path.toFile().getName());
+                .forEach(this::treatFile);
+        }
+    }
 
-                        if (path.toFile().getName().contains("cashgame")) {
-                            this.treatCashGameFile(path.toFile().getName());
-                        } else if (path.toFile().getName().contains("tournois")) {
-                            this.treatTournoisFile(path.toFile().getName());
-                        } else if (path.toFile().getName().contains("sitandgo")) {
-                            this.treatSitAndGoFile(path.toFile().getName());
-                        }
-                    } catch (IOException e) {
-                        log.error(e.getMessage(), e);
-                    }
-                });
+    public void treatFile(Path path) {
+        try {
+            log.info("File {} is processing", path.toFile().getName());
+
+            if (path.toFile().getName().contains("cashgame")) {
+                this.treatCashGameFile(path.toFile().getName());
+            } else if (path.toFile().getName().contains("tournois")) {
+                this.treatTournoisFile(path.toFile().getName());
+            } else if (path.toFile().getName().contains("sitandgo")) {
+                this.treatSitAndGoFile(path.toFile().getName());
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
         }
     }
 

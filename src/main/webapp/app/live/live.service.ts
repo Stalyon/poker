@@ -29,14 +29,6 @@ export class LiveService {
     this.listener = this.createListener();
   }
 
-  launch(): Observable<HttpResponse<void>> {
-    return this.http.get<void>(`${this.resourceUrl}/launch`, { observe: 'response' });
-  }
-
-  stop(): Observable<HttpResponse<void>> {
-    return this.http.get<void>(`${this.resourceUrl}/stop`, { observe: 'response' });
-  }
-
   connect() {
     if (this.connectedPromise === null) {
       this.connection = this.createConnection();
