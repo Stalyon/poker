@@ -2,7 +2,7 @@ package com.stalyon.poker.web.websocket;
 
 import static com.stalyon.poker.config.WebsocketConfiguration.IP_ADDRESS;
 
-import com.stalyon.poker.web.websocket.dto.ActivityDTO;
+import com.stalyon.poker.web.dto.ActivityDTO;
 
 import java.security.Principal;
 import java.time.Instant;

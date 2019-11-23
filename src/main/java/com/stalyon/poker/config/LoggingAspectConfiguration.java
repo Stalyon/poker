@@ -7,8 +7,8 @@ import io.github.jhipster.config.JHipsterConstants;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 
-@Configuration
-@EnableAspectJAutoProxy
+// @Configuration
+// @EnableAspectJAutoProxy
 public class LoggingAspectConfiguration {
 
     @Bean

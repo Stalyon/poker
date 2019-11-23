@@ -4,7 +4,7 @@ import {Injectable} from "@angular/core";
 import {Observable, Observer, Subscription} from "rxjs/index";
 import {Location} from "@angular/common";
 import {AuthServerProvider} from "app/core/auth/auth-jwt.service";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {SERVER_API_URL} from "app/app.constants";
 
 @Injectable({ providedIn: 'root' })

@@ -3,7 +3,7 @@ package com.stalyon.poker.service;
 import com.stalyon.poker.domain.PlayerData;
 import com.stalyon.poker.repository.PlayerDataRepository;
 import com.stalyon.poker.service.mapper.PlayerMapper;
-import com.stalyon.poker.web.websocket.dto.PlayerDataDto;
+import com.stalyon.poker.web.dto.PlayerDataDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

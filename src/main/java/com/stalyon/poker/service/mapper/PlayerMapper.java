@@ -1,7 +1,7 @@
 package com.stalyon.poker.service.mapper;
 
 import com.stalyon.poker.domain.PlayerData;
-import com.stalyon.poker.web.websocket.dto.PlayerDataDto;
+import com.stalyon.poker.web.dto.PlayerDataDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

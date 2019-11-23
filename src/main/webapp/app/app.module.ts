@@ -16,6 +16,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 import {PokerLiveModule} from "app/live/live.module";
 import {PokerPlayersDatasModule} from "app/players-datas/players-datas.module";
 import {PokerDatasModule} from "app/datas/datas.module";
+import {PokerStatsModule} from "app/stats/stats.module";
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {PokerDatasModule} from "app/datas/datas.module";
     PokerLiveModule,
     PokerDatasModule,
     PokerPlayersDatasModule,
+    PokerStatsModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     PokerEntityModule,
     PokerAppRoutingModule

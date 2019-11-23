@@ -1,4 +1,4 @@
-package com.stalyon.poker.web.websocket.dto;
+package com.stalyon.poker.web.dto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.stalyon.poker.service;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import com.stalyon.poker.domain.CashGame;
 import com.stalyon.poker.domain.GameHistory;
 import com.stalyon.poker.domain.SitAndGo;
@@ -10,6 +11,11 @@ import com.stalyon.poker.repository.CashGameRepository;
 import com.stalyon.poker.repository.GameHistoryRepository;
 import com.stalyon.poker.repository.SitAndGoRepository;
 import com.stalyon.poker.repository.TournoiRepository;
+import com.stalyon.poker.web.dto.StatsDto;
+import com.stalyon.poker.web.dto.charts.ChartOptionDto;
+import com.stalyon.poker.web.dto.charts.SerieDto;
+import com.stalyon.poker.web.dto.charts.XAxisDto;
+import com.stalyon.poker.web.dto.charts.YAxisDto;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +28,14 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Optional;
+import java.time.format.FormatStyle;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -75,6 +83,46 @@ public class StatsService {
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
+    }
+
+    public StatsDto getStats() {
+        List<GameHistory> gameHistorys = this.gameHistoryRepository.findAllByOrderByStartDate();
+
+        DateTimeFormatter dateFormatter =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+                .withLocale(Locale.FRANCE)
+                .withZone(ZoneId.systemDefault());
+        DecimalFormat decimalFormatter = new DecimalFormat("#.##");
+
+        XAxisDto xAxis = new XAxisDto(
+            "category",
+            gameHistorys
+                .stream()
+                .map(GameHistory::getStartDate)
+                .map(dateFormatter::format)
+                .collect(Collectors.toList())
+        );
+        YAxisDto yAxis = new YAxisDto("value");
+
+        List<SerieDto> series = new ArrayList<>();
+        SerieDto serie = new SerieDto(
+            "line",
+            "€",
+            this.toCumulativeSumStream(gameHistorys
+                .stream()
+                .map(GameHistory::getNetResult))
+                .map(netResult -> Double.valueOf(decimalFormatter.format(netResult).replace(",", ".")))
+                .collect(Collectors.toList())
+        );
+        series.add(serie);
+        ChartOptionDto chartOption = new ChartOptionDto(xAxis, yAxis, series);
+
+        return new StatsDto(chartOption);
+    }
+
+    private Stream<Double> toCumulativeSumStream(Stream<Double> doubles){
+        AtomicDouble sum = new AtomicDouble(0);
+        return doubles.sequential().map(sum::addAndGet);
     }
 
     private void treatCashGameFile(String fileName) throws IOException {

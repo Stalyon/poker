@@ -1,26 +1,24 @@
 package com.stalyon.poker.web.rest;
 
-import com.stalyon.poker.service.PlayerDataService;
-import com.stalyon.poker.web.dto.PlayerDataDto;
+import com.stalyon.poker.service.StatsService;
+import com.stalyon.poker.web.dto.StatsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * REST controller.
  */
 @RestController
 @RequestMapping("/api")
-public class PlayerDataResource {
+public class StatsResource {
 
     @Autowired
-    private PlayerDataService playerDataService;
+    private StatsService statsService;
 
-    @GetMapping("/players-datas/search")
-    public List<PlayerDataDto> get(String searchText) {
-        return this.playerDataService.getPlayerDatas(searchText);
+    @GetMapping("/stats")
+    public StatsDto get() {
+        return this.statsService.getStats();
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,4 +16,5 @@ import java.util.Optional;
 public interface GameHistoryRepository extends JpaRepository<GameHistory, Long> {
 
     Optional<GameHistory> findByStartDateAndName(Instant startDate, String name);
+    List<GameHistory> findAllByOrderByStartDate();
 }
