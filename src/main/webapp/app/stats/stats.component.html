@@ -1,5 +1,43 @@
-<div class="row">
-    <div class="col-md-12">
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_before_date">Before Date</label>
+                    <div class="d-flex">
+                        <input id="field_before_date" type="datetime-local" class="form-control" name="beforeDate"
+                               formControlName="beforeDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_after_date">After Date</label>
+                    <div class="d-flex">
+                        <input id="field_after_date" type="datetime-local" class="form-control" name="afterDate"
+                               formControlName="afterDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tournoi">Tournoi</label>
+                    <input type="checkbox" class="form-control" name="tournoi" id="field_tournoi"
+                           formControlName="tournoi"/>
+
+                    <label class="form-control-label" for="field_sit_and_go">Sit&Go</label>
+                    <input type="checkbox" class="form-control" name="sitAndGo" id="field_sit_and_go"
+                           formControlName="sitAndGo"/>
+
+                    <label class="form-control-label" for="field_cash_game">Cash Game</label>
+                    <input type="checkbox" class="form-control" name="cashGame" id="field_cash_game"
+                           formControlName="cashGame"/>
+                </div>
+            <div>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Launch</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-12">
         <h1 class="display-4">Stats</h1>
     </div>
 

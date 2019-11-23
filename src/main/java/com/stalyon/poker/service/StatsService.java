@@ -11,6 +11,7 @@ import com.stalyon.poker.repository.CashGameRepository;
 import com.stalyon.poker.repository.GameHistoryRepository;
 import com.stalyon.poker.repository.SitAndGoRepository;
 import com.stalyon.poker.repository.TournoiRepository;
+import com.stalyon.poker.web.dto.RequestStatsDto;
 import com.stalyon.poker.web.dto.StatsDto;
 import com.stalyon.poker.web.dto.charts.ChartOptionDto;
 import com.stalyon.poker.web.dto.charts.SerieDto;
@@ -88,8 +89,11 @@ public class StatsService {
         }
     }
 
-    public StatsDto getStats() {
-        List<GameHistory> gameHistorys = this.gameHistoryRepository.findAllByOrderByStartDate();
+    public StatsDto getStats(RequestStatsDto requestStats) {
+        List<GameHistory> gameHistorys = this.gameHistoryRepository
+            .findAllByStartDateBeforeAndStartDateAfterAndTypeInOrderByStartDate(requestStats.getAfterDate(),
+                requestStats.getBeforeDate(),
+                requestStats.getGameTypes());
 
         DateTimeFormatter dateFormatter =
             DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
